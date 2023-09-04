@@ -67,6 +67,7 @@ flutter:
     - assets/Pants/
     - assets/Shoes/
     - assets/Skin_Block/
+    - assets/Eyes_Block/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

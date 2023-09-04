@@ -15,8 +15,11 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
   int _clothesIndex = 0;
   int _pantsIndex = 0;
   int _shoesIndex = 0;
+  int _eyesTypeIndex = 0;
+  int _eyesColorIndex = 0;
+  int _mouthIndex = 0;
 
-  Widget character(double screenWidth, double screenHeight,int _bodyIndex,int _earsTypeIndex, int _earsColorIndex){
+  Widget character(double screenWidth, double screenHeight,int _bodyIndex,int _earsTypeIndex, int _earsColorIndex,int _eyesTypeIndex, int _eyesColorIndex,int _mouthIndex){
     List<ImageProvider> _bodyList = [
       AssetImage('assets/Head_Body/0.png'),
       AssetImage('assets/Head_Body/1.png'),
@@ -77,6 +80,65 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
       AssetImage('assets/Shoes/5.png'),
     ];
 
+    List<List<ImageProvider>> _eyesList =[
+      [
+        AssetImage('assets/Eyes/0-0.png'),
+        AssetImage('assets/Eyes/0-1.png'),
+        AssetImage('assets/Eyes/0-2.png'),
+        AssetImage('assets/Eyes/0-3.png'),
+        AssetImage('assets/Eyes/0-4.png'),
+        AssetImage('assets/Eyes/0-5.png'),
+        AssetImage('assets/Eyes/0-6.png'),
+        AssetImage('assets/Eyes/0-7.png'),
+        AssetImage('assets/Eyes/0-8.png'),
+        AssetImage('assets/Eyes/0-9.png'),
+      ],
+      [
+        AssetImage('assets/Eyes/1-0.png'),
+        AssetImage('assets/Eyes/1-1.png'),
+        AssetImage('assets/Eyes/1-2.png'),
+        AssetImage('assets/Eyes/1-3.png'),
+        AssetImage('assets/Eyes/1-4.png'),
+        AssetImage('assets/Eyes/1-5.png'),
+        AssetImage('assets/Eyes/1-6.png'),
+        AssetImage('assets/Eyes/1-7.png'),
+        AssetImage('assets/Eyes/1-8.png'),
+        AssetImage('assets/Eyes/1-9.png'),
+      ],
+      [
+        AssetImage('assets/Eyes/2-0.png'),
+        AssetImage('assets/Eyes/2-1.png'),
+        AssetImage('assets/Eyes/2-2.png'),
+        AssetImage('assets/Eyes/2-3.png'),
+        AssetImage('assets/Eyes/2-4.png'),
+        AssetImage('assets/Eyes/2-5.png'),
+        AssetImage('assets/Eyes/2-6.png'),
+        AssetImage('assets/Eyes/2-7.png'),
+        AssetImage('assets/Eyes/2-8.png'),
+        AssetImage('assets/Eyes/2-9.png'),
+      ],
+      [
+        AssetImage('assets/Eyes/3-0.png'),
+        AssetImage('assets/Eyes/3-1.png'),
+        AssetImage('assets/Eyes/3-2.png'),
+        AssetImage('assets/Eyes/3-3.png'),
+        AssetImage('assets/Eyes/3-4.png'),
+        AssetImage('assets/Eyes/3-5.png'),
+        AssetImage('assets/Eyes/3-6.png'),
+        AssetImage('assets/Eyes/3-7.png'),
+        AssetImage('assets/Eyes/3-8.png'),
+        AssetImage('assets/Eyes/3-9.png'),
+      ],
+    ];
+
+    List<ImageProvider> _mouthList = [
+      AssetImage('assets/Mouth/0.png'),
+      AssetImage('assets/Mouth/1.png'),
+      AssetImage('assets/Mouth/2.png'),
+      AssetImage('assets/Mouth/3.png'),
+      AssetImage('assets/Mouth/4.png'),
+    ];
+
     return Container(
       height: 0.25*screenHeight,
       width: 0.5*screenWidth,
@@ -87,8 +149,8 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
           Image.asset('assets/ForeHair/3-7.png',fit: BoxFit.cover),
           Image(image:_clothesList[_clothesIndex],fit: BoxFit.cover),
           Image(image:_earsList[_earsTypeIndex][_earsColorIndex],fit: BoxFit.cover),
-          Image.asset('assets/Eyes/0-9.png',fit: BoxFit.cover),
-          Image.asset('assets/Mouth/0-3.png',fit: BoxFit.cover),
+          Image(image:_eyesList[_eyesTypeIndex][_eyesColorIndex],fit: BoxFit.cover),
+          Image(image:_mouthList[_mouthIndex],fit: BoxFit.cover),
           Image(image:_pantsList[_pantsIndex],fit: BoxFit.cover),
           Image(image:_shoesList[_shoesIndex],fit: BoxFit.cover),
         ],
@@ -191,6 +253,56 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               ),
             ),
           ),
+      ],
+    );
+  }
+
+  Widget _buildEyesSkinBlock(double screenWidth, double screenHeight) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            for (int i = 0; i < 5; i++)
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _eyesColorIndex =i;
+                  });
+                },
+                child: Container(
+                  height: 0.05 * screenHeight,
+                  width: 0.1 * screenWidth,
+                  child: Image.asset(
+                    'assets/Eyes_Block/$i.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+          ],
+        ),
+        SizedBox(height: 0.01*screenHeight,),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            for (int i = 0; i < 5; i++)
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _eyesColorIndex =i+5;
+                  });
+                },
+                child: Container(
+                  height: 0.05 * screenHeight,
+                  width: 0.1 * screenWidth,
+                  child: Image.asset(
+                    'assets/Eyes_Block/${i+5}.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+          ],
+        ),
       ],
     );
   }
@@ -407,6 +519,94 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
           fit: BoxFit.fill,
         ),
       ),
+      child: Column(
+        children: [
+          SizedBox(height: 0.14*screenHeight,),
+          Row(
+            children: [
+              SizedBox(width: 0.35*screenWidth,),
+              GestureDetector(
+                onTap: (){
+                  setState(() {
+                    if(_eyesTypeIndex>0){
+                      _eyesTypeIndex--;
+                    }
+                    else{
+                      _eyesTypeIndex=3;
+                    }
+                  });
+                },
+                child: Container(
+                  height: 0.0625*screenHeight,
+                  width: 0.125*screenWidth,
+                  child: Image.asset('assets/PrevButton.png',fit: BoxFit.cover,),
+                ),
+              ),
+              SizedBox(width: 0.1*screenWidth,),
+              GestureDetector(
+                onTap: (){
+                  setState(() {
+                    if(_eyesTypeIndex<3){
+                      _eyesTypeIndex++;
+                    }
+                    else{
+                      _eyesTypeIndex=0;
+                    }
+                  });
+                },
+                child: Container(
+                  height: 0.0625*screenHeight,
+                  width: 0.125*screenWidth,
+                  child: Image.asset('assets/NextButton.png',fit: BoxFit.cover,),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 0.005*screenHeight,),
+          _buildEyesSkinBlock(screenWidth, screenHeight),
+          SizedBox(height: 0.03*screenHeight,),
+          Row(
+            children: [
+              SizedBox(width: 0.35*screenWidth,),
+              GestureDetector(
+                onTap: (){
+                  setState(() {
+                    if(_mouthIndex>0){
+                      _mouthIndex--;
+                    }
+                    else{
+                      _mouthIndex=4;
+                    }
+                  });
+                },
+                child: Container(
+                  height: 0.0625*screenHeight,
+                  width: 0.125*screenWidth,
+                  child: Image.asset('assets/PrevButton.png',fit: BoxFit.cover,),
+                ),
+              ),
+              SizedBox(width: 0.1*screenWidth,),
+              GestureDetector(
+                onTap: (){
+                  setState(() {
+                    if(_mouthIndex<4){
+                      _mouthIndex++;
+                    }
+                    else{
+                      _mouthIndex=0;
+                    }
+                  });
+                },
+                child: Container(
+                  height: 0.0625*screenHeight,
+                  width: 0.125*screenWidth,
+                  child: Image.asset('assets/NextButton.png',fit: BoxFit.cover,),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -460,8 +660,6 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
     );
   }
 
-
-
   @override
   Widget build(BuildContext context){
     final screenWidth = MediaQuery.of(context).size.width;
@@ -479,7 +677,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
           child: Center(
             child: Column(
               children: [
-                character(screenWidth, screenHeight,_bodyIndex,_earsTypeIndex,_earsColorIndex),
+                character(screenWidth, screenHeight,_bodyIndex,_earsTypeIndex,_earsColorIndex,_eyesTypeIndex,_eyesColorIndex,_mouthIndex),
                 arrowBar(screenWidth, screenHeight),
                 SizedBox(height: 0.01*screenHeight,),
                 selectBox(screenWidth, screenHeight,_selectBoxIndex),
