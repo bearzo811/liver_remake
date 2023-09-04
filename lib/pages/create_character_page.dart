@@ -18,8 +18,14 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
   int _eyesTypeIndex = 0;
   int _eyesColorIndex = 0;
   int _mouthIndex = 0;
+  int _backHairTypeIndex = 0;
+  int _backHairColorIndex = 1;
+  int _foreHairTypeIndex = 2;
+  int _foreHairColorIndex = 1;
 
-  Widget character(double screenWidth, double screenHeight,int _bodyIndex,int _earsTypeIndex, int _earsColorIndex,int _eyesTypeIndex, int _eyesColorIndex,int _mouthIndex){
+  Widget character(double screenWidth, double screenHeight,int _bodyIndex,int _earsTypeIndex,
+      int _earsColorIndex,int _eyesTypeIndex, int _eyesColorIndex,int _mouthIndex,
+      int _backHairTypeIndex, int _backHairColorIndex,int _foreHairTypeIndex, int _foreHairColorIndex,){
     List<ImageProvider> _bodyList = [
       AssetImage('assets/Head_Body/0.png'),
       AssetImage('assets/Head_Body/1.png'),
@@ -139,14 +145,82 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
       AssetImage('assets/Mouth/4.png'),
     ];
 
+    List<List<ImageProvider>> _backHairList =[
+      [
+        AssetImage('assets/BackHair/0-0.png'),
+        AssetImage('assets/BackHair/0-1.png'),
+        AssetImage('assets/BackHair/0-2.png'),
+        AssetImage('assets/BackHair/0-3.png'),
+        AssetImage('assets/BackHair/0-4.png'),
+        AssetImage('assets/BackHair/0-5.png'),
+        AssetImage('assets/BackHair/0-6.png'),
+        AssetImage('assets/BackHair/0-7.png'),
+        AssetImage('assets/BackHair/0-8.png'),
+      ],
+      [
+        AssetImage('assets/BackHair/1-0.png'),
+        AssetImage('assets/BackHair/1-1.png'),
+        AssetImage('assets/BackHair/1-2.png'),
+        AssetImage('assets/BackHair/1-3.png'),
+        AssetImage('assets/BackHair/1-4.png'),
+        AssetImage('assets/BackHair/1-5.png'),
+        AssetImage('assets/BackHair/1-6.png'),
+        AssetImage('assets/BackHair/1-7.png'),
+        AssetImage('assets/BackHair/1-8.png'),
+      ],
+      [
+        AssetImage('assets/BackHair/2.png'),
+      ],
+    ];
+
+    List<List<ImageProvider>> _foreHairList =[
+      [
+        AssetImage('assets/ForeHair/0.png'),
+      ],
+      [
+        AssetImage('assets/ForeHair/1-0.png'),
+        AssetImage('assets/ForeHair/1-1.png'),
+        AssetImage('assets/ForeHair/1-2.png'),
+        AssetImage('assets/ForeHair/1-3.png'),
+        AssetImage('assets/ForeHair/1-4.png'),
+        AssetImage('assets/ForeHair/1-5.png'),
+        AssetImage('assets/ForeHair/1-6.png'),
+        AssetImage('assets/ForeHair/1-7.png'),
+        AssetImage('assets/ForeHair/1-8.png'),
+      ],
+      [
+        AssetImage('assets/ForeHair/2-0.png'),
+        AssetImage('assets/ForeHair/2-1.png'),
+        AssetImage('assets/ForeHair/2-2.png'),
+        AssetImage('assets/ForeHair/2-3.png'),
+        AssetImage('assets/ForeHair/2-4.png'),
+        AssetImage('assets/ForeHair/2-5.png'),
+        AssetImage('assets/ForeHair/2-6.png'),
+        AssetImage('assets/ForeHair/2-7.png'),
+        AssetImage('assets/ForeHair/2-8.png'),
+      ],
+      [
+        AssetImage('assets/ForeHair/3-0.png'),
+        AssetImage('assets/ForeHair/3-1.png'),
+        AssetImage('assets/ForeHair/3-2.png'),
+        AssetImage('assets/ForeHair/3-3.png'),
+        AssetImage('assets/ForeHair/3-4.png'),
+        AssetImage('assets/ForeHair/3-5.png'),
+        AssetImage('assets/ForeHair/3-6.png'),
+        AssetImage('assets/ForeHair/3-7.png'),
+        AssetImage('assets/ForeHair/3-8.png'),
+      ],
+    ];
+
+
     return Container(
       height: 0.25*screenHeight,
       width: 0.5*screenWidth,
       child: Stack(
         children: [
-          Image.asset('assets/BackHair/0-7.png',fit: BoxFit.cover),
+          Image(image:_backHairList[_backHairTypeIndex][_backHairColorIndex],fit: BoxFit.cover),
           Image(image:_bodyList[_bodyIndex],fit: BoxFit.cover),
-          Image.asset('assets/ForeHair/3-7.png',fit: BoxFit.cover),
+          Image(image:_foreHairList[_foreHairTypeIndex][_foreHairColorIndex],fit: BoxFit.cover),
           Image(image:_clothesList[_clothesIndex],fit: BoxFit.cover),
           Image(image:_earsList[_earsTypeIndex][_earsColorIndex],fit: BoxFit.cover),
           Image(image:_eyesList[_eyesTypeIndex][_eyesColorIndex],fit: BoxFit.cover),
@@ -290,6 +364,106 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
                 onTap: () {
                   setState(() {
                     _eyesColorIndex =i+5;
+                  });
+                },
+                child: Container(
+                  height: 0.05 * screenHeight,
+                  width: 0.1 * screenWidth,
+                  child: Image.asset(
+                    'assets/Eyes_Block/${i+5}.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildBackHairSkinBlock(double screenWidth, double screenHeight) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            for (int i = 0; i < 5; i++)
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _backHairColorIndex =i;
+                  });
+                },
+                child: Container(
+                  height: 0.05 * screenHeight,
+                  width: 0.1 * screenWidth,
+                  child: Image.asset(
+                    'assets/Eyes_Block/$i.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+          ],
+        ),
+        SizedBox(height: 0.01*screenHeight,),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            for (int i = 0; i < 4; i++)
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _backHairColorIndex =i+5;
+                  });
+                },
+                child: Container(
+                  height: 0.05 * screenHeight,
+                  width: 0.1 * screenWidth,
+                  child: Image.asset(
+                    'assets/Eyes_Block/${i+5}.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildForeHairSkinBlock(double screenWidth, double screenHeight) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            for (int i = 0; i < 5; i++)
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _foreHairColorIndex =i;
+                  });
+                },
+                child: Container(
+                  height: 0.05 * screenHeight,
+                  width: 0.1 * screenWidth,
+                  child: Image.asset(
+                    'assets/Eyes_Block/$i.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+          ],
+        ),
+        SizedBox(height: 0.01*screenHeight,),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            for (int i = 0; i < 4; i++)
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _foreHairColorIndex =i+5;
                   });
                 },
                 child: Container(
@@ -620,6 +794,126 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
           fit: BoxFit.fill,
         ),
       ),
+      child: Column(
+        children: [
+          SizedBox(height: 0.14*screenHeight,),
+          Row(
+            children: [
+              SizedBox(width: 0.35*screenWidth,),
+              GestureDetector(
+                onTap: (){
+                  setState(() {
+                    if(_backHairTypeIndex>0){
+                      _backHairTypeIndex--;
+                    }
+                    else{
+                      _backHairTypeIndex=2;
+                      _backHairColorIndex=0;
+                    }
+                  });
+                },
+                child: Container(
+                  height: 0.0625*screenHeight,
+                  width: 0.125*screenWidth,
+                  child: Image.asset('assets/PrevButton.png',fit: BoxFit.cover,),
+                ),
+              ),
+              SizedBox(width: 0.1*screenWidth,),
+              GestureDetector(
+                onTap: (){
+                  setState(() {
+                    if(_backHairTypeIndex<2){
+                      _backHairTypeIndex++;
+                      if(_backHairTypeIndex==2){
+                        _backHairColorIndex=0;
+                      }
+                    }
+                    else{
+                      _backHairTypeIndex=0;
+                    }
+                  });
+                },
+                child: Container(
+                  height: 0.0625*screenHeight,
+                  width: 0.125*screenWidth,
+                  child: Image.asset('assets/NextButton.png',fit: BoxFit.cover,),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 0.005*screenHeight,),
+          (_backHairTypeIndex==2?
+              Container(
+                child: Column(
+                  children: [
+                    SizedBox(height: 0.03*screenHeight,),
+                    SizedBox(
+                      child: Text('無後髮',style: TextStyle(fontSize: 30,color: Colors.white,)),
+                    ),
+                  ],
+                ),
+              ):
+              _buildBackHairSkinBlock(screenWidth, screenHeight)),
+          (_backHairTypeIndex == 2? SizedBox(height: 0.07*screenHeight) : SizedBox(height: 0.025*screenHeight)),
+          Row(
+            children: [
+              SizedBox(width: 0.35*screenWidth,),
+              GestureDetector(
+                onTap: (){
+                  setState(() {
+                    if(_foreHairTypeIndex>0){
+                      _foreHairTypeIndex--;
+                      if(_foreHairTypeIndex==0){
+                        _foreHairColorIndex=0;
+                      }
+                    }
+                    else{
+                      _foreHairTypeIndex=3;
+                    }
+                  });
+                },
+                child: Container(
+                  height: 0.0625*screenHeight,
+                  width: 0.125*screenWidth,
+                  child: Image.asset('assets/PrevButton.png',fit: BoxFit.cover,),
+                ),
+              ),
+              SizedBox(width: 0.1*screenWidth,),
+              GestureDetector(
+                onTap: (){
+                  setState(() {
+                    if(_foreHairTypeIndex<3){
+                      _foreHairTypeIndex++;
+                    }
+                    else{
+                      _foreHairTypeIndex=0;
+                      _foreHairColorIndex=0;
+                    }
+                  });
+                },
+                child: Container(
+                  height: 0.0625*screenHeight,
+                  width: 0.125*screenWidth,
+                  child: Image.asset('assets/NextButton.png',fit: BoxFit.cover,),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 0.005*screenHeight,),
+          (_foreHairTypeIndex==0?
+          Container(
+            child: Column(
+              children: [
+                SizedBox(height: 0.03*screenHeight,),
+                SizedBox(
+                  child: Text('無前髮',style: TextStyle(fontSize: 30,color: Colors.white,)),
+                )
+              ],
+            ),
+          ):
+          _buildForeHairSkinBlock(screenWidth, screenHeight)),
+        ],
+      ),
     );
   }
 
@@ -677,7 +971,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
           child: Center(
             child: Column(
               children: [
-                character(screenWidth, screenHeight,_bodyIndex,_earsTypeIndex,_earsColorIndex,_eyesTypeIndex,_eyesColorIndex,_mouthIndex),
+                character(screenWidth, screenHeight,_bodyIndex,_earsTypeIndex,_earsColorIndex,_eyesTypeIndex,_eyesColorIndex,_mouthIndex,_backHairTypeIndex,_backHairColorIndex,_foreHairTypeIndex,_foreHairColorIndex),
                 arrowBar(screenWidth, screenHeight),
                 SizedBox(height: 0.01*screenHeight,),
                 selectBox(screenWidth, screenHeight,_selectBoxIndex),

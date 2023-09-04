@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:liver_remake/pages/create_character_page.dart';
 
 class IndexPage extends StatelessWidget{
   @override
@@ -22,7 +23,13 @@ class IndexPage extends StatelessWidget{
                 Image.asset('assets/Logo.png'),
                 SizedBox(height: screenHeight * 0.2),
                 GestureDetector(
-                    onTap: (){print('Tap ${screenWidth} ${screenHeight}');},
+                    onTap: (){
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => CreateCharacterPage(),
+                        )
+                      );
+                    },
                     child: Container(
                       width: 0.4*screenWidth,
                       height: 0.05*screenHeight,
