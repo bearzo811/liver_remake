@@ -6,6 +6,16 @@ class CreateCharacterPage extends StatefulWidget{
 }
 
 class _CreateCharacterPage extends State<CreateCharacterPage>{
+
+  int _selectBoxIndex = 0;
+  final List<String> _selectBoxTitleList = ['身體 & 耳朵','服裝','眼睛 & 嘴吧','髮型'];
+  int _bodyIndex = 2;
+  int _earsTypeIndex = 1;
+  int _earsColorIndex = 0;
+  int _clothesIndex = 0;
+  int _pantsIndex = 0;
+  int _shoesIndex = 0;
+
   Widget character(double screenWidth, double screenHeight,int _bodyIndex,int _earsTypeIndex, int _earsColorIndex){
     List<ImageProvider> _bodyList = [
       AssetImage('assets/Head_Body/0.png'),
@@ -32,6 +42,41 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
       ],
     ];
 
+    List<ImageProvider> _clothesList = [
+      AssetImage('assets/Clothes/0.png'),
+      AssetImage('assets/Clothes/1.png'),
+      AssetImage('assets/Clothes/2.png'),
+      AssetImage('assets/Clothes/3.png'),
+      AssetImage('assets/Clothes/4.png'),
+      AssetImage('assets/Clothes/5.png'),
+      AssetImage('assets/Clothes/6.png'),
+      AssetImage('assets/Clothes/7.png'),
+    ];
+
+    List<ImageProvider> _pantsList = [
+      AssetImage('assets/Pants/0.png'),
+      AssetImage('assets/Pants/1.png'),
+      AssetImage('assets/Pants/2.png'),
+      AssetImage('assets/Pants/3.png'),
+      AssetImage('assets/Pants/4.png'),
+      AssetImage('assets/Pants/5.png'),
+      AssetImage('assets/Pants/6.png'),
+      AssetImage('assets/Pants/7.png'),
+      AssetImage('assets/Pants/8.png'),
+      AssetImage('assets/Pants/9.png'),
+      AssetImage('assets/Pants/10.png'),
+      AssetImage('assets/Pants/11.png'),
+    ];
+
+    List<ImageProvider> _shoesList = [
+      AssetImage('assets/Shoes/0.png'),
+      AssetImage('assets/Shoes/1.png'),
+      AssetImage('assets/Shoes/2.png'),
+      AssetImage('assets/Shoes/3.png'),
+      AssetImage('assets/Shoes/4.png'),
+      AssetImage('assets/Shoes/5.png'),
+    ];
+
     return Container(
       height: 0.25*screenHeight,
       width: 0.5*screenWidth,
@@ -40,12 +85,12 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
           Image.asset('assets/BackHair/0-7.png',fit: BoxFit.cover),
           Image(image:_bodyList[_bodyIndex],fit: BoxFit.cover),
           Image.asset('assets/ForeHair/3-7.png',fit: BoxFit.cover),
-          Image.asset('assets/Clothes/7.png',fit: BoxFit.cover),
+          Image(image:_clothesList[_clothesIndex],fit: BoxFit.cover),
           Image(image:_earsList[_earsTypeIndex][_earsColorIndex],fit: BoxFit.cover),
           Image.asset('assets/Eyes/0-9.png',fit: BoxFit.cover),
           Image.asset('assets/Mouth/0-3.png',fit: BoxFit.cover),
-          Image.asset('assets/Pants/4.png',fit: BoxFit.cover),
-          Image.asset('assets/Shoes/3.png',fit: BoxFit.cover),
+          Image(image:_pantsList[_pantsIndex],fit: BoxFit.cover),
+          Image(image:_shoesList[_shoesIndex],fit: BoxFit.cover),
         ],
       ),
     );
@@ -222,6 +267,133 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
           fit: BoxFit.fill,
         ),
       ),
+      child: Column(
+        children: [
+          SizedBox(height: 0.14*screenHeight,),
+          Row(
+            children: [
+              SizedBox(width: 0.35*screenWidth,),
+              GestureDetector(
+                onTap: (){
+                  setState(() {
+                    if(_clothesIndex>0){
+                      _clothesIndex--;
+                    }
+                    else{
+                      _clothesIndex=7;
+                    }
+                  });
+                },
+                child: Container(
+                  height: 0.0625*screenHeight,
+                  width: 0.125*screenWidth,
+                  child: Image.asset('assets/PrevButton.png',fit: BoxFit.cover,),
+                ),
+              ),
+              SizedBox(width: 0.1*screenWidth,),
+              GestureDetector(
+                onTap: (){
+                  setState(() {
+                    if(_clothesIndex<7){
+                      _clothesIndex++;
+                    }
+                    else{
+                      _clothesIndex=0;
+                    }
+                  });
+                },
+                child: Container(
+                  height: 0.0625*screenHeight,
+                  width: 0.125*screenWidth,
+                  child: Image.asset('assets/NextButton.png',fit: BoxFit.cover,),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 0.04*screenHeight,),
+          Row(
+            children: [
+              SizedBox(width: 0.35*screenWidth,),
+              GestureDetector(
+                onTap: (){
+                  setState(() {
+                    if(_pantsIndex>0){
+                      _pantsIndex--;
+                    }
+                    else{
+                      _pantsIndex=11;
+                    }
+                  });
+                },
+                child: Container(
+                  height: 0.0625*screenHeight,
+                  width: 0.125*screenWidth,
+                  child: Image.asset('assets/PrevButton.png',fit: BoxFit.cover,),
+                ),
+              ),
+              SizedBox(width: 0.1*screenWidth,),
+              GestureDetector(
+                onTap: (){
+                  setState(() {
+                    if(_pantsIndex<11){
+                      _pantsIndex++;
+                    }
+                    else{
+                      _pantsIndex=0;
+                    }
+                  });
+                },
+                child: Container(
+                  height: 0.0625*screenHeight,
+                  width: 0.125*screenWidth,
+                  child: Image.asset('assets/NextButton.png',fit: BoxFit.cover,),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 0.045*screenHeight,),
+          Row(
+            children: [
+              SizedBox(width: 0.35*screenWidth,),
+              GestureDetector(
+                onTap: (){
+                  setState(() {
+                    if(_shoesIndex>0){
+                      _shoesIndex--;
+                    }
+                    else{
+                      _shoesIndex=5;
+                    }
+                  });
+                },
+                child: Container(
+                  height: 0.0625*screenHeight,
+                  width: 0.125*screenWidth,
+                  child: Image.asset('assets/PrevButton.png',fit: BoxFit.cover,),
+                ),
+              ),
+              SizedBox(width: 0.1*screenWidth,),
+              GestureDetector(
+                onTap: (){
+                  setState(() {
+                    if(_shoesIndex<5){
+                      _shoesIndex++;
+                    }
+                    else{
+                      _shoesIndex=0;
+                    }
+                  });
+                },
+                child: Container(
+                  height: 0.0625*screenHeight,
+                  width: 0.125*screenWidth,
+                  child: Image.asset('assets/NextButton.png',fit: BoxFit.cover,),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -288,11 +460,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
     );
   }
 
-  int _selectBoxIndex = 0;
-  final List<String> _selectBoxTitleList = ['身體 & 耳朵','服裝','眼睛 & 嘴吧','髮型'];
-  int _bodyIndex = 2;
-  int _earsTypeIndex = 0;
-  int _earsColorIndex = 0;
+
 
   @override
   Widget build(BuildContext context){
