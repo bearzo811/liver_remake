@@ -219,15 +219,24 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
       width: 0.5*screenWidth,
       child: Stack(
         children: [
-          Image(image:_backHairList[_backHairTypeIndex][_backHairColorIndex],fit: BoxFit.cover),
-          Image(image:_bodyList[_bodyIndex],fit: BoxFit.cover),
-          Image(image:_foreHairList[_foreHairTypeIndex][_foreHairColorIndex],fit: BoxFit.cover),
-          Image(image:_clothesList[_clothesIndex],fit: BoxFit.cover),
-          Image(image:_earsList[_earsTypeIndex][_earsColorIndex],fit: BoxFit.cover),
-          Image(image:_eyesList[_eyesTypeIndex][_eyesColorIndex],fit: BoxFit.cover),
-          Image(image:_mouthList[_mouthIndex],fit: BoxFit.cover),
-          Image(image:_pantsList[_pantsIndex],fit: BoxFit.cover),
-          Image(image:_shoesList[_shoesIndex],fit: BoxFit.cover),
+          Column(
+            children: [
+              SizedBox(height: 0.08*screenHeight),
+              Stack(
+                children: [
+                  Image(image:_backHairList[_backHairTypeIndex][_backHairColorIndex],fit: BoxFit.cover),
+                  Image(image:_bodyList[_bodyIndex],fit: BoxFit.cover),
+                  Image(image:_foreHairList[_foreHairTypeIndex][_foreHairColorIndex],fit: BoxFit.cover),
+                  Image(image:_clothesList[_clothesIndex],fit: BoxFit.cover),
+                  Image(image:_earsList[_earsTypeIndex][_earsColorIndex],fit: BoxFit.cover),
+                  Image(image:_eyesList[_eyesTypeIndex][_eyesColorIndex],fit: BoxFit.cover),
+                  Image(image:_mouthList[_mouthIndex],fit: BoxFit.cover),
+                  Image(image:_pantsList[_pantsIndex],fit: BoxFit.cover),
+                  Image(image:_shoesList[_shoesIndex],fit: BoxFit.cover),
+                ],
+              )
+            ],
+          ),
           Column(
             children: [
               SizedBox(height: 0.025*screenHeight,),
