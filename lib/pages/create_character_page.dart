@@ -22,6 +22,8 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
   int _backHairColorIndex = 1;
   int _foreHairTypeIndex = 2;
   int _foreHairColorIndex = 1;
+  TextEditingController _nameController = TextEditingController();
+  String _name = '';
 
   Widget character(double screenWidth, double screenHeight,int _bodyIndex,int _earsTypeIndex,
       int _earsColorIndex,int _eyesTypeIndex, int _eyesColorIndex,int _mouthIndex,
@@ -212,7 +214,6 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
       ],
     ];
 
-
     return Container(
       height: 0.25*screenHeight,
       width: 0.5*screenWidth,
@@ -227,6 +228,29 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
           Image(image:_mouthList[_mouthIndex],fit: BoxFit.cover),
           Image(image:_pantsList[_pantsIndex],fit: BoxFit.cover),
           Image(image:_shoesList[_shoesIndex],fit: BoxFit.cover),
+          Column(
+            children: [
+              SizedBox(height: 0.025*screenHeight,),
+              Stack(
+                children: [
+                  const Image(image: AssetImage('assets/Name_TextBar.png'),fit: BoxFit.cover,),
+                  Container(
+                    height: 0.05*screenHeight,
+                    width: 0.5*screenWidth,
+                    //color: Colors.amber,
+                    child: TextField(
+                      controller: _nameController,
+                      textAlign: TextAlign.center,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: '請輸入您的名稱',
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ],
+          )
         ],
       ),
     );
@@ -934,7 +958,10 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
         Padding(
           padding: EdgeInsets.only(left:0.3*screenWidth,right: 0.13*screenWidth),
           child: GestureDetector(
-              onTap: (){print('Tap ${screenWidth} ${screenHeight}');},
+              onTap: (){
+                _name = _nameController.text;
+                print(_name);
+              },
               child: Container(
                 width: 0.4*screenWidth,
                 height: 0.05*screenHeight,
@@ -960,28 +987,30 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: const Color.fromRGBO(146, 65, 1, 100),
-      body: SafeArea(
-        child: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/SelectBG.png'),
-              fit: BoxFit.fill,
-            ),
-          ),
-          child: Center(
-            child: Column(
-              children: [
-                character(screenWidth, screenHeight,_bodyIndex,_earsTypeIndex,_earsColorIndex,_eyesTypeIndex,_eyesColorIndex,_mouthIndex,_backHairTypeIndex,_backHairColorIndex,_foreHairTypeIndex,_foreHairColorIndex),
-                arrowBar(screenWidth, screenHeight),
-                SizedBox(height: 0.01*screenHeight,),
-                selectBox(screenWidth, screenHeight,_selectBoxIndex),
-                SizedBox(height: 0.01*screenHeight,),
-                okLogoutBar(screenWidth, screenHeight)
-              ],
-            ),
-          )
-        )
-      ),
+      body: SingleChildScrollView(
+        child: SafeArea(
+            child: Container(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/SelectBG.png'),
+                    fit: BoxFit.fill,
+                  ),
+                ),
+                child: Center(
+                  child: Column(
+                    children: [
+                      character(screenWidth, screenHeight,_bodyIndex,_earsTypeIndex,_earsColorIndex,_eyesTypeIndex,_eyesColorIndex,_mouthIndex,_backHairTypeIndex,_backHairColorIndex,_foreHairTypeIndex,_foreHairColorIndex),
+                      arrowBar(screenWidth, screenHeight),
+                      SizedBox(height: 0.01*screenHeight,),
+                      selectBox(screenWidth, screenHeight,_selectBoxIndex),
+                      SizedBox(height: 0.01*screenHeight,),
+                      okLogoutBar(screenWidth, screenHeight)
+                    ],
+                  ),
+                )
+            )
+        ),
+      )
     );
   }
 }
