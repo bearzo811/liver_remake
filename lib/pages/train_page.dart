@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
-class MainPage extends StatefulWidget{
+class TrainPage extends StatefulWidget{
   @override
-  _MainPage createState() => _MainPage();
+  _TrainPage createState() => _TrainPage();
 }
 
-class _MainPage extends State<MainPage>{
+class _TrainPage extends State<TrainPage>{
 
-  int _battleSceneIndex = 0;
   int _bodyIndex = 2;
   int _earsTypeIndex = 1;
   int _earsColorIndex = 0;
@@ -22,14 +21,6 @@ class _MainPage extends State<MainPage>{
   int _backHairColorIndex = 1;
   int _foreHairTypeIndex = 2;
   int _foreHairColorIndex = 1;
-  double _monsterHpRatio = 0;
-  String _monsterName = '';
-  TextEditingController _monsterNameTextFieldController = TextEditingController();
-  List<ImageProvider> _battleSceneFileName = [
-    AssetImage('assets/BattleScene_Background_1_R.png'),
-    AssetImage('assets/BattleScene_Background_2_B.png'),
-    AssetImage('assets/BattleScene_Background_3_G.png')
-  ] ;
 
   Widget character(double screenWidth, double screenHeight,int _bodyIndex,int _earsTypeIndex,
       int _earsColorIndex,int _eyesTypeIndex, int _eyesColorIndex,int _mouthIndex,
@@ -244,27 +235,8 @@ class _MainPage extends State<MainPage>{
     );
   }
 
-  Widget BattleScene(double screenWidth, double screenHeight){
-    List<ImageProvider> _battleSceneFileName = [
-      AssetImage('assets/BattleScene_Background_1_R.png'),
-      AssetImage('assets/BattleScene_Background_2_B.png'),
-      AssetImage('assets/BattleScene_Background_3_G.png')
-    ] ;
-
-    return Container(
-        width: screenWidth,
-        height: screenHeight,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-              image: _battleSceneFileName[_battleSceneIndex],
-              fit: BoxFit.cover
-          ),
-        )
-    );
-  }
-
   Widget NumberBlock(double screenWidth, double screenHeight,int number){
-    
+
     List<ImageProvider> _numberList =[
       AssetImage('assets/CharacterStatus/New_CharacterStatus_LV_Number_0.png'),
       AssetImage('assets/CharacterStatus/New_CharacterStatus_LV_Number_1.png'),
@@ -295,23 +267,23 @@ class _MainPage extends State<MainPage>{
 
   Widget MpBarBlock(double screenWidth, double screenHeight,double mpRatio){
     return Container(
-      height: 0.03*screenHeight,
-      width: 0.35*screenWidth,
-      decoration: const BoxDecoration(
+        height: 0.03*screenHeight,
+        width: 0.35*screenWidth,
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/CharacterStatus/Groove/MP_Groove.png'),
             fit: BoxFit.contain,
           ),
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(40.0),
-        child: LinearProgressIndicator(
-          value: mpRatio,
-          valueColor: AlwaysStoppedAnimation<Color>(Color.fromRGBO(0, 140, 215, 1),),
-          backgroundColor: Color.fromRGBO(0, 0, 0, 0),
         ),
-        
-      )
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(40.0),
+          child: LinearProgressIndicator(
+            value: mpRatio,
+            valueColor: AlwaysStoppedAnimation<Color>(Color.fromRGBO(0, 140, 215, 1),),
+            backgroundColor: Color.fromRGBO(0, 0, 0, 0),
+          ),
+
+        )
     );
   }
 
@@ -330,29 +302,6 @@ class _MainPage extends State<MainPage>{
           child: LinearProgressIndicator(
             value: expRatio,
             valueColor: AlwaysStoppedAnimation<Color>(Color.fromRGBO(0, 193, 0, 1),),
-            backgroundColor: Color.fromRGBO(0, 0, 0, 0),
-          ),
-
-        )
-    );
-  }
-
-  Widget HpBarBlock(double screenWidth, double screenHeight,double hpRatio){
-    return Container(
-        width: 0.6*screenWidth,
-        height: 0.05*screenHeight,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/CharacterStatus/Groove/HP_Groove.png'),
-            fit: BoxFit.contain,
-          ),
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(40.0),
-          child: LinearProgressIndicator(
-            value: hpRatio,
-            valueColor: AlwaysStoppedAnimation<Color>(Color.fromRGBO(
-                232, 29, 29, 0.8),),
             backgroundColor: Color.fromRGBO(0, 0, 0, 0),
           ),
 
@@ -382,17 +331,17 @@ class _MainPage extends State<MainPage>{
                     children: [
                       SizedBox(height: 0.165*screenHeight,),
                       SizedBox(
-                        width: 0.35*screenWidth,
-                        child: AutoSizeText(
-                          '測試玩家',
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.black54,
-                            fontWeight: FontWeight.bold
-                          ),
-                          maxLines: 1,
-                          textAlign: TextAlign.center,
-                        )
+                          width: 0.35*screenWidth,
+                          child: AutoSizeText(
+                            '測試玩家',
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.black54,
+                                fontWeight: FontWeight.bold
+                            ),
+                            maxLines: 1,
+                            textAlign: TextAlign.center,
+                          )
                       )
                     ],
                   )
@@ -405,10 +354,10 @@ class _MainPage extends State<MainPage>{
                     height: 0.03*screenHeight,
                     width: 0.12*screenWidth,
                     decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/CharacterStatus/New_CharacterStatus_LV_Text.png'),
-                        fit: BoxFit.contain,
-                      )
+                        image: DecorationImage(
+                          image: AssetImage('assets/CharacterStatus/New_CharacterStatus_LV_Text.png'),
+                          fit: BoxFit.contain,
+                        )
                     ),
                   ),
                   Container(
@@ -416,8 +365,8 @@ class _MainPage extends State<MainPage>{
                     width: 0.12*screenWidth,
                     decoration: const BoxDecoration(
                         image: DecorationImage(
-                            image: AssetImage('assets/CharacterStatus/New_CharacterStatus_MP_Text.png'),
-                            fit: BoxFit.contain,
+                          image: AssetImage('assets/CharacterStatus/New_CharacterStatus_MP_Text.png'),
+                          fit: BoxFit.contain,
                         )
                     ),
                   ),
@@ -476,237 +425,6 @@ class _MainPage extends State<MainPage>{
             ],
           )
 
-        ],
-      ),
-    );
-  }
-
-  Widget MonsterNameAndHpBarBlock(double screenWidth, double screenHeight){
-    return Column(
-      children: [
-        Container(
-          width: 0.3*screenWidth,
-          color: Colors.white70.withOpacity((_monsterHpRatio>0 ? 0.5 : 0)),
-          child: SizedBox(
-            width: 0.3*screenWidth,
-            child: AutoSizeText(
-              _monsterName,
-              style: const TextStyle(
-                  fontSize: 30,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold
-              ),
-              maxLines: 1,
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ), //怪物名稱
-        SizedBox(height: 0.0035*screenHeight,),
-        (_monsterHpRatio>0 ? HpBarBlock(screenWidth, screenHeight, _monsterHpRatio):
-        Container(width: 0.6*screenWidth,
-          height: 0.05*screenHeight,))
-      ],
-    );
-  }
-
-  Widget MonsterAndArrowBlock(double screenWidth, double screenHeight){
-    List<ImageProvider> _monsterList = [
-      AssetImage('assets/Monster_R_0.png'),
-      AssetImage('assets/Monster_B_0.png'),
-      AssetImage('assets/Monster_G_0.png'),
-    ];
-
-    Widget monsterImage(){
-      return Container(
-        width: 0.6*screenWidth,
-        height: 0.4*screenHeight,
-        decoration: BoxDecoration(
-            image: DecorationImage(
-              image: _monsterList[_battleSceneIndex],
-              fit: BoxFit.cover,
-            )
-        ),
-      );
-    }
-
-    Widget monsterCreate(){
-      return GestureDetector(
-        onTap: (){
-          showDialog(
-              context: context,
-              barrierDismissible: true,
-              builder: (BuildContext context){
-                return AlertDialog(
-                  backgroundColor: Color.fromRGBO(0, 0, 0, 0),
-                  content: SingleChildScrollView(
-                    child: CreateMonsterBlock(screenWidth, screenHeight),
-                  ),
-                );
-              }
-          );
-        },
-        child: Container(
-          height: 0.0625*screenHeight,
-          width: 0.125*screenWidth,
-          child: Image.asset('assets/Train_Add_Button.png',fit: BoxFit.cover,),
-        ),
-      );
-    }
-
-    if(_monsterHpRatio <=0){
-      return Column(
-        children: [
-          SizedBox(height: 0.17*screenHeight,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              GestureDetector(
-                onTap: (){
-                  setState(() {
-                    if(_battleSceneIndex>0){
-                      _battleSceneIndex--;
-                    }
-                    else{
-                      _battleSceneIndex=2;
-                    }
-                  });
-                },
-                child: Container(
-                  height: 0.0625*screenHeight,
-                  width: 0.125*screenWidth,
-                  child: Image.asset('assets/Left_Arrow.png',fit: BoxFit.cover,),
-                ),
-              ),
-              Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 0.3*screenWidth),
-                  child: monsterCreate()
-              ),
-              GestureDetector(
-                onTap: (){
-                  setState(() {
-                    if(_battleSceneIndex<2){
-                      _battleSceneIndex++;
-                    }
-                    else{
-                      _battleSceneIndex=0;
-                    }
-                  });
-                },
-                child: Container(
-                  height: 0.0625*screenHeight,
-                  width: 0.125*screenWidth,
-                  child: Image.asset('assets/Right_Arrow.png',fit: BoxFit.cover,),
-                ),
-              )
-            ],
-          ),
-          SizedBox(height: 0.17*screenHeight,),
-        ],
-      );
-    }
-    else{
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          GestureDetector(
-            onTap: (){
-              setState(() {
-                if(_battleSceneIndex>0){
-                  _battleSceneIndex--;
-                }
-                else{
-                  _battleSceneIndex=2;
-                }
-              });
-            },
-            child: Container(
-              height: 0.0625*screenHeight,
-              width: 0.125*screenWidth,
-              child: Image.asset('assets/Left_Arrow.png',fit: BoxFit.cover,),
-            ),
-          ),
-          Padding(
-              padding: EdgeInsets.symmetric(horizontal: 0.05*screenWidth),
-              child: monsterImage()
-          ),
-          GestureDetector(
-            onTap: (){
-              setState(() {
-                if(_battleSceneIndex<2){
-                  _battleSceneIndex++;
-                }
-                else{
-                  _battleSceneIndex=0;
-                }
-              });
-            },
-            child: Container(
-              height: 0.0625*screenHeight,
-              width: 0.125*screenWidth,
-              child: Image.asset('assets/Right_Arrow.png',fit: BoxFit.cover,),
-            ),
-          )
-        ],
-      );
-    }
-
-
-  }
-
-  Widget CreateMonsterBlock(double screenWidth, double screenHeight){
-    return Container(
-      width: 0.9*screenWidth,
-      height: 0.25*screenHeight,
-      decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('assets/Train_Add_Windows.png'),
-              fit: BoxFit.contain
-          )
-      ),
-      child: Column(
-        children: [
-          SizedBox(height: 0.08*screenHeight,),
-          Container(
-            width: 0.6*screenWidth,
-            child: Stack(
-              children: [
-                const Image(image: AssetImage('assets/Train_Add_TextBox.png'),fit: BoxFit.cover,),
-                Container(
-                  height: 0.05*screenHeight,
-                  width: 0.6*screenWidth,
-                  child: TextField(
-                    controller: _monsterNameTextFieldController,
-                    textAlign: TextAlign.center,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: '請輸入習慣名稱',
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-          SizedBox(height: 0.02*screenHeight,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              GestureDetector(
-                  onTap: (){
-                    setState(() {
-                      _monsterName = _monsterNameTextFieldController.text;
-                      _monsterHpRatio=1;
-                    });
-                    _monsterNameTextFieldController.clear();
-                    Navigator.of(context).pop();
-                  },
-                  child: Container(
-                    width: 0.4*screenWidth,
-                    height: 0.05*screenHeight,
-                    child: Image.asset('assets/OKButton.png',fit: BoxFit.cover,),
-                  )
-              ),
-            ],
-          )
         ],
       ),
     );
@@ -790,33 +508,145 @@ class _MainPage extends State<MainPage>{
       ),
     );
   }
-
-  Widget attackMenuBar(double screenWidth, double screenHeight){
+/*
+  Widget CreateTrainBlock(double screenWidth, double screenHeight){
+    return Container(
+      width: 0.9*screenWidth,
+      height: 0.25*screenHeight,
+      decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/Train/Train_Add_Windows.png'),
+              fit: BoxFit.fill
+          )
+      ),
+      child: Column(
+        children: [
+          SizedBox(height: 0.065*screenHeight,),
+          Container(
+            height: 0.05*screenHeight,
+            width: 0.6*screenWidth,
+            child: TextField(
+              //controller: _monsterNameTextFieldController,
+              textAlign: TextAlign.center,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: '請輸入訓練名稱',
+              ),
+            ),
+          ),
+          SizedBox(height: 0.01*screenHeight,),
+          Row(
+            children: [
+              SizedBox(width: 0.035*screenWidth,),
+              Column(
+                children: [
+                  GestureDetector(
+                      onTap: (){
+                        setState(() {
+                          _STRopacity = 1.0;
+                        });
+                      },
+                      child: Container(
+                        width: 0.4*screenWidth,
+                        height: 0.03*screenHeight,
+                        color: Color.fromRGBO(255, 255, 255, _STRopacity),
+                        child: Image(
+                          image: AssetImage('assets/Train/Train_Add_Option_Exercise.png'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                  ),
+                  SizedBox(height: 0.01*screenHeight,),
+                  GestureDetector(
+                    onTap: (){
+                      setState(() {
+                        _INTopacity = 1.0;
+                      });
+                    },
+                    child: Container(
+                      width: 0.4*screenWidth,
+                      height: 0.03*screenHeight,
+                      color: Color.fromRGBO(255, 255, 255, _INTopacity),
+                      child: Image(
+                        image: AssetImage('assets/Train/Train_Add_Option_Learning.png'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 0.01*screenHeight,),
+                  GestureDetector(
+                    onTap: (){
+                      setState(() {
+                        _VITopacity = 1.0;
+                      });
+                    },
+                    child: Container(
+                      width: 0.4*screenWidth,
+                      height: 0.03*screenHeight,
+                      color: Color.fromRGBO(255, 255, 255, _VITopacity),
+                      child: Image(
+                        image: AssetImage('assets/Train/Train_Add_Option_Life.png'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              GestureDetector(
+                  onTap: (){
+                    Navigator.of(context).pop();
+                  },
+                  child: Container(
+                    width: 0.2*screenWidth,
+                    height: 0.05*screenHeight,
+                    child: Image.asset('assets/OKButton.png',fit: BoxFit.cover,),
+                  )
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+*/
+  Widget createMenuBar(double screenWidth, double screenHeight){
     return Row(
-      //mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
           padding: EdgeInsets.only(left:0.41*screenWidth,right: 0.22*screenWidth),
           child: GestureDetector(
-              onTap: (){},
+              onTap: (){
+                showDialog(
+                    context: context,
+                    barrierDismissible: true,
+                    builder: (BuildContext context){
+                      return AlertDialog(
+                        backgroundColor: Color.fromRGBO(0, 0, 0, 0),
+                        content: SingleChildScrollView(
+                          child: CreateTrainBlock(),
+                        ),
+                      );
+                    }
+                );
+              },
               child: Container(
                 width: 0.18*screenWidth,
                 height: 0.08*screenHeight,
-                child: Image.asset('assets/Attack_Button.png',fit: BoxFit.cover,),
+                child: Image.asset('assets/Train_Add_Button.png',fit: BoxFit.cover,),
               )
           ),
         ),
         GestureDetector(
           onTap: (){
             showDialog(
-              context: context,
-              barrierDismissible: true,
-              builder: (BuildContext context){
-                return AlertDialog(
-                  backgroundColor: Color.fromRGBO(0, 0, 0, 0),
-                  content: MenuBlock(screenWidth, screenHeight),
-                );
-              }
+                context: context,
+                barrierDismissible: true,
+                builder: (BuildContext context){
+                  return AlertDialog(
+                    backgroundColor: Color.fromRGBO(0, 0, 0, 0),
+                    content: MenuBlock(screenWidth, screenHeight),
+                  );
+                }
             );
           },
           child: Container(
@@ -829,36 +659,260 @@ class _MainPage extends State<MainPage>{
     );
   }
 
+  Widget TrainItemBar(double screenWidth, double screenHeight,int trainItemType,int trainLevel){
+    
+    List<ImageProvider> _trainItemTypeList = [
+      AssetImage('assets/Train/Train_Item_S.png'),
+      AssetImage('assets/Train/Train_Item_I.png'),
+      AssetImage('assets/Train/Train_Item_V.png'),
+    ];
+    
+    return Container(
+      height: 0.1*screenHeight,
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: _trainItemTypeList[trainItemType],
+              fit: BoxFit.contain
+          )
+      ),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 0.04*screenWidth,
+          ),
+          Container(
+            width: 0.4*screenWidth,
+            child: AutoSizeText(
+              '測試玩家123456',
+              style: TextStyle(
+                  fontSize: 25,
+                  color: Color(0xFFFFB170),
+                  fontWeight: FontWeight.bold
+              ),
+              maxLines: 1,
+              textAlign: TextAlign.center,
+            ),
+          ),
+          SizedBox(
+            width: 0.175*screenWidth,
+          ),
+          Container(
+            width: 0.1*screenWidth,
+            //color: Colors.amber,
+            child: AutoSizeText(
+              trainLevel.toString(),
+              style: TextStyle(
+                  fontSize: 25,
+                  color: Color(0xFF924101),
+                  fontWeight: FontWeight.bold
+              ),
+              maxLines: 1,
+              textAlign: TextAlign.center,
+            ),
+          ),
+          SizedBox(
+            width: 0.02*screenWidth,
+          ),
+          GestureDetector(
+              onTap: (){
+                print('delete');
+              },
+              child: Container(
+                width: 0.11*screenWidth,
+                height: 0.05*screenHeight,
+                child: Image.asset('assets/Train/Train_Delete_Button.png',fit: BoxFit.fill,),
+              )
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context){
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-        body: SingleChildScrollView(
-          child: SafeArea(
-              child: Stack(
-                children: [
-                  BattleScene(screenWidth, screenHeight),
-                  Column(
-                    children: [
-                      CharacterStatusBlock(screenWidth, screenHeight), //character status bar
-                      SizedBox(height: 0.05*screenHeight,),
-                      MonsterNameAndHpBarBlock(screenWidth, screenHeight),
-                      SizedBox(height: 0.05*screenHeight,),
-                      MonsterAndArrowBlock(screenWidth, screenHeight),//怪物 & 左右箭頭
-                      SizedBox(height: 0.05*screenHeight,),
-                      attackMenuBar(screenWidth, screenHeight),
-                    ],
+      backgroundColor: const Color(0xFFE2C799),
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child:Stack(
+            children: [
+              Container(
+                  width: screenWidth,
+                  height: screenHeight,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('assets/Train/Train_UI.png'),
+                        fit: BoxFit.contain
+                    ),
                   )
+              ),
+              Column(
+                children: [
+                  CharacterStatusBlock(screenWidth, screenHeight),
+                  SizedBox(height: 0.14*screenHeight,),
+                  Center(
+                    child: Container(
+                      width: 0.95*screenWidth,
+                      height: 0.43*screenHeight,
+                      child: ListView(
+                        children: [
+                          ListTile(
+                            title: TrainItemBar(screenWidth, screenHeight,0,99),
+                          ),
+                          ListTile(
+                            title: TrainItemBar(screenWidth, screenHeight,1,99),
+                          ),
+                          ListTile(
+                            title: TrainItemBar(screenWidth, screenHeight,2,2),
+                          ),
+                          ListTile(
+                            title: TrainItemBar(screenWidth, screenHeight,0,50),
+                          ),
+                          ListTile(
+                            title: TrainItemBar(screenWidth, screenHeight,2,16),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 0.075*screenHeight,),
+                  createMenuBar(screenWidth, screenHeight),
                 ],
               )
+
+            ],
           ),
         )
+      ),
     );
   }
 }
 
+class CreateTrainBlock extends StatefulWidget {
+  @override
+  _CreateTrainBlockState createState() => _CreateTrainBlockState();
+}
 
-/*
+class _CreateTrainBlockState extends State<CreateTrainBlock>{
+  double _STRopacity = 0.0;
+  double _INTopacity = 0.0;
+  double _VITopacity = 0.0;
 
- */
+  @override
+  Widget build(BuildContext context){
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    return Container(
+      width: 0.9*screenWidth,
+      height: 0.25*screenHeight,
+      decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/Train/Train_Add_Windows.png'),
+              fit: BoxFit.fill
+          )
+      ),
+      child: Column(
+        children: [
+          SizedBox(height: 0.065*screenHeight,),
+          Container(
+            height: 0.05*screenHeight,
+            width: 0.6*screenWidth,
+            child: TextField(
+              //controller: _monsterNameTextFieldController,
+              textAlign: TextAlign.center,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: '請輸入訓練名稱',
+              ),
+            ),
+          ),
+          SizedBox(height: 0.01*screenHeight,),
+          Row(
+            children: [
+              SizedBox(width: 0.035*screenWidth,),
+              Column(
+                children: [
+                  GestureDetector(
+                    onTap: (){
+                      setState(() {
+                        (_STRopacity == 0 ? _STRopacity = 1.0 : _STRopacity = 0.0);
+                        _INTopacity = 0.0;
+                        _VITopacity = 0.0;
+                      });
+                    },
+                    child: Container(
+                      width: 0.4*screenWidth,
+                      height: 0.03*screenHeight,
+                      color: Color.fromRGBO(255, 255, 255, _STRopacity),
+                      child: Image(
+                        image: AssetImage('assets/Train/Train_Add_Option_Exercise.png'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 0.01*screenHeight,),
+                  GestureDetector(
+                    onTap: (){
+                      setState(() {
+                        (_INTopacity == 0 ? _INTopacity = 1.0 : _INTopacity = 0.0);
+                        _STRopacity = 0.0;
+                        _VITopacity = 0.0;
+                      });
+                    },
+                    child: Container(
+                      width: 0.4*screenWidth,
+                      height: 0.03*screenHeight,
+                      color: Color.fromRGBO(255, 255, 255, _INTopacity),
+                      child: Image(
+                        image: AssetImage('assets/Train/Train_Add_Option_Learning.png'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 0.01*screenHeight,),
+                  GestureDetector(
+                    onTap: (){
+                      setState(() {
+                        (_VITopacity == 0 ? _VITopacity = 1.0 : _VITopacity = 0.0);
+                        _STRopacity = 0.0;
+                        _INTopacity = 0.0;
+                      });
+                    },
+                    child: Container(
+                      width: 0.4*screenWidth,
+                      height: 0.03*screenHeight,
+                      color: Color.fromRGBO(255, 255, 255, _VITopacity),
+                      child: Image(
+                        image: AssetImage('assets/Train/Train_Add_Option_Life.png'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(width: 0.0005*screenWidth,),
+              Column(
+                children: [
+                  SizedBox(height: 0.075*screenHeight,),
+                  GestureDetector(
+                      onTap: (){
+                        print('OK');
+                        Navigator.of(context).pop();
+                      },
+                      child: Container(
+                        width: 0.25*screenWidth,
+                        height: 0.035*screenHeight,
+                        child: Image.asset('assets/OKButton.png',fit: BoxFit.fill,),
+                      )
+                  ),
+                ],
+              )
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}

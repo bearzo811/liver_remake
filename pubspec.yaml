@@ -72,6 +72,7 @@ flutter:
     - assets/CharacterStatus/
     - assets/CharacterStatus/Bar/
     - assets/CharacterStatus/Groove/
+    - assets/Train/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
