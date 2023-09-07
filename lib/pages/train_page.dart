@@ -3,9 +3,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 
 class TrainItem{
   int trainTypeIndex = 0;
+  int trainLevel = 0;
   String trainName = '';
 
-  TrainItem(this.trainName,this.trainTypeIndex);
+  TrainItem(this.trainName,this.trainTypeIndex,this.trainLevel);
 }
 
 class TrainPage extends StatefulWidget{
@@ -28,7 +29,7 @@ class _TrainPage extends State<TrainPage>{
   int _backHairColorIndex = 1;
   int _foreHairTypeIndex = 2;
   int _foreHairColorIndex = 1;
-  TrainItem _trainItem = TrainItem('',0);
+  TrainItem _trainItem = TrainItem('',0,0);
   List<TrainItem> _trainItemList = [];
 
   Widget character(double screenWidth, double screenHeight,int _bodyIndex,int _earsTypeIndex,
@@ -569,71 +570,83 @@ class _TrainPage extends State<TrainPage>{
     );
   }
 
-  Widget TrainItemBar(double screenWidth, double screenHeight,int trainItemType,int trainLevel,String trainName){
+  Widget TrainItemBar(double screenWidth, double screenHeight,int trainItemType,int trainLevel,String trainName,int index){
     
     List<ImageProvider> _trainItemTypeList = [
-      AssetImage('assets/Train/Train_Item_S.png'),
-      AssetImage('assets/Train/Train_Item_I.png'),
-      AssetImage('assets/Train/Train_Item_V.png'),
+      const AssetImage('assets/Train/Train_Item_S.png'),
+      const AssetImage('assets/Train/Train_Item_I.png'),
+      const AssetImage('assets/Train/Train_Item_V.png'),
     ];
     
-    return Container(
-      height: 0.1*screenHeight,
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              image: _trainItemTypeList[trainItemType],
-              fit: BoxFit.contain
-          )
-      ),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 0.04*screenWidth,
-          ),
-          Container(
-            width: 0.4*screenWidth,
-            child: AutoSizeText(
-              trainName,
-              style: TextStyle(
-                  fontSize: 25,
-                  color: Color(0xFFFFB170),
-                  fontWeight: FontWeight.bold
-              ),
-              maxLines: 1,
-              textAlign: TextAlign.center,
+    return GestureDetector(
+      onTap: (){
+        print('${_trainItemList[index].trainName} / ${_trainItemList[index].trainLevel}');
+        if(_trainItemList[index].trainLevel<99){
+          setState(() {
+            _trainItemList[index].trainLevel++;
+          });
+        }
+      },
+      child: Container(
+        height: 0.1*screenHeight,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: _trainItemTypeList[trainItemType],
+                fit: BoxFit.contain
+            )
+        ),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 0.04*screenWidth,
             ),
-          ),
-          SizedBox(
-            width: 0.175*screenWidth,
-          ),
-          Container(
-            width: 0.1*screenWidth,
-            //color: Colors.amber,
-            child: AutoSizeText(
-              trainLevel.toString(),
-              style: TextStyle(
-                  fontSize: 25,
-                  color: Color(0xFF924101),
-                  fontWeight: FontWeight.bold
+            Container(
+              width: 0.4*screenWidth,
+              child: AutoSizeText(
+                trainName,
+                style: TextStyle(
+                    fontSize: 25,
+                    color: Color(0xFFFFB170),
+                    fontWeight: FontWeight.bold
+                ),
+                maxLines: 1,
+                textAlign: TextAlign.center,
               ),
-              maxLines: 1,
-              textAlign: TextAlign.center,
             ),
-          ),
-          SizedBox(
-            width: 0.02*screenWidth,
-          ),
-          GestureDetector(
-              onTap: (){
-                print('delete');
-              },
-              child: Container(
-                width: 0.11*screenWidth,
-                height: 0.05*screenHeight,
-                child: Image.asset('assets/Train/Train_Delete_Button.png',fit: BoxFit.fill,),
-              )
-          ),
-        ],
+            SizedBox(
+              width: 0.175*screenWidth,
+            ),
+            Container(
+              width: 0.1*screenWidth,
+              child: AutoSizeText(
+                _trainItemList[index].trainLevel.toString(),
+                style: const TextStyle(
+                    fontSize: 25,
+                    color: Color(0xFF924101),
+                    fontWeight: FontWeight.bold
+                ),
+                maxLines: 1,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            SizedBox(
+              width: 0.02*screenWidth,
+            ),
+            GestureDetector(
+                onTap: (){
+                  print('delete');
+                  setState(() {
+                    _trainItemList.removeAt(index);
+                  });
+                },
+                child: Container(
+                  width: 0.11*screenWidth,
+                  height: 0.05*screenHeight,
+                  child: Image.asset('assets/Train/Train_Delete_Button.png',fit: BoxFit.fill,),
+                )
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -651,7 +664,7 @@ class _TrainPage extends State<TrainPage>{
               Container(
                   width: screenWidth,
                   height: screenHeight,
-                  decoration: BoxDecoration(
+                  decoration:const BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage('assets/Train/Train_UI.png'),
                         fit: BoxFit.contain
@@ -670,7 +683,7 @@ class _TrainPage extends State<TrainPage>{
                         itemCount: _trainItemList.length,
                         itemBuilder: (BuildContext context,int index){
                           return ListTile(
-                            title: TrainItemBar(screenWidth, screenHeight,_trainItemList[index].trainTypeIndex,1,_trainItemList[index].trainName),
+                            title: TrainItemBar(screenWidth, screenHeight,_trainItemList[index].trainTypeIndex,1,_trainItemList[index].trainName,index),
                           );
                         },
                       ),
@@ -680,7 +693,6 @@ class _TrainPage extends State<TrainPage>{
                   createMenuBar(screenWidth, screenHeight),
                 ],
               )
-
             ],
           ),
         )
@@ -698,7 +710,7 @@ class _CreateTrainBlockState extends State<CreateTrainBlock>{
   double _STRopacity = 0.0;
   double _INTopacity = 0.0;
   double _VITopacity = 0.0;
-  TrainItem _trainItem = TrainItem('每天訓練', 1);
+  TrainItem _trainItem = TrainItem('每天訓練', 1,0);
   TextEditingController _trainNameTextController = TextEditingController();
 
   @override
