@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:liver_remake/pages/main_page.dart';
 
 class TrainItem{
   int trainTypeIndex = 0;
@@ -456,7 +457,12 @@ class _TrainPage extends State<TrainPage>{
           GestureDetector(
             onTap: (){
               print('Battle！');
-              Navigator.of(context).pop();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MainPage()
+                )
+              );
             },
             child: Container(
               width: 0.6*screenWidth,
@@ -466,7 +472,7 @@ class _TrainPage extends State<TrainPage>{
           ),
           GestureDetector(
             onTap: (){
-              print('Train！');
+              Navigator.of(context).pop();
             },
             child: Container(
               width: 0.6*screenWidth,

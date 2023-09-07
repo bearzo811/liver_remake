@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:liver_remake/pages/train_page.dart';
 
 class MainPage extends StatefulWidget{
   @override
@@ -739,6 +740,12 @@ class _MainPage extends State<MainPage>{
           GestureDetector(
             onTap: (){
               print('Train！');
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context)=>TrainPage()
+                )
+              );
             },
             child: Container(
               width: 0.6*screenWidth,
