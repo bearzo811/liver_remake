@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
+class TrainItem{
+  int trainTypeIndex = 0;
+  String trainName = '';
+
+  TrainItem(this.trainName,this.trainTypeIndex);
+}
+
 class TrainPage extends StatefulWidget{
   @override
   _TrainPage createState() => _TrainPage();
@@ -21,6 +28,8 @@ class _TrainPage extends State<TrainPage>{
   int _backHairColorIndex = 1;
   int _foreHairTypeIndex = 2;
   int _foreHairColorIndex = 1;
+  TrainItem _trainItem = TrainItem('',0);
+  List<TrainItem> _trainItemList = [];
 
   Widget character(double screenWidth, double screenHeight,int _bodyIndex,int _earsTypeIndex,
       int _earsColorIndex,int _eyesTypeIndex, int _eyesColorIndex,int _mouthIndex,
@@ -508,115 +517,15 @@ class _TrainPage extends State<TrainPage>{
       ),
     );
   }
-/*
-  Widget CreateTrainBlock(double screenWidth, double screenHeight){
-    return Container(
-      width: 0.9*screenWidth,
-      height: 0.25*screenHeight,
-      decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('assets/Train/Train_Add_Windows.png'),
-              fit: BoxFit.fill
-          )
-      ),
-      child: Column(
-        children: [
-          SizedBox(height: 0.065*screenHeight,),
-          Container(
-            height: 0.05*screenHeight,
-            width: 0.6*screenWidth,
-            child: TextField(
-              //controller: _monsterNameTextFieldController,
-              textAlign: TextAlign.center,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: '請輸入訓練名稱',
-              ),
-            ),
-          ),
-          SizedBox(height: 0.01*screenHeight,),
-          Row(
-            children: [
-              SizedBox(width: 0.035*screenWidth,),
-              Column(
-                children: [
-                  GestureDetector(
-                      onTap: (){
-                        setState(() {
-                          _STRopacity = 1.0;
-                        });
-                      },
-                      child: Container(
-                        width: 0.4*screenWidth,
-                        height: 0.03*screenHeight,
-                        color: Color.fromRGBO(255, 255, 255, _STRopacity),
-                        child: Image(
-                          image: AssetImage('assets/Train/Train_Add_Option_Exercise.png'),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                  ),
-                  SizedBox(height: 0.01*screenHeight,),
-                  GestureDetector(
-                    onTap: (){
-                      setState(() {
-                        _INTopacity = 1.0;
-                      });
-                    },
-                    child: Container(
-                      width: 0.4*screenWidth,
-                      height: 0.03*screenHeight,
-                      color: Color.fromRGBO(255, 255, 255, _INTopacity),
-                      child: Image(
-                        image: AssetImage('assets/Train/Train_Add_Option_Learning.png'),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 0.01*screenHeight,),
-                  GestureDetector(
-                    onTap: (){
-                      setState(() {
-                        _VITopacity = 1.0;
-                      });
-                    },
-                    child: Container(
-                      width: 0.4*screenWidth,
-                      height: 0.03*screenHeight,
-                      color: Color.fromRGBO(255, 255, 255, _VITopacity),
-                      child: Image(
-                        image: AssetImage('assets/Train/Train_Add_Option_Life.png'),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              GestureDetector(
-                  onTap: (){
-                    Navigator.of(context).pop();
-                  },
-                  child: Container(
-                    width: 0.2*screenWidth,
-                    height: 0.05*screenHeight,
-                    child: Image.asset('assets/OKButton.png',fit: BoxFit.cover,),
-                  )
-              ),
-            ],
-          )
-        ],
-      ),
-    );
-  }
-*/
+
   Widget createMenuBar(double screenWidth, double screenHeight){
     return Row(
       children: [
         Padding(
           padding: EdgeInsets.only(left:0.41*screenWidth,right: 0.22*screenWidth),
           child: GestureDetector(
-              onTap: (){
-                showDialog(
+              onTap: () async {
+                _trainItem = await showDialog(
                     context: context,
                     barrierDismissible: true,
                     builder: (BuildContext context){
@@ -628,6 +537,7 @@ class _TrainPage extends State<TrainPage>{
                       );
                     }
                 );
+                _trainItemList.add(_trainItem);
               },
               child: Container(
                 width: 0.18*screenWidth,
@@ -659,7 +569,7 @@ class _TrainPage extends State<TrainPage>{
     );
   }
 
-  Widget TrainItemBar(double screenWidth, double screenHeight,int trainItemType,int trainLevel){
+  Widget TrainItemBar(double screenWidth, double screenHeight,int trainItemType,int trainLevel,String trainName){
     
     List<ImageProvider> _trainItemTypeList = [
       AssetImage('assets/Train/Train_Item_S.png'),
@@ -683,7 +593,7 @@ class _TrainPage extends State<TrainPage>{
           Container(
             width: 0.4*screenWidth,
             child: AutoSizeText(
-              '測試玩家123456',
+              trainName,
               style: TextStyle(
                   fontSize: 25,
                   color: Color(0xFFFFB170),
@@ -756,24 +666,13 @@ class _TrainPage extends State<TrainPage>{
                     child: Container(
                       width: 0.95*screenWidth,
                       height: 0.43*screenHeight,
-                      child: ListView(
-                        children: [
-                          ListTile(
-                            title: TrainItemBar(screenWidth, screenHeight,0,99),
-                          ),
-                          ListTile(
-                            title: TrainItemBar(screenWidth, screenHeight,1,99),
-                          ),
-                          ListTile(
-                            title: TrainItemBar(screenWidth, screenHeight,2,2),
-                          ),
-                          ListTile(
-                            title: TrainItemBar(screenWidth, screenHeight,0,50),
-                          ),
-                          ListTile(
-                            title: TrainItemBar(screenWidth, screenHeight,2,16),
-                          ),
-                        ],
+                      child: ListView.builder(
+                        itemCount: _trainItemList.length,
+                        itemBuilder: (BuildContext context,int index){
+                          return ListTile(
+                            title: TrainItemBar(screenWidth, screenHeight,_trainItemList[index].trainTypeIndex,1,_trainItemList[index].trainName),
+                          );
+                        },
                       ),
                     ),
                   ),
@@ -799,6 +698,8 @@ class _CreateTrainBlockState extends State<CreateTrainBlock>{
   double _STRopacity = 0.0;
   double _INTopacity = 0.0;
   double _VITopacity = 0.0;
+  TrainItem _trainItem = TrainItem('每天訓練', 1);
+  TextEditingController _trainNameTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context){
@@ -820,7 +721,7 @@ class _CreateTrainBlockState extends State<CreateTrainBlock>{
             height: 0.05*screenHeight,
             width: 0.6*screenWidth,
             child: TextField(
-              //controller: _monsterNameTextFieldController,
+              controller: _trainNameTextController,
               textAlign: TextAlign.center,
               decoration: InputDecoration(
                 border: InputBorder.none,
@@ -898,8 +799,18 @@ class _CreateTrainBlockState extends State<CreateTrainBlock>{
                   SizedBox(height: 0.075*screenHeight,),
                   GestureDetector(
                       onTap: (){
-                        print('OK');
-                        Navigator.of(context).pop();
+                        _trainItem.trainName = _trainNameTextController.text;
+                        _trainNameTextController.clear();
+                        if(_STRopacity==1.0){
+                          _trainItem.trainTypeIndex=0;
+                        }
+                        else if(_INTopacity==1.0){
+                          _trainItem.trainTypeIndex=1;
+                        }
+                        else if(_VITopacity==1.0){
+                          _trainItem.trainTypeIndex=2;
+                        }
+                        Navigator.of(context).pop(_trainItem);
                       },
                       child: Container(
                         width: 0.25*screenWidth,
