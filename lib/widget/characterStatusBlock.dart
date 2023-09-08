@@ -2,41 +2,55 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
 class Player{
-  int _bodyIndex = 2;
-  int _earsTypeIndex = 1;
-  int _earsColorIndex = 0;
-  int _clothesIndex = 0;
-  int _pantsIndex = 0;
-  int _shoesIndex = 0;
-  int _eyesTypeIndex = 0;
-  int _eyesColorIndex = 0;
-  int _mouthIndex = 0;
-  int _backHairTypeIndex = 0;
-  int _backHairColorIndex = 1;
-  int _foreHairTypeIndex = 2;
-  int _foreHairColorIndex = 1;
-  int _backItemIndex = 0;
-  int _eyeDecorationIndex = 0;
-  int _heavyWeaponIndex = 0;
-  int _lightWeaponIndex = 0;
+  int bodyIndex = 2;
+  int earsTypeIndex = 1;
+  int earsColorIndex = 0;
+  int clothesIndex = 0;
+  int pantsIndex = 0;
+  int shoesIndex = 0;
+  int eyesTypeIndex = 0;
+  int eyesColorIndex = 0;
+  int mouthIndex = 0;
+  int backHairTypeIndex = 0;
+  int backHairColorIndex = 1;
+  int foreHairTypeIndex = 2;
+  int foreHairColorIndex = 1;
+  int backItemIndex = 0;
+  int eyeDecorationIndex = 0;
+  int heavyWeaponIndex = 0;
+  int lightWeaponIndex = 0;
+  String name = '';
+  int level = 1;
+  int mp = 0;
+  int exp = 0;
+  int maxMp = 0;
+  int maxExp = 0;
+  int coin = 0;
   Player(
-      this._bodyIndex,
-      this._earsTypeIndex,
-      this._earsColorIndex,
-      this._clothesIndex,
-      this._pantsIndex,
-      this._shoesIndex,
-      this._eyesTypeIndex,
-      this._eyesColorIndex,
-      this._mouthIndex,
-      this._backHairTypeIndex,
-      this._backHairColorIndex,
-      this._foreHairTypeIndex,
-      this._foreHairColorIndex,
-      this._backItemIndex,
-      this._eyeDecorationIndex,
-      this._heavyWeaponIndex,
-      this._lightWeaponIndex,
+      this.bodyIndex,
+      this.earsTypeIndex,
+      this.earsColorIndex,
+      this.clothesIndex,
+      this.pantsIndex,
+      this.shoesIndex,
+      this.eyesTypeIndex,
+      this.eyesColorIndex,
+      this.mouthIndex,
+      this.backHairTypeIndex,
+      this.backHairColorIndex,
+      this.foreHairTypeIndex,
+      this.foreHairColorIndex,
+      this.backItemIndex,
+      this.eyeDecorationIndex,
+      this.heavyWeaponIndex,
+      this.lightWeaponIndex,
+      this.name,
+      this.level,
+      this.mp,
+      this.exp,
+      this.maxMp,
+      this.maxExp,
+      this.coin
       );
 }
 
@@ -250,26 +264,26 @@ Widget character(double screenWidth, double screenHeight,Player player){
   ];
 
   return Container(
-    height: 0.28*screenHeight,
+    height: 0.15*screenHeight,
     width: 0.35*screenWidth,
     child: Column(
       children: [
         SizedBox(height: 0.03*screenHeight),
         Stack(
           children: [
-            Image(image:_backItemList[player._backItemIndex],fit: BoxFit.cover),
-            Image(image:_backHairList[player._backHairTypeIndex][player._backHairColorIndex],fit: BoxFit.cover),
-            Image(image:_bodyList[player._bodyIndex],fit: BoxFit.cover),
-            Image(image:_foreHairList[player._foreHairTypeIndex][player._foreHairColorIndex],fit: BoxFit.cover),
-            Image(image:_clothesList[player._clothesIndex],fit: BoxFit.cover),
-            Image(image:_earsList[player._earsTypeIndex][player._earsColorIndex],fit: BoxFit.cover),
-            Image(image:_eyesList[player._eyesTypeIndex][player._eyesColorIndex],fit: BoxFit.cover),
-            Image(image:_mouthList[player._mouthIndex],fit: BoxFit.cover),
-            Image(image:_pantsList[player._pantsIndex],fit: BoxFit.cover),
-            Image(image:_shoesList[player._shoesIndex],fit: BoxFit.cover),
-            Image(image:_heavyWeaponList[player._heavyWeaponIndex],fit: BoxFit.cover),
-            Image(image:_lightWeaponList[player._lightWeaponIndex],fit: BoxFit.cover),
-            Image(image:_eyeDecorationList[player._eyeDecorationIndex],fit: BoxFit.cover),
+            Image(image:_backItemList[player.backItemIndex],fit: BoxFit.cover),
+            Image(image:_backHairList[player.backHairTypeIndex][player.backHairColorIndex],fit: BoxFit.cover),
+            Image(image:_bodyList[player.bodyIndex],fit: BoxFit.cover),
+            Image(image:_foreHairList[player.foreHairTypeIndex][player.foreHairColorIndex],fit: BoxFit.cover),
+            Image(image:_clothesList[player.clothesIndex],fit: BoxFit.cover),
+            Image(image:_earsList[player.earsTypeIndex][player.earsColorIndex],fit: BoxFit.cover),
+            Image(image:_eyesList[player.eyesTypeIndex][player.eyesColorIndex],fit: BoxFit.cover),
+            Image(image:_mouthList[player.mouthIndex],fit: BoxFit.cover),
+            Image(image:_pantsList[player.pantsIndex],fit: BoxFit.cover),
+            Image(image:_shoesList[player.shoesIndex],fit: BoxFit.cover),
+            Image(image:_heavyWeaponList[player.heavyWeaponIndex],fit: BoxFit.cover),
+            Image(image:_lightWeaponList[player.lightWeaponIndex],fit: BoxFit.cover),
+            Image(image:_eyeDecorationList[player.eyeDecorationIndex],fit: BoxFit.cover),
           ],
         )
       ],
@@ -376,8 +390,8 @@ Widget CharacterStatusBlock(double screenWidth, double screenHeight,Player _play
                     SizedBox(
                         width: 0.35*screenWidth,
                         child: AutoSizeText(
-                          '測試玩家',
-                          style: TextStyle(
+                          _player.name,
+                          style: const TextStyle(
                               fontSize: 15,
                               color: Colors.black54,
                               fontWeight: FontWeight.bold
@@ -441,14 +455,14 @@ Widget CharacterStatusBlock(double screenWidth, double screenHeight,Player _play
                 Container(
                   height: 0.03*screenHeight,
                   width: 0.35*screenWidth,
-                  child: NumberBlock(screenWidth, screenHeight, 1),
+                  child: NumberBlock(screenWidth, screenHeight, _player.level),
                 ),
-                MpBarBlock(screenWidth, screenHeight,0.7),
-                EXPBarBlock(screenWidth, screenHeight,0.65),
+                MpBarBlock(screenWidth, screenHeight,_player.mp/_player.maxMp),
+                EXPBarBlock(screenWidth, screenHeight,_player.exp/_player.maxExp),
                 Container(
                   height: 0.03*screenHeight,
                   width: 0.35*screenWidth,
-                  child: NumberBlock(screenWidth, screenHeight, 100),
+                  child: NumberBlock(screenWidth, screenHeight, _player.coin),
                 ),
               ],
             ), //LV Coin number & mp exp值

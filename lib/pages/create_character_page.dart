@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:liver_remake/pages/main_page.dart';
+import 'package:liver_remake/widget/characterStatusBlock.dart';
 
 class CreateCharacterPage extends StatefulWidget{
   @override
@@ -9,25 +11,11 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
 
   int _selectBoxIndex = 0;
   final List<String> _selectBoxTitleList = ['身體 & 耳朵','服裝','眼睛 & 嘴吧','髮型'];
-  int _bodyIndex = 2;
-  int _earsTypeIndex = 1;
-  int _earsColorIndex = 0;
-  int _clothesIndex = 0;
-  int _pantsIndex = 0;
-  int _shoesIndex = 0;
-  int _eyesTypeIndex = 0;
-  int _eyesColorIndex = 0;
-  int _mouthIndex = 0;
-  int _backHairTypeIndex = 0;
-  int _backHairColorIndex = 1;
-  int _foreHairTypeIndex = 2;
-  int _foreHairColorIndex = 1;
+  Player _player = Player(2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, '測試玩家', 99, 95, 101, 100, 150, 195);
   TextEditingController _nameController = TextEditingController();
   String _name = '';
 
-  Widget character(double screenWidth, double screenHeight,int _bodyIndex,int _earsTypeIndex,
-      int _earsColorIndex,int _eyesTypeIndex, int _eyesColorIndex,int _mouthIndex,
-      int _backHairTypeIndex, int _backHairColorIndex,int _foreHairTypeIndex, int _foreHairColorIndex,){
+  Widget character(double screenWidth, double screenHeight,Player _player){
     List<ImageProvider> _bodyList = [
       AssetImage('assets/Head_Body/0.png'),
       AssetImage('assets/Head_Body/1.png'),
@@ -224,15 +212,15 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               SizedBox(height: 0.08*screenHeight),
               Stack(
                 children: [
-                  Image(image:_backHairList[_backHairTypeIndex][_backHairColorIndex],fit: BoxFit.cover),
-                  Image(image:_bodyList[_bodyIndex],fit: BoxFit.cover),
-                  Image(image:_foreHairList[_foreHairTypeIndex][_foreHairColorIndex],fit: BoxFit.cover),
-                  Image(image:_clothesList[_clothesIndex],fit: BoxFit.cover),
-                  Image(image:_earsList[_earsTypeIndex][_earsColorIndex],fit: BoxFit.cover),
-                  Image(image:_eyesList[_eyesTypeIndex][_eyesColorIndex],fit: BoxFit.cover),
-                  Image(image:_mouthList[_mouthIndex],fit: BoxFit.cover),
-                  Image(image:_pantsList[_pantsIndex],fit: BoxFit.cover),
-                  Image(image:_shoesList[_shoesIndex],fit: BoxFit.cover),
+                  Image(image:_backHairList[_player.backHairTypeIndex][_player.backHairColorIndex],fit: BoxFit.cover),
+                  Image(image:_bodyList[_player.bodyIndex],fit: BoxFit.cover),
+                  Image(image:_foreHairList[_player.foreHairTypeIndex][_player.foreHairColorIndex],fit: BoxFit.cover),
+                  Image(image:_clothesList[_player.clothesIndex],fit: BoxFit.cover),
+                  Image(image:_earsList[_player.earsTypeIndex][_player.earsColorIndex],fit: BoxFit.cover),
+                  Image(image:_eyesList[_player.eyesTypeIndex][_player.eyesColorIndex],fit: BoxFit.cover),
+                  Image(image:_mouthList[_player.mouthIndex],fit: BoxFit.cover),
+                  Image(image:_pantsList[_player.pantsIndex],fit: BoxFit.cover),
+                  Image(image:_shoesList[_player.shoesIndex],fit: BoxFit.cover),
                 ],
               )
             ],
@@ -246,11 +234,10 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
                   Container(
                     height: 0.05*screenHeight,
                     width: 0.5*screenWidth,
-                    //color: Colors.amber,
                     child: TextField(
                       controller: _nameController,
                       textAlign: TextAlign.center,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                         hintText: '請輸入您的名稱',
                       ),
@@ -324,7 +311,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
           GestureDetector(
             onTap: () {
               setState(() {
-                _bodyIndex =i;
+                _player.bodyIndex =i;
               });
             },
             child: Container(
@@ -348,7 +335,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
           GestureDetector(
             onTap: () {
               setState(() {
-                _earsColorIndex =i;
+                _player.earsColorIndex =i;
               });
             },
             child: Container(
@@ -374,7 +361,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    _eyesColorIndex =i;
+                    _player.eyesColorIndex =i;
                   });
                 },
                 child: Container(
@@ -396,7 +383,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    _eyesColorIndex =i+5;
+                    _player.eyesColorIndex =i+5;
                   });
                 },
                 child: Container(
@@ -424,7 +411,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    _backHairColorIndex =i;
+                    _player.backHairColorIndex =i;
                   });
                 },
                 child: Container(
@@ -446,7 +433,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    _backHairColorIndex =i+5;
+                    _player.backHairColorIndex =i+5;
                   });
                 },
                 child: Container(
@@ -474,7 +461,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    _foreHairColorIndex =i;
+                    _player.foreHairColorIndex =i;
                   });
                 },
                 child: Container(
@@ -496,7 +483,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    _foreHairColorIndex =i+5;
+                    _player.foreHairColorIndex =i+5;
                   });
                 },
                 child: Container(
@@ -535,11 +522,11 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: (){
                   setState(() {
-                    if(_earsTypeIndex==1){
-                      _earsTypeIndex=0;
+                    if(_player.earsTypeIndex==1){
+                      _player.earsTypeIndex=0;
                     }
                     else{
-                      _earsTypeIndex=1;
+                      _player.earsTypeIndex=1;
                     }
                   });
                 },
@@ -553,11 +540,11 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: (){
                   setState(() {
-                    if(_earsTypeIndex==0){
-                      _earsTypeIndex=1;
+                    if(_player.earsTypeIndex==0){
+                      _player.earsTypeIndex=1;
                     }
                     else{
-                      _earsTypeIndex=0;
+                      _player.earsTypeIndex=0;
                     }
                   });
                 },
@@ -595,11 +582,11 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: (){
                   setState(() {
-                    if(_clothesIndex>0){
-                      _clothesIndex--;
+                    if(_player.clothesIndex>0){
+                      _player.clothesIndex--;
                     }
                     else{
-                      _clothesIndex=7;
+                      _player.clothesIndex=7;
                     }
                   });
                 },
@@ -613,11 +600,11 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: (){
                   setState(() {
-                    if(_clothesIndex<7){
-                      _clothesIndex++;
+                    if(_player.clothesIndex<7){
+                      _player.clothesIndex++;
                     }
                     else{
-                      _clothesIndex=0;
+                      _player.clothesIndex=0;
                     }
                   });
                 },
@@ -636,11 +623,11 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: (){
                   setState(() {
-                    if(_pantsIndex>0){
-                      _pantsIndex--;
+                    if(_player.pantsIndex>0){
+                      _player.pantsIndex--;
                     }
                     else{
-                      _pantsIndex=11;
+                      _player.pantsIndex=11;
                     }
                   });
                 },
@@ -654,11 +641,11 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: (){
                   setState(() {
-                    if(_pantsIndex<11){
-                      _pantsIndex++;
+                    if(_player.pantsIndex<11){
+                      _player.pantsIndex++;
                     }
                     else{
-                      _pantsIndex=0;
+                      _player.pantsIndex=0;
                     }
                   });
                 },
@@ -677,11 +664,11 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: (){
                   setState(() {
-                    if(_shoesIndex>0){
-                      _shoesIndex--;
+                    if(_player.shoesIndex>0){
+                      _player.shoesIndex--;
                     }
                     else{
-                      _shoesIndex=5;
+                      _player.shoesIndex=5;
                     }
                   });
                 },
@@ -695,11 +682,11 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: (){
                   setState(() {
-                    if(_shoesIndex<5){
-                      _shoesIndex++;
+                    if(_player.shoesIndex<5){
+                      _player.shoesIndex++;
                     }
                     else{
-                      _shoesIndex=0;
+                      _player.shoesIndex=0;
                     }
                   });
                 },
@@ -735,11 +722,11 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: (){
                   setState(() {
-                    if(_eyesTypeIndex>0){
-                      _eyesTypeIndex--;
+                    if(_player.eyesTypeIndex>0){
+                      _player.eyesTypeIndex--;
                     }
                     else{
-                      _eyesTypeIndex=3;
+                      _player.eyesTypeIndex=3;
                     }
                   });
                 },
@@ -753,11 +740,11 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: (){
                   setState(() {
-                    if(_eyesTypeIndex<3){
-                      _eyesTypeIndex++;
+                    if(_player.eyesTypeIndex<3){
+                      _player.eyesTypeIndex++;
                     }
                     else{
-                      _eyesTypeIndex=0;
+                      _player.eyesTypeIndex=0;
                     }
                   });
                 },
@@ -778,11 +765,11 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: (){
                   setState(() {
-                    if(_mouthIndex>0){
-                      _mouthIndex--;
+                    if(_player.mouthIndex>0){
+                      _player.mouthIndex--;
                     }
                     else{
-                      _mouthIndex=4;
+                      _player.mouthIndex=4;
                     }
                   });
                 },
@@ -796,11 +783,11 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: (){
                   setState(() {
-                    if(_mouthIndex<4){
-                      _mouthIndex++;
+                    if(_player.mouthIndex<4){
+                      _player.mouthIndex++;
                     }
                     else{
-                      _mouthIndex=0;
+                      _player.mouthIndex=0;
                     }
                   });
                 },
@@ -836,12 +823,12 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: (){
                   setState(() {
-                    if(_backHairTypeIndex>0){
-                      _backHairTypeIndex--;
+                    if(_player.backHairTypeIndex>0){
+                      _player.backHairTypeIndex--;
                     }
                     else{
-                      _backHairTypeIndex=2;
-                      _backHairColorIndex=0;
+                      _player.backHairTypeIndex=2;
+                      _player.backHairColorIndex=0;
                     }
                   });
                 },
@@ -855,14 +842,14 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: (){
                   setState(() {
-                    if(_backHairTypeIndex<2){
-                      _backHairTypeIndex++;
-                      if(_backHairTypeIndex==2){
-                        _backHairColorIndex=0;
+                    if(_player.backHairTypeIndex<2){
+                      _player.backHairTypeIndex++;
+                      if(_player.backHairTypeIndex==2){
+                        _player.backHairColorIndex=0;
                       }
                     }
                     else{
-                      _backHairTypeIndex=0;
+                      _player.backHairTypeIndex=0;
                     }
                   });
                 },
@@ -875,33 +862,33 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
             ],
           ),
           SizedBox(height: 0.005*screenHeight,),
-          (_backHairTypeIndex==2?
+          (_player.backHairTypeIndex==2?
               Container(
                 child: Column(
                   children: [
                     SizedBox(height: 0.03*screenHeight,),
-                    SizedBox(
+                    const SizedBox(
                       child: Text('無後髮',style: TextStyle(fontSize: 30,color: Colors.white,)),
                     ),
                   ],
                 ),
               ):
               _buildBackHairSkinBlock(screenWidth, screenHeight)),
-          (_backHairTypeIndex == 2? SizedBox(height: 0.07*screenHeight) : SizedBox(height: 0.025*screenHeight)),
+          (_player.backHairTypeIndex == 2? SizedBox(height: 0.07*screenHeight) : SizedBox(height: 0.025*screenHeight)),
           Row(
             children: [
               SizedBox(width: 0.35*screenWidth,),
               GestureDetector(
                 onTap: (){
                   setState(() {
-                    if(_foreHairTypeIndex>0){
-                      _foreHairTypeIndex--;
-                      if(_foreHairTypeIndex==0){
-                        _foreHairColorIndex=0;
+                    if(_player.foreHairTypeIndex>0){
+                      _player.foreHairTypeIndex--;
+                      if(_player.foreHairTypeIndex==0){
+                        _player.foreHairColorIndex=0;
                       }
                     }
                     else{
-                      _foreHairTypeIndex=3;
+                      _player.foreHairTypeIndex=3;
                     }
                   });
                 },
@@ -915,12 +902,12 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: (){
                   setState(() {
-                    if(_foreHairTypeIndex<3){
-                      _foreHairTypeIndex++;
+                    if(_player.foreHairTypeIndex<3){
+                      _player.foreHairTypeIndex++;
                     }
                     else{
-                      _foreHairTypeIndex=0;
-                      _foreHairColorIndex=0;
+                      _player.foreHairTypeIndex=0;
+                      _player.foreHairColorIndex=0;
                     }
                   });
                 },
@@ -933,7 +920,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
             ],
           ),
           SizedBox(height: 0.005*screenHeight,),
-          (_foreHairTypeIndex==0?
+          (_player.foreHairTypeIndex==0?
           Container(
             child: Column(
               children: [
@@ -969,7 +956,14 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
           child: GestureDetector(
               onTap: (){
                 _name = _nameController.text;
-                print(_name);
+                _player.name = _name;
+                print(_player.name);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context)=>MainPage()
+                    )
+                );
               },
               child: Container(
                 width: 0.4*screenWidth,
@@ -1008,7 +1002,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
                 child: Center(
                   child: Column(
                     children: [
-                      character(screenWidth, screenHeight,_bodyIndex,_earsTypeIndex,_earsColorIndex,_eyesTypeIndex,_eyesColorIndex,_mouthIndex,_backHairTypeIndex,_backHairColorIndex,_foreHairTypeIndex,_foreHairColorIndex),
+                      character(screenWidth, screenHeight,_player),
                       arrowBar(screenWidth, screenHeight),
                       SizedBox(height: 0.01*screenHeight,),
                       selectBox(screenWidth, screenHeight,_selectBoxIndex),

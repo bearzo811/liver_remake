@@ -11,7 +11,7 @@ class MainPage extends StatefulWidget{
 
 class _MainPage extends State<MainPage>{
 
-  Player _player = Player(2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0);
+  Player _player = Player(2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, '測試玩家', 99, 95, 101, 100, 150, 195);
   int _battleSceneIndex = 0;
   double _monsterHpRatio = 0;
   String _monsterName = '';

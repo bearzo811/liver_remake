@@ -23,7 +23,7 @@ class _SkillPage extends State<SkillPage>{
 
   int _skillUITypeIndex = 0 ;
   int _sp = 99;
-  Player _player = Player(2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0);
+  Player _player = Player(2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, '測試玩家', 99, 95, 101, 100, 150, 195);
   List<List<SkillModel>> _skillModelList = [
     [
       SkillModel(1,true, false, true,5,1),
