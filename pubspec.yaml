@@ -67,12 +67,28 @@ flutter:
     - assets/Mouth/
     - assets/Pants/
     - assets/Shoes/
+    - assets/BackItem/
+    - assets/EyeDecoration/
+    - assets/HeavyWeapon/
+    - assets/LightWeapon/
     - assets/Skin_Block/
     - assets/Eyes_Block/
     - assets/CharacterStatus/
     - assets/CharacterStatus/Bar/
     - assets/CharacterStatus/Groove/
     - assets/Train/
+    - assets/Skill/
+    - assets/Thumbnail/BackItem/
+    - assets/Thumbnail/Clothes/
+    - assets/Thumbnail/Ears/
+    - assets/Thumbnail/EyeDecoration/
+    - assets/Thumbnail/Eyes/
+    - assets/Thumbnail/HeavyWeapon/
+    - assets/Thumbnail/LightWeapon/
+    - assets/Thumbnail/Mouth/
+    - assets/Thumbnail/Pants/
+    - assets/Thumbnail/Shoes/
+    - assets/Shop/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
