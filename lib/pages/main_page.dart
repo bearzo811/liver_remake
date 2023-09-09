@@ -11,7 +11,11 @@ class MainPage extends StatefulWidget{
 
 class _MainPage extends State<MainPage>{
 
-  Player _player = Player(2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, '測試玩家', 99, 95, 101, 100, 150, 195);
+  Player _player = Player(
+      bodyIndex: 2, earsTypeIndex: 0, earsColorIndex: 0, clothesIndex: 0, pantsIndex: 0, shoesIndex: 0,
+      eyesTypeIndex: 0, eyesColorIndex: 0, mouthIndex: 0, backHairTypeIndex: 1, backHairColorIndex: 0,
+      foreHairTypeIndex: 1, foreHairColorIndex: 0, backItemIndex: 0, eyeDecorationIndex: 0, heavyWeaponIndex: 0, lightWeaponIndex: 0,
+      name: 'name', level: 2, mp: 10, exp: 8, maxMp: 10, maxExp: 10, coin: 93);
   int _battleSceneIndex = 0;
   double _monsterHpRatio = 0;
   String _monsterName = '';
@@ -437,7 +441,7 @@ class _MainPage extends State<MainPage>{
                   BattleScene(screenWidth, screenHeight),
                   Column(
                     children: [
-                      CharacterStatusBlock(screenWidth, screenHeight,_player), //character status bar
+                      characterStatusBlock(screenWidth, screenHeight,_player), //character status bar
                       SizedBox(height: 0.05*screenHeight,),
                       MonsterNameAndHpBarBlock(screenWidth, screenHeight),
                       SizedBox(height: 0.05*screenHeight,),

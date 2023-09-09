@@ -11,246 +11,234 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
 
   int _selectBoxIndex = 0;
   final List<String> _selectBoxTitleList = ['身體 & 耳朵','服裝','眼睛 & 嘴吧','髮型'];
-  Player _player = Player(2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, '測試玩家', 99, 95, 101, 100, 150, 195);
-  TextEditingController _nameController = TextEditingController();
+  Player player = Player(
+      bodyIndex: 2, earsTypeIndex: 0, earsColorIndex: 0, clothesIndex: 0, pantsIndex: 0, shoesIndex: 0,
+      eyesTypeIndex: 0, eyesColorIndex: 0, mouthIndex: 0, backHairTypeIndex: 1, backHairColorIndex: 0,
+      foreHairTypeIndex: 1, foreHairColorIndex: 0, backItemIndex: 0, eyeDecorationIndex: 0, heavyWeaponIndex: 0, lightWeaponIndex: 0,
+      name: 'name', level: 2, mp: 10, exp: 8, maxMp: 10, maxExp: 10, coin: 93);
+  TextEditingController nameController = TextEditingController();
   String _name = '';
 
-  Widget character(double screenWidth, double screenHeight,Player _player){
-    List<ImageProvider> _bodyList = [
-      AssetImage('assets/Head_Body/0.png'),
-      AssetImage('assets/Head_Body/1.png'),
-      AssetImage('assets/Head_Body/2.png'),
-      AssetImage('assets/Head_Body/3.png'),
-      AssetImage('assets/Head_Body/4.png')
+  /*Widget character(double screenWidth, double screenHeight,Player player){
+    List<ImageProvider> bodyList = [
+      const AssetImage('assets/Head_Body/0.png'),
+      const AssetImage('assets/Head_Body/1.png'),
+      const AssetImage('assets/Head_Body/2.png'),
+      const AssetImage('assets/Head_Body/3.png'),
+      const AssetImage('assets/Head_Body/4.png')
     ];
 
-    List<List<ImageProvider>> _earsList =[
+    List<List<ImageProvider>> earsList =[
       [
-        AssetImage('assets/Ears/0-0.png'),
-        AssetImage('assets/Ears/0-1.png'),
-        AssetImage('assets/Ears/0-2.png'),
-        AssetImage('assets/Ears/0-3.png'),
-        AssetImage('assets/Ears/0-4.png'),
+        const AssetImage('assets/Ears/0-0.png'),
+        const AssetImage('assets/Ears/0-1.png'),
+        const AssetImage('assets/Ears/0-2.png'),
+        const AssetImage('assets/Ears/0-3.png'),
+        const AssetImage('assets/Ears/0-4.png'),
       ],
       [
-        AssetImage('assets/Ears/1-0.png'),
-        AssetImage('assets/Ears/1-1.png'),
-        AssetImage('assets/Ears/1-2.png'),
-        AssetImage('assets/Ears/1-3.png'),
-        AssetImage('assets/Ears/1-4.png'),
-      ],
-    ];
-
-    List<ImageProvider> _clothesList = [
-      AssetImage('assets/Clothes/0.png'),
-      AssetImage('assets/Clothes/1.png'),
-      AssetImage('assets/Clothes/2.png'),
-      AssetImage('assets/Clothes/3.png'),
-      AssetImage('assets/Clothes/4.png'),
-      AssetImage('assets/Clothes/5.png'),
-      AssetImage('assets/Clothes/6.png'),
-      AssetImage('assets/Clothes/7.png'),
-    ];
-
-    List<ImageProvider> _pantsList = [
-      AssetImage('assets/Pants/0.png'),
-      AssetImage('assets/Pants/1.png'),
-      AssetImage('assets/Pants/2.png'),
-      AssetImage('assets/Pants/3.png'),
-      AssetImage('assets/Pants/4.png'),
-      AssetImage('assets/Pants/5.png'),
-      AssetImage('assets/Pants/6.png'),
-      AssetImage('assets/Pants/7.png'),
-      AssetImage('assets/Pants/8.png'),
-      AssetImage('assets/Pants/9.png'),
-      AssetImage('assets/Pants/10.png'),
-      AssetImage('assets/Pants/11.png'),
-    ];
-
-    List<ImageProvider> _shoesList = [
-      AssetImage('assets/Shoes/0.png'),
-      AssetImage('assets/Shoes/1.png'),
-      AssetImage('assets/Shoes/2.png'),
-      AssetImage('assets/Shoes/3.png'),
-      AssetImage('assets/Shoes/4.png'),
-      AssetImage('assets/Shoes/5.png'),
-    ];
-
-    List<List<ImageProvider>> _eyesList =[
-      [
-        AssetImage('assets/Eyes/0-0.png'),
-        AssetImage('assets/Eyes/0-1.png'),
-        AssetImage('assets/Eyes/0-2.png'),
-        AssetImage('assets/Eyes/0-3.png'),
-        AssetImage('assets/Eyes/0-4.png'),
-        AssetImage('assets/Eyes/0-5.png'),
-        AssetImage('assets/Eyes/0-6.png'),
-        AssetImage('assets/Eyes/0-7.png'),
-        AssetImage('assets/Eyes/0-8.png'),
-        AssetImage('assets/Eyes/0-9.png'),
-      ],
-      [
-        AssetImage('assets/Eyes/1-0.png'),
-        AssetImage('assets/Eyes/1-1.png'),
-        AssetImage('assets/Eyes/1-2.png'),
-        AssetImage('assets/Eyes/1-3.png'),
-        AssetImage('assets/Eyes/1-4.png'),
-        AssetImage('assets/Eyes/1-5.png'),
-        AssetImage('assets/Eyes/1-6.png'),
-        AssetImage('assets/Eyes/1-7.png'),
-        AssetImage('assets/Eyes/1-8.png'),
-        AssetImage('assets/Eyes/1-9.png'),
-      ],
-      [
-        AssetImage('assets/Eyes/2-0.png'),
-        AssetImage('assets/Eyes/2-1.png'),
-        AssetImage('assets/Eyes/2-2.png'),
-        AssetImage('assets/Eyes/2-3.png'),
-        AssetImage('assets/Eyes/2-4.png'),
-        AssetImage('assets/Eyes/2-5.png'),
-        AssetImage('assets/Eyes/2-6.png'),
-        AssetImage('assets/Eyes/2-7.png'),
-        AssetImage('assets/Eyes/2-8.png'),
-        AssetImage('assets/Eyes/2-9.png'),
-      ],
-      [
-        AssetImage('assets/Eyes/3-0.png'),
-        AssetImage('assets/Eyes/3-1.png'),
-        AssetImage('assets/Eyes/3-2.png'),
-        AssetImage('assets/Eyes/3-3.png'),
-        AssetImage('assets/Eyes/3-4.png'),
-        AssetImage('assets/Eyes/3-5.png'),
-        AssetImage('assets/Eyes/3-6.png'),
-        AssetImage('assets/Eyes/3-7.png'),
-        AssetImage('assets/Eyes/3-8.png'),
-        AssetImage('assets/Eyes/3-9.png'),
+        const AssetImage('assets/Ears/1-0.png'),
+        const AssetImage('assets/Ears/1-1.png'),
+        const AssetImage('assets/Ears/1-2.png'),
+        const AssetImage('assets/Ears/1-3.png'),
+        const AssetImage('assets/Ears/1-4.png'),
       ],
     ];
 
-    List<ImageProvider> _mouthList = [
-      AssetImage('assets/Mouth/0.png'),
-      AssetImage('assets/Mouth/1.png'),
-      AssetImage('assets/Mouth/2.png'),
-      AssetImage('assets/Mouth/3.png'),
-      AssetImage('assets/Mouth/4.png'),
+    List<ImageProvider> clothesList = [
+      const AssetImage('assets/Clothes/0.png'),
+      const AssetImage('assets/Clothes/1.png'),
+      const AssetImage('assets/Clothes/2.png'),
+      const AssetImage('assets/Clothes/3.png'),
+      const AssetImage('assets/Clothes/4.png'),
+      const AssetImage('assets/Clothes/5.png'),
+      const AssetImage('assets/Clothes/6.png'),
+      const AssetImage('assets/Clothes/7.png'),
     ];
 
-    List<List<ImageProvider>> _backHairList =[
+    List<ImageProvider> pantsList = [
+      const AssetImage('assets/Pants/0.png'),
+      const AssetImage('assets/Pants/1.png'),
+      const AssetImage('assets/Pants/2.png'),
+      const AssetImage('assets/Pants/3.png'),
+      const AssetImage('assets/Pants/4.png'),
+      const AssetImage('assets/Pants/5.png'),
+      const AssetImage('assets/Pants/6.png'),
+      const AssetImage('assets/Pants/7.png'),
+      const AssetImage('assets/Pants/8.png'),
+      const AssetImage('assets/Pants/9.png'),
+      const AssetImage('assets/Pants/10.png'),
+      const AssetImage('assets/Pants/11.png'),
+    ];
+
+    List<ImageProvider> shoesList = [
+      const AssetImage('assets/Shoes/0.png'),
+      const AssetImage('assets/Shoes/1.png'),
+      const AssetImage('assets/Shoes/2.png'),
+      const AssetImage('assets/Shoes/3.png'),
+      const AssetImage('assets/Shoes/4.png'),
+      const AssetImage('assets/Shoes/5.png'),
+    ];
+
+    List<List<ImageProvider>> eyesList =[
       [
-        AssetImage('assets/BackHair/0-0.png'),
-        AssetImage('assets/BackHair/0-1.png'),
-        AssetImage('assets/BackHair/0-2.png'),
-        AssetImage('assets/BackHair/0-3.png'),
-        AssetImage('assets/BackHair/0-4.png'),
-        AssetImage('assets/BackHair/0-5.png'),
-        AssetImage('assets/BackHair/0-6.png'),
-        AssetImage('assets/BackHair/0-7.png'),
-        AssetImage('assets/BackHair/0-8.png'),
+        const AssetImage('assets/Eyes/0-0.png'),
+        const AssetImage('assets/Eyes/0-1.png'),
+        const AssetImage('assets/Eyes/0-2.png'),
+        const AssetImage('assets/Eyes/0-3.png'),
+        const AssetImage('assets/Eyes/0-4.png'),
+        const AssetImage('assets/Eyes/0-5.png'),
+        const AssetImage('assets/Eyes/0-6.png'),
+        const AssetImage('assets/Eyes/0-7.png'),
+        const AssetImage('assets/Eyes/0-8.png'),
+        const AssetImage('assets/Eyes/0-9.png'),
       ],
       [
-        AssetImage('assets/BackHair/1-0.png'),
-        AssetImage('assets/BackHair/1-1.png'),
-        AssetImage('assets/BackHair/1-2.png'),
-        AssetImage('assets/BackHair/1-3.png'),
-        AssetImage('assets/BackHair/1-4.png'),
-        AssetImage('assets/BackHair/1-5.png'),
-        AssetImage('assets/BackHair/1-6.png'),
-        AssetImage('assets/BackHair/1-7.png'),
-        AssetImage('assets/BackHair/1-8.png'),
+        const AssetImage('assets/Eyes/1-0.png'),
+        const AssetImage('assets/Eyes/1-1.png'),
+        const AssetImage('assets/Eyes/1-2.png'),
+        const AssetImage('assets/Eyes/1-3.png'),
+        const AssetImage('assets/Eyes/1-4.png'),
+        const AssetImage('assets/Eyes/1-5.png'),
+        const AssetImage('assets/Eyes/1-6.png'),
+        const AssetImage('assets/Eyes/1-7.png'),
+        const AssetImage('assets/Eyes/1-8.png'),
+        const AssetImage('assets/Eyes/1-9.png'),
       ],
       [
-        AssetImage('assets/BackHair/2.png'),
+        const AssetImage('assets/Eyes/2-0.png'),
+        const AssetImage('assets/Eyes/2-1.png'),
+        const AssetImage('assets/Eyes/2-2.png'),
+        const AssetImage('assets/Eyes/2-3.png'),
+        const AssetImage('assets/Eyes/2-4.png'),
+        const AssetImage('assets/Eyes/2-5.png'),
+        const AssetImage('assets/Eyes/2-6.png'),
+        const AssetImage('assets/Eyes/2-7.png'),
+        const AssetImage('assets/Eyes/2-8.png'),
+        const AssetImage('assets/Eyes/2-9.png'),
+      ],
+      [
+        const AssetImage('assets/Eyes/3-0.png'),
+        const AssetImage('assets/Eyes/3-1.png'),
+        const AssetImage('assets/Eyes/3-2.png'),
+        const AssetImage('assets/Eyes/3-3.png'),
+        const AssetImage('assets/Eyes/3-4.png'),
+        const AssetImage('assets/Eyes/3-5.png'),
+        const AssetImage('assets/Eyes/3-6.png'),
+        const AssetImage('assets/Eyes/3-7.png'),
+        const AssetImage('assets/Eyes/3-8.png'),
+        const AssetImage('assets/Eyes/3-9.png'),
       ],
     ];
 
-    List<List<ImageProvider>> _foreHairList =[
+    List<ImageProvider> mouthList = [
+      const AssetImage('assets/Mouth/0.png'),
+      const AssetImage('assets/Mouth/1.png'),
+      const AssetImage('assets/Mouth/2.png'),
+      const AssetImage('assets/Mouth/3.png'),
+      const AssetImage('assets/Mouth/4.png'),
+    ];
+
+    List<List<ImageProvider>> backHairList =[
       [
-        AssetImage('assets/ForeHair/0.png'),
+        const AssetImage('assets/BackHair/0-0.png'),
+        const AssetImage('assets/BackHair/0-1.png'),
+        const AssetImage('assets/BackHair/0-2.png'),
+        const AssetImage('assets/BackHair/0-3.png'),
+        const AssetImage('assets/BackHair/0-4.png'),
+        const AssetImage('assets/BackHair/0-5.png'),
+        const AssetImage('assets/BackHair/0-6.png'),
+        const AssetImage('assets/BackHair/0-7.png'),
+        const AssetImage('assets/BackHair/0-8.png'),
       ],
       [
-        AssetImage('assets/ForeHair/1-0.png'),
-        AssetImage('assets/ForeHair/1-1.png'),
-        AssetImage('assets/ForeHair/1-2.png'),
-        AssetImage('assets/ForeHair/1-3.png'),
-        AssetImage('assets/ForeHair/1-4.png'),
-        AssetImage('assets/ForeHair/1-5.png'),
-        AssetImage('assets/ForeHair/1-6.png'),
-        AssetImage('assets/ForeHair/1-7.png'),
-        AssetImage('assets/ForeHair/1-8.png'),
+        const AssetImage('assets/BackHair/1-0.png'),
+        const AssetImage('assets/BackHair/1-1.png'),
+        const AssetImage('assets/BackHair/1-2.png'),
+        const AssetImage('assets/BackHair/1-3.png'),
+        const AssetImage('assets/BackHair/1-4.png'),
+        const AssetImage('assets/BackHair/1-5.png'),
+        const AssetImage('assets/BackHair/1-6.png'),
+        const AssetImage('assets/BackHair/1-7.png'),
+        const AssetImage('assets/BackHair/1-8.png'),
       ],
       [
-        AssetImage('assets/ForeHair/2-0.png'),
-        AssetImage('assets/ForeHair/2-1.png'),
-        AssetImage('assets/ForeHair/2-2.png'),
-        AssetImage('assets/ForeHair/2-3.png'),
-        AssetImage('assets/ForeHair/2-4.png'),
-        AssetImage('assets/ForeHair/2-5.png'),
-        AssetImage('assets/ForeHair/2-6.png'),
-        AssetImage('assets/ForeHair/2-7.png'),
-        AssetImage('assets/ForeHair/2-8.png'),
+        const AssetImage('assets/BackHair/2.png'),
+      ],
+    ];
+
+    List<List<ImageProvider>> foreHairList =[
+      [
+        const AssetImage('assets/ForeHair/0.png'),
       ],
       [
-        AssetImage('assets/ForeHair/3-0.png'),
-        AssetImage('assets/ForeHair/3-1.png'),
-        AssetImage('assets/ForeHair/3-2.png'),
-        AssetImage('assets/ForeHair/3-3.png'),
-        AssetImage('assets/ForeHair/3-4.png'),
-        AssetImage('assets/ForeHair/3-5.png'),
-        AssetImage('assets/ForeHair/3-6.png'),
-        AssetImage('assets/ForeHair/3-7.png'),
-        AssetImage('assets/ForeHair/3-8.png'),
+        const AssetImage('assets/ForeHair/1-0.png'),
+        const AssetImage('assets/ForeHair/1-1.png'),
+        const AssetImage('assets/ForeHair/1-2.png'),
+        const AssetImage('assets/ForeHair/1-3.png'),
+        const AssetImage('assets/ForeHair/1-4.png'),
+        const AssetImage('assets/ForeHair/1-5.png'),
+        const AssetImage('assets/ForeHair/1-6.png'),
+        const AssetImage('assets/ForeHair/1-7.png'),
+        const AssetImage('assets/ForeHair/1-8.png'),
+      ],
+      [
+        const AssetImage('assets/ForeHair/2-0.png'),
+        const AssetImage('assets/ForeHair/2-1.png'),
+        const AssetImage('assets/ForeHair/2-2.png'),
+        const AssetImage('assets/ForeHair/2-3.png'),
+        const AssetImage('assets/ForeHair/2-4.png'),
+        const AssetImage('assets/ForeHair/2-5.png'),
+        const AssetImage('assets/ForeHair/2-6.png'),
+        const AssetImage('assets/ForeHair/2-7.png'),
+        const AssetImage('assets/ForeHair/2-8.png'),
+      ],
+      [
+        const AssetImage('assets/ForeHair/3-0.png'),
+        const AssetImage('assets/ForeHair/3-1.png'),
+        const AssetImage('assets/ForeHair/3-2.png'),
+        const AssetImage('assets/ForeHair/3-3.png'),
+        const AssetImage('assets/ForeHair/3-4.png'),
+        const AssetImage('assets/ForeHair/3-5.png'),
+        const AssetImage('assets/ForeHair/3-6.png'),
+        const AssetImage('assets/ForeHair/3-7.png'),
+        const AssetImage('assets/ForeHair/3-8.png'),
       ],
     ];
 
     return Container(
       height: 0.25*screenHeight,
       width: 0.5*screenWidth,
-      child: Stack(
+      //color: Colors.deepOrange,
+      child: Column(
         children: [
-          Column(
+          //SizedBox(height: 0.02*screenHeight),
+          Stack(
             children: [
-              SizedBox(height: 0.08*screenHeight),
-              Stack(
-                children: [
-                  Image(image:_backHairList[_player.backHairTypeIndex][_player.backHairColorIndex],fit: BoxFit.cover),
-                  Image(image:_bodyList[_player.bodyIndex],fit: BoxFit.cover),
-                  Image(image:_foreHairList[_player.foreHairTypeIndex][_player.foreHairColorIndex],fit: BoxFit.cover),
-                  Image(image:_clothesList[_player.clothesIndex],fit: BoxFit.cover),
-                  Image(image:_earsList[_player.earsTypeIndex][_player.earsColorIndex],fit: BoxFit.cover),
-                  Image(image:_eyesList[_player.eyesTypeIndex][_player.eyesColorIndex],fit: BoxFit.cover),
-                  Image(image:_mouthList[_player.mouthIndex],fit: BoxFit.cover),
-                  Image(image:_pantsList[_player.pantsIndex],fit: BoxFit.cover),
-                  Image(image:_shoesList[_player.shoesIndex],fit: BoxFit.cover),
-                ],
+              const Image(image: AssetImage('assets/Name_TextBar.png'),fit: BoxFit.cover,),
+              Container(
+                color: Colors.amber,
+                height: 0.05*screenHeight,
+                width: 0.5*screenWidth,
+                child: TextField(
+                  controller: nameController,
+                  textAlign: TextAlign.center,
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    hintText: '請輸入您的名稱',
+                  ),
+                ),
               )
             ],
           ),
-          Column(
-            children: [
-              SizedBox(height: 0.025*screenHeight,),
-              Stack(
-                children: [
-                  const Image(image: AssetImage('assets/Name_TextBar.png'),fit: BoxFit.cover,),
-                  Container(
-                    height: 0.05*screenHeight,
-                    width: 0.5*screenWidth,
-                    child: TextField(
-                      controller: _nameController,
-                      textAlign: TextAlign.center,
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        hintText: '請輸入您的名稱',
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ],
+          Container(
+            width: 0.5*screenWidth,
+            height: 0.05,
           )
         ],
       ),
     );
-  }
+  }*/
 
   Widget arrowBar(double screenWidth, double screenHeight){
     return Row(
@@ -311,7 +299,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
           GestureDetector(
             onTap: () {
               setState(() {
-                _player.bodyIndex =i;
+                player.bodyIndex =i;
               });
             },
             child: Container(
@@ -335,7 +323,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
           GestureDetector(
             onTap: () {
               setState(() {
-                _player.earsColorIndex =i;
+                player.earsColorIndex =i;
               });
             },
             child: Container(
@@ -361,7 +349,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    _player.eyesColorIndex =i;
+                    player.eyesColorIndex =i;
                   });
                 },
                 child: Container(
@@ -383,7 +371,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    _player.eyesColorIndex =i+5;
+                    player.eyesColorIndex =i+5;
                   });
                 },
                 child: Container(
@@ -411,7 +399,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    _player.backHairColorIndex =i;
+                    player.backHairColorIndex =i;
                   });
                 },
                 child: Container(
@@ -433,7 +421,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    _player.backHairColorIndex =i+5;
+                    player.backHairColorIndex =i+5;
                   });
                 },
                 child: Container(
@@ -461,7 +449,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    _player.foreHairColorIndex =i;
+                    player.foreHairColorIndex =i;
                   });
                 },
                 child: Container(
@@ -483,7 +471,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    _player.foreHairColorIndex =i+5;
+                    player.foreHairColorIndex =i+5;
                   });
                 },
                 child: Container(
@@ -522,11 +510,11 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: (){
                   setState(() {
-                    if(_player.earsTypeIndex==1){
-                      _player.earsTypeIndex=0;
+                    if(player.earsTypeIndex==1){
+                      player.earsTypeIndex=0;
                     }
                     else{
-                      _player.earsTypeIndex=1;
+                      player.earsTypeIndex=1;
                     }
                   });
                 },
@@ -540,11 +528,11 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: (){
                   setState(() {
-                    if(_player.earsTypeIndex==0){
-                      _player.earsTypeIndex=1;
+                    if(player.earsTypeIndex==0){
+                      player.earsTypeIndex=1;
                     }
                     else{
-                      _player.earsTypeIndex=0;
+                      player.earsTypeIndex=0;
                     }
                   });
                 },
@@ -582,11 +570,11 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: (){
                   setState(() {
-                    if(_player.clothesIndex>0){
-                      _player.clothesIndex--;
+                    if(player.clothesIndex>0){
+                      player.clothesIndex--;
                     }
                     else{
-                      _player.clothesIndex=7;
+                      player.clothesIndex=7;
                     }
                   });
                 },
@@ -600,11 +588,11 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: (){
                   setState(() {
-                    if(_player.clothesIndex<7){
-                      _player.clothesIndex++;
+                    if(player.clothesIndex<7){
+                      player.clothesIndex++;
                     }
                     else{
-                      _player.clothesIndex=0;
+                      player.clothesIndex=0;
                     }
                   });
                 },
@@ -623,11 +611,11 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: (){
                   setState(() {
-                    if(_player.pantsIndex>0){
-                      _player.pantsIndex--;
+                    if(player.pantsIndex>0){
+                      player.pantsIndex--;
                     }
                     else{
-                      _player.pantsIndex=11;
+                      player.pantsIndex=11;
                     }
                   });
                 },
@@ -641,11 +629,11 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: (){
                   setState(() {
-                    if(_player.pantsIndex<11){
-                      _player.pantsIndex++;
+                    if(player.pantsIndex<11){
+                      player.pantsIndex++;
                     }
                     else{
-                      _player.pantsIndex=0;
+                      player.pantsIndex=0;
                     }
                   });
                 },
@@ -664,11 +652,11 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: (){
                   setState(() {
-                    if(_player.shoesIndex>0){
-                      _player.shoesIndex--;
+                    if(player.shoesIndex>0){
+                      player.shoesIndex--;
                     }
                     else{
-                      _player.shoesIndex=5;
+                      player.shoesIndex=5;
                     }
                   });
                 },
@@ -682,11 +670,11 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: (){
                   setState(() {
-                    if(_player.shoesIndex<5){
-                      _player.shoesIndex++;
+                    if(player.shoesIndex<5){
+                      player.shoesIndex++;
                     }
                     else{
-                      _player.shoesIndex=0;
+                      player.shoesIndex=0;
                     }
                   });
                 },
@@ -722,11 +710,11 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: (){
                   setState(() {
-                    if(_player.eyesTypeIndex>0){
-                      _player.eyesTypeIndex--;
+                    if(player.eyesTypeIndex>0){
+                      player.eyesTypeIndex--;
                     }
                     else{
-                      _player.eyesTypeIndex=3;
+                      player.eyesTypeIndex=3;
                     }
                   });
                 },
@@ -740,11 +728,11 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: (){
                   setState(() {
-                    if(_player.eyesTypeIndex<3){
-                      _player.eyesTypeIndex++;
+                    if(player.eyesTypeIndex<3){
+                      player.eyesTypeIndex++;
                     }
                     else{
-                      _player.eyesTypeIndex=0;
+                      player.eyesTypeIndex=0;
                     }
                   });
                 },
@@ -765,11 +753,11 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: (){
                   setState(() {
-                    if(_player.mouthIndex>0){
-                      _player.mouthIndex--;
+                    if(player.mouthIndex>0){
+                      player.mouthIndex--;
                     }
                     else{
-                      _player.mouthIndex=4;
+                      player.mouthIndex=4;
                     }
                   });
                 },
@@ -783,11 +771,11 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: (){
                   setState(() {
-                    if(_player.mouthIndex<4){
-                      _player.mouthIndex++;
+                    if(player.mouthIndex<4){
+                      player.mouthIndex++;
                     }
                     else{
-                      _player.mouthIndex=0;
+                      player.mouthIndex=0;
                     }
                   });
                 },
@@ -823,12 +811,12 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: (){
                   setState(() {
-                    if(_player.backHairTypeIndex>0){
-                      _player.backHairTypeIndex--;
+                    if(player.backHairTypeIndex>0){
+                      player.backHairTypeIndex--;
                     }
                     else{
-                      _player.backHairTypeIndex=2;
-                      _player.backHairColorIndex=0;
+                      player.backHairTypeIndex=2;
+                      player.backHairColorIndex=0;
                     }
                   });
                 },
@@ -842,14 +830,14 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: (){
                   setState(() {
-                    if(_player.backHairTypeIndex<2){
-                      _player.backHairTypeIndex++;
-                      if(_player.backHairTypeIndex==2){
-                        _player.backHairColorIndex=0;
+                    if(player.backHairTypeIndex<2){
+                      player.backHairTypeIndex++;
+                      if(player.backHairTypeIndex==2){
+                        player.backHairColorIndex=0;
                       }
                     }
                     else{
-                      _player.backHairTypeIndex=0;
+                      player.backHairTypeIndex=0;
                     }
                   });
                 },
@@ -862,7 +850,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
             ],
           ),
           SizedBox(height: 0.005*screenHeight,),
-          (_player.backHairTypeIndex==2?
+          (player.backHairTypeIndex==2?
               Container(
                 child: Column(
                   children: [
@@ -874,21 +862,21 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
                 ),
               ):
               _buildBackHairSkinBlock(screenWidth, screenHeight)),
-          (_player.backHairTypeIndex == 2? SizedBox(height: 0.07*screenHeight) : SizedBox(height: 0.025*screenHeight)),
+          (player.backHairTypeIndex == 2? SizedBox(height: 0.07*screenHeight) : SizedBox(height: 0.025*screenHeight)),
           Row(
             children: [
               SizedBox(width: 0.35*screenWidth,),
               GestureDetector(
                 onTap: (){
                   setState(() {
-                    if(_player.foreHairTypeIndex>0){
-                      _player.foreHairTypeIndex--;
-                      if(_player.foreHairTypeIndex==0){
-                        _player.foreHairColorIndex=0;
+                    if(player.foreHairTypeIndex>0){
+                      player.foreHairTypeIndex--;
+                      if(player.foreHairTypeIndex==0){
+                        player.foreHairColorIndex=0;
                       }
                     }
                     else{
-                      _player.foreHairTypeIndex=3;
+                      player.foreHairTypeIndex=3;
                     }
                   });
                 },
@@ -902,12 +890,12 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               GestureDetector(
                 onTap: (){
                   setState(() {
-                    if(_player.foreHairTypeIndex<3){
-                      _player.foreHairTypeIndex++;
+                    if(player.foreHairTypeIndex<3){
+                      player.foreHairTypeIndex++;
                     }
                     else{
-                      _player.foreHairTypeIndex=0;
-                      _player.foreHairColorIndex=0;
+                      player.foreHairTypeIndex=0;
+                      player.foreHairColorIndex=0;
                     }
                   });
                 },
@@ -920,7 +908,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
             ],
           ),
           SizedBox(height: 0.005*screenHeight,),
-          (_player.foreHairTypeIndex==0?
+          (player.foreHairTypeIndex==0?
           Container(
             child: Column(
               children: [
@@ -955,9 +943,9 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
           padding: EdgeInsets.only(left:0.3*screenWidth,right: 0.13*screenWidth),
           child: GestureDetector(
               onTap: (){
-                _name = _nameController.text;
-                _player.name = _name;
-                print(_player.name);
+                _name = nameController.text;
+                player.name = _name;
+                print(player.name);
                 Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -1002,7 +990,35 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
                 child: Center(
                   child: Column(
                     children: [
-                      character(screenWidth, screenHeight,_player),
+                      SizedBox(height: 0.02*screenHeight,),
+                      Container(
+                        height: 0.04*screenHeight,
+                        width: 0.5*screenWidth,
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/Name_TextBar.png'),
+                            fit: BoxFit.contain
+                          )
+                        ),
+                        child: Column(
+                          children: [
+                            SizedBox(height: 0.015*screenHeight,),
+                            Container(
+                              width: 0.5*screenWidth,
+                              height: 0.025*screenHeight,
+                              child: TextField(
+                                controller: nameController,
+                                textAlign: TextAlign.center,
+                                decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: '請輸入您的名稱',
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      character(screenWidth, screenHeight,player),
                       arrowBar(screenWidth, screenHeight),
                       SizedBox(height: 0.01*screenHeight,),
                       selectBox(screenWidth, screenHeight,_selectBoxIndex),
@@ -1017,3 +1033,21 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
     );
   }
 }
+/*
+Stack(
+children: [
+const Image(image: AssetImage('assets/Name_TextBar.png'),fit: BoxFit.cover,),
+Container(
+color: Colors.amber,
+height: 0.05*screenHeight,
+width: 0.5*screenWidth,
+child: TextField(
+controller: nameController,
+textAlign: TextAlign.center,
+decoration: const InputDecoration(
+border: InputBorder.none,
+hintText: '請輸入您的名稱',
+),
+),
+),
+*/

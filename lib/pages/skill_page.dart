@@ -23,7 +23,11 @@ class _SkillPage extends State<SkillPage>{
 
   int _skillUITypeIndex = 0 ;
   int _sp = 99;
-  Player _player = Player(2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, '測試玩家', 99, 95, 101, 100, 150, 195);
+  Player _player = Player(
+      bodyIndex: 2, earsTypeIndex: 0, earsColorIndex: 0, clothesIndex: 0, pantsIndex: 0, shoesIndex: 0,
+      eyesTypeIndex: 0, eyesColorIndex: 0, mouthIndex: 0, backHairTypeIndex: 1, backHairColorIndex: 0,
+      foreHairTypeIndex: 1, foreHairColorIndex: 0, backItemIndex: 0, eyeDecorationIndex: 0, heavyWeaponIndex: 0, lightWeaponIndex: 0,
+      name: 'name', level: 2, mp: 10, exp: 8, maxMp: 10, maxExp: 10, coin: 93);
   List<List<SkillModel>> _skillModelList = [
     [
       SkillModel(1,true, false, true,5,1),
@@ -489,7 +493,7 @@ class _SkillPage extends State<SkillPage>{
       body: SafeArea(
         child: Column(
           children: [
-            CharacterStatusBlock(screenWidth, screenHeight,_player),
+            characterStatusBlock(screenWidth, screenHeight,_player),
             SizedBox(height: 0.03*screenHeight,),
             SkillUIScence(screenWidth, screenHeight),
             arrowAndMenuBar(screenWidth, screenHeight),

@@ -4,48 +4,6 @@ import 'package:liver_remake/pages/main_page.dart';
 import 'package:liver_remake/pages/train_page.dart';
 import 'package:liver_remake/widget/characterStatusBlock.dart';
 
-class Item{
-  int type = 0; // 0:weapon, 1:armors, 2: accessories, 3:body, 4:items
-  int coin = 30;
-  int addSTR = 10;
-  int addINT = 10;
-  int addVIT = 10;
-  int addExp = 0;
-  int addMp = 0;
-  String description = 'STR + 10';
-  int status = 0; // 0:in shop, 1:in bag, 2:on body
-  String whatItem = 'LightWeapon'; //BackHair,BackItem,Clothes,Ears,EyeDecoration,Eyes,ForeHair,Head_Body,HeavyWeapon,LightWeapon,Mouth,Pants,Shoes
-  String itemIndex = '2';
-  Item(
-      this.type,
-      this.coin,
-      this.addSTR,
-      this.addINT,
-      this.addVIT,
-      this.status,
-      this.whatItem,
-      this.itemIndex,
-      this.description,
-      this.addExp,
-      this.addMp
-      );
-
-   String getDescription(){
-    if(this.addSTR>0){
-      return "STR + ${this.addSTR}";
-    }
-    else if(this.addINT>0){
-      return "INT + ${this.addINT}";
-    }
-    else if(this.addVIT>0){
-      return "VIT + ${this.addVIT}";
-    }
-    else{
-      return "";
-    }
-  }
-}
-
 class ShopPage extends StatefulWidget{
   @override
   _ShopPage createState() => _ShopPage();
@@ -54,8 +12,13 @@ class ShopPage extends StatefulWidget{
 class _ShopPage extends State<ShopPage>{
 
   int _shopUITypeIndex=0;
-  Player _player = Player(2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, '測試玩家', 99, 95, 101, 100, 150, 195);
+  int _nowItemIndex = 0;
 
+  Player player = Player(
+      bodyIndex: 2, earsTypeIndex: 1, earsColorIndex: 0, clothesIndex: 0, pantsIndex: 0, shoesIndex: 0,
+      eyesTypeIndex: 0, eyesColorIndex: 0, mouthIndex: 0, backHairTypeIndex: 1, backHairColorIndex: 0,
+      foreHairTypeIndex: 1, foreHairColorIndex: 0, backItemIndex: -1, eyeDecorationIndex: -1, heavyWeaponIndex: -1, lightWeaponIndex: -1,
+      name: 'name', level: 2, mp: 10, exp: 8, maxMp: 10, maxExp: 10, coin: 93);
   List<Item> allItemsList= [
     //0: weapon
     Item(0, 50, 10, 0, 0, 0, 'HeavyWeapon', '0','',0,0,),
@@ -210,13 +173,13 @@ class _ShopPage extends State<ShopPage>{
   ];
 
   List<Item> getListByTypeAndStatus(int type,int status){
-    List<Item> _result = [];
+    List<Item> result = [];
     for(int i=0;i<allItemsList.length;i++){
       if(allItemsList[i].type==type && allItemsList[i].status==status){
-        _result.add(allItemsList[i]);
+        result.add(allItemsList[i]);
       }
     }
-    return _result;
+    return result;
   }
 
   int getItemType(String itemIndex){
@@ -227,7 +190,7 @@ class _ShopPage extends State<ShopPage>{
     return int.parse(itemIndex.split("-")[1]);
   }
 
-  Widget MenuBlock(double screenWidth, double screenHeight){
+  Widget menuBlock(double screenWidth, double screenHeight){
     return Container(
       width: 0.9*screenWidth,
       height: 0.5*screenHeight,
@@ -242,7 +205,6 @@ class _ShopPage extends State<ShopPage>{
           SizedBox(height: 0.075*screenHeight,),
           GestureDetector(
             onTap: (){
-              print('Battle！');
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -250,7 +212,7 @@ class _ShopPage extends State<ShopPage>{
                   )
               );
             },
-            child: Container(
+            child: SizedBox(
               width: 0.6*screenWidth,
               height: 0.065*screenHeight,
               child: Image.asset('assets/New_Battle_Button.png',fit: BoxFit.contain,),
@@ -258,7 +220,6 @@ class _ShopPage extends State<ShopPage>{
           ),
           GestureDetector(
             onTap: (){
-              print('Train！');
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -266,7 +227,7 @@ class _ShopPage extends State<ShopPage>{
                   )
               );
             },
-            child: Container(
+            child: SizedBox(
               width: 0.6*screenWidth,
               height: 0.065*screenHeight,
               child: Image.asset('assets/New_Train_Button.png',fit: BoxFit.contain,),
@@ -274,10 +235,9 @@ class _ShopPage extends State<ShopPage>{
           ),
           GestureDetector(
             onTap: (){
-              print('Skill！');
               Navigator.of(context).pop();
             },
-            child: Container(
+            child: SizedBox(
               width: 0.6*screenWidth,
               height: 0.065*screenHeight,
               child: Image.asset('assets/New_Skill_Button.png',fit: BoxFit.contain,),
@@ -285,9 +245,8 @@ class _ShopPage extends State<ShopPage>{
           ),
           GestureDetector(
             onTap: (){
-              print('Shop！');
             },
-            child: Container(
+            child: SizedBox(
               width: 0.6*screenWidth,
               height: 0.065*screenHeight,
               child: Image.asset('assets/New_Shop_Button.png',fit: BoxFit.contain,),
@@ -295,9 +254,8 @@ class _ShopPage extends State<ShopPage>{
           ),
           GestureDetector(
             onTap: (){
-              print('Log！');
             },
-            child: Container(
+            child: SizedBox(
               width: 0.6*screenWidth,
               height: 0.065*screenHeight,
               child: Image.asset('assets/New_Log_Button.png',fit: BoxFit.contain,),
@@ -305,9 +263,8 @@ class _ShopPage extends State<ShopPage>{
           ),
           GestureDetector(
             onTap: (){
-              print('Logout！');
             },
-            child: Container(
+            child: SizedBox(
               width: 0.6*screenWidth,
               height: 0.065*screenHeight,
               child: Image.asset('assets/New_Logout_Button.png',fit: BoxFit.contain,),
@@ -328,8 +285,8 @@ class _ShopPage extends State<ShopPage>{
             children: [
               GestureDetector(
                   onTap: (){
-                    print('Left');
                     setState(() {
+                      _nowItemIndex=0;
                       if(_shopUITypeIndex>0){
                         _shopUITypeIndex--;
                       }
@@ -338,7 +295,7 @@ class _ShopPage extends State<ShopPage>{
                       }
                     });
                   },
-                  child: Container(
+                  child: SizedBox(
                     width: 0.18*screenWidth,
                     height: 0.08*screenHeight,
                     child: Image.asset('assets/Left_Arrow.png',fit: BoxFit.cover,),
@@ -347,8 +304,8 @@ class _ShopPage extends State<ShopPage>{
               SizedBox(width: 0.1*screenWidth),
               GestureDetector(
                   onTap: (){
-                    print('Right');
                     setState(() {
+                      _nowItemIndex=0;
                       if(_shopUITypeIndex<4){
                         _shopUITypeIndex++;
                       }
@@ -358,7 +315,7 @@ class _ShopPage extends State<ShopPage>{
                     });
 
                   },
-                  child: Container(
+                  child: SizedBox(
                     width: 0.18*screenWidth,
                     height: 0.08*screenHeight,
                     child: Image.asset('assets/Right_Arrow.png',fit: BoxFit.cover,),
@@ -374,13 +331,13 @@ class _ShopPage extends State<ShopPage>{
                 barrierDismissible: true,
                 builder: (BuildContext context){
                   return AlertDialog(
-                    backgroundColor: Color.fromRGBO(0, 0, 0, 0),
-                    content: MenuBlock(screenWidth, screenHeight),
+                    backgroundColor: const Color.fromRGBO(0, 0, 0, 0),
+                    content: menuBlock(screenWidth, screenHeight),
                   );
                 }
             );
           },
-          child: Container(
+          child: SizedBox(
             width: 0.18*screenWidth,
             height: 0.08*screenHeight,
             child: Image.asset('assets/Menu_Button.png',fit: BoxFit.cover,),
@@ -390,53 +347,77 @@ class _ShopPage extends State<ShopPage>{
     );
   }
 
-  Widget shopItem(double screenWidth, double screenHeight,Item item){
+  Widget buyButton(double screenWidth, double screenHeight,Item item,Player player){
+    return GestureDetector(
+      onTap: (){
+        if(player.coin>=item.coin){
+          setState(() {
+            player.coin-=item.coin;
+            allItemsList[item.indexInList].status=1;
+          });
+        }
+      },
+      child: Container(
+        width: 0.3*screenWidth,
+        height: 0.1*screenHeight,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: (player.coin>=item.coin?AssetImage('assets/Shop/Shop_BuyButton.png'):AssetImage('assets/Shop/Shop_BuyButton_Unvailable.png')),
+                fit: BoxFit.contain
+            )
+        ),
+      ),
+    );
+  }
+
+  Widget shopItem(double screenWidth, double screenHeight,Item item,int index){
     return GestureDetector(
       onTap: (){
         setState(() {
+          _nowItemIndex = index;
           //BackHair,BackItem,Clothes,Ears,EyeDecoration,Eyes,ForeHair,Head_Body,HeavyWeapon,LightWeapon,Mouth,Pants,Shoes
           if(item.whatItem == 'BackHair'){
-            _player.backHairTypeIndex = getItemType(item.itemIndex);
-            _player.backHairColorIndex = getItemIndex(item.itemIndex);
+            player.backHairTypeIndex = getItemType(item.itemIndex);
+            player.backHairColorIndex = getItemIndex(item.itemIndex);
           }
           else if(item.whatItem == 'BackItem'){
-            _player.backItemIndex = int.parse(item.itemIndex);
+            player.backItemIndex = int.parse(item.itemIndex);
           }
           else if(item.whatItem == 'Clothes'){
-            _player.clothesIndex = int.parse(item.itemIndex);
+            player.clothesIndex = int.parse(item.itemIndex);
           }
           else if(item.whatItem == 'Ears'){
-            _player.earsTypeIndex = getItemType(item.itemIndex);
-            _player.earsColorIndex = getItemIndex(item.itemIndex);
+            player.earsTypeIndex = getItemType(item.itemIndex);
+            player.earsColorIndex = getItemIndex(item.itemIndex);
           }
           else if(item.whatItem == 'EyeDecoration'){
-            _player.eyeDecorationIndex = int.parse(item.itemIndex);
+            player.eyeDecorationIndex = int.parse(item.itemIndex);
           }
           else if(item.whatItem == 'Eyes'){
-            _player.eyesTypeIndex = getItemType(item.itemIndex);
-            _player.eyesColorIndex = getItemIndex(item.itemIndex);
+            player.eyesTypeIndex = getItemType(item.itemIndex);
+            player.eyesColorIndex = getItemIndex(item.itemIndex);
           }
           else if(item.whatItem == 'ForeHair'){
-            _player.foreHairTypeIndex = getItemType(item.itemIndex);
-            _player.foreHairColorIndex = getItemIndex(item.itemIndex);
+            player.foreHairTypeIndex = getItemType(item.itemIndex);
+            player.foreHairColorIndex = getItemIndex(item.itemIndex);
           }
           else if(item.whatItem == 'Head_Body'){
-            _player.bodyIndex = int.parse(item.itemIndex);
+            player.bodyIndex = int.parse(item.itemIndex);
           }
           else if(item.whatItem == 'HeavyWeapon'){
-            _player.heavyWeaponIndex = int.parse(item.itemIndex);
+            player.heavyWeaponIndex = int.parse(item.itemIndex);
           }
           else if(item.whatItem == 'LightWeapon'){
-            _player.lightWeaponIndex = int.parse(item.itemIndex);
+            player.lightWeaponIndex = int.parse(item.itemIndex);
           }
           else if(item.whatItem == 'Mouth'){
-            _player.mouthIndex = int.parse(item.itemIndex);
+            player.mouthIndex = int.parse(item.itemIndex);
           }
           else if(item.whatItem == 'Pants'){
-            _player.pantsIndex = int.parse(item.itemIndex);
+            player.pantsIndex = int.parse(item.itemIndex);
           }
           else if(item.whatItem == 'Shoes'){
-            _player.shoesIndex = int.parse(item.itemIndex);
+            player.shoesIndex = int.parse(item.itemIndex);
           }
         });
       },
@@ -478,7 +459,7 @@ class _ShopPage extends State<ShopPage>{
                 Column(
                   children: [
                     SizedBox(height:0.01*screenHeight),
-                    Container(
+                    SizedBox(
                       width: 0.1*screenWidth,
                       height: 0.05*screenHeight,
                       child: AutoSizeText(
@@ -496,7 +477,7 @@ class _ShopPage extends State<ShopPage>{
               ],
             ),
             SizedBox(height:0.008*screenHeight),
-            Container(
+            SizedBox(
               width: 0.35*screenWidth,
               height: 0.04*screenHeight,
               child: AutoSizeText(
@@ -514,14 +495,14 @@ class _ShopPage extends State<ShopPage>{
     );
   }
 
-  Widget ShopUIScence(double screenWidth, double screenHeight,Player player){
+  Widget shopUIScene(double screenWidth, double screenHeight,Player player){
 
-    List<ImageProvider> _shopUIList = [
-      AssetImage('assets/Shop/Shop_UI_Weapons.png'),
-      AssetImage('assets/Shop/Shop_UI_Armors.png'),
-      AssetImage('assets/Shop/Shop_UI_Accessories.png'),
-      AssetImage('assets/Shop/Shop_UI_Body.png'),
-      AssetImage('assets/Shop/Shop_UI_Items.png'),
+    List<ImageProvider> shopUIList = [
+      const AssetImage('assets/Shop/Shop_UI_Weapons.png'),
+      const AssetImage('assets/Shop/Shop_UI_Armors.png'),
+      const AssetImage('assets/Shop/Shop_UI_Accessories.png'),
+      const AssetImage('assets/Shop/Shop_UI_Body.png'),
+      const AssetImage('assets/Shop/Shop_UI_Items.png'),
     ];
 
     return Container(
@@ -529,7 +510,7 @@ class _ShopPage extends State<ShopPage>{
       height: 0.62*screenHeight,
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: _shopUIList[_shopUITypeIndex],
+              image: shopUIList[_shopUITypeIndex],
               fit: BoxFit.contain
           )
       ),
@@ -539,40 +520,28 @@ class _ShopPage extends State<ShopPage>{
           Row(
             children: [
               SizedBox(width: 0.01*screenWidth,),
-              Container(
+              SizedBox(
                 width: 0.5*screenWidth,
                 height: 0.375*screenHeight,
                 child: ListView.builder(
                   itemCount: getListByTypeAndStatus(_shopUITypeIndex, 0).length,
                   itemBuilder: (BuildContext context,int index){
                     return ListTile(
-                      title: shopItem(screenWidth, screenHeight, getListByTypeAndStatus(_shopUITypeIndex,0)[index]),
+                      title: shopItem(screenWidth, screenHeight, getListByTypeAndStatus(_shopUITypeIndex,0)[index],index),
                     );
                   },
                 ),
               ),
               SizedBox(width: 0.01*screenWidth,),
-              Container(
+              SizedBox(
                 width: 0.35*screenWidth,
                 height: 0.375*screenHeight,
                 child: Column(
                   children: [
                     SizedBox(height: 0.08*screenHeight,),
                     character(screenWidth, screenHeight, player),
-                    SizedBox(height: 0.045*screenHeight,),
-                    GestureDetector(
-                      onTap: (){},
-                      child: Container(
-                        width: 0.3*screenWidth,
-                        height: 0.1*screenHeight,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage('assets/Shop/Shop_BuyButton.png'),
-                            fit: BoxFit.contain
-                          )
-                        ),
-                      ),
-                    )
+                    SizedBox(height: 0.025*screenHeight,),
+                    buyButton(screenWidth, screenHeight, getListByTypeAndStatus(_shopUITypeIndex,0)[_nowItemIndex], player)
                   ],
                 ),
               ),
@@ -587,14 +556,17 @@ class _ShopPage extends State<ShopPage>{
   Widget build(BuildContext context){
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    for(int i=0;i<allItemsList.length;i++){
+      allItemsList[i].getIndexInList(i);
+    }
     return Scaffold(
       backgroundColor: const Color(0xFFE2C799),
       body: SafeArea(
         child: Column(
           children: [
-            CharacterStatusBlock(screenWidth, screenHeight,_player),
+            characterStatusBlock(screenWidth, screenHeight,player),
             SizedBox(height: 0.03*screenHeight,),
-            ShopUIScence(screenWidth, screenHeight,_player),
+            shopUIScene(screenWidth, screenHeight,player),
             arrowAndMenuBar(screenWidth, screenHeight),
           ],
         ),
