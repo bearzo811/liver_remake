@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:liver_remake/pages/info_page.dart';
+import 'package:liver_remake/pages/main_page.dart';
 
 class Item{
   int type = 0; // 0:weapon, 1:armors, 2: accessories, 3:body, 4:items
@@ -68,6 +70,10 @@ class Player{
   int lightWeaponIndex = 0;
   String name = '';
   int level = 1;
+  int STR = 0;
+  int INT = 0;
+  int VIT = 0;
+  int hp = 0;
   int mp = 0;
   int exp = 0;
   int maxMp = 0;
@@ -95,6 +101,10 @@ class Player{
     required this.lightWeaponIndex,
     required this.name,
     required this.level,
+    required this.STR,
+    required this.INT,
+    required this.VIT,
+    required this.hp,
     required this.mp,
     required this.exp,
     required this.maxMp,
@@ -410,7 +420,7 @@ Widget eXPBarBlock(double screenWidth, double screenHeight,double expRatio){
   );
 }
 
-Widget characterStatusBlock(double screenWidth, double screenHeight,Player player){
+Widget characterStatusBlockWithInfoButton(double screenWidth, double screenHeight,Player player,BuildContext context){
   return Container(
     width: screenWidth,
     height: 0.2*screenHeight,
@@ -519,11 +529,151 @@ Widget characterStatusBlock(double screenWidth, double screenHeight,Player playe
               children: [
                 SizedBox(height: 0.15*screenHeight,),
                 GestureDetector(
-                    onTap: (){},
-                    child: Container(
+                    onTap: (){
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context)=>InfoPage()
+                          )
+                      );
+                    },
+                    child: SizedBox(
                       width: 0.11*screenWidth,
                       height: 0.05*screenHeight,
                       child: Image.asset('assets/CharacterStatus/CharacterStatus_Info_Button.png',fit: BoxFit.fill,),
+                    )
+                ),
+              ],
+            )
+          ],
+        )
+
+      ],
+    ),
+  );
+}
+
+Widget characterStatusBlockWithHomeButton(double screenWidth, double screenHeight,Player player,BuildContext context){
+  return Container(
+    width: screenWidth,
+    height: 0.2*screenHeight,
+    decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/CharacterStatus/CharacterStatus_All.png'),
+          fit: BoxFit.cover,
+        )
+    ),
+    child: Stack(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Stack(
+              children: [
+                SizedBox(
+                  width: 0.33*screenWidth,
+                  height: 0.2*screenHeight,
+                  child: character(screenWidth, screenHeight, player),
+                ),
+                Column(
+                  children: [
+                    SizedBox(height: 0.165*screenHeight,),
+                    SizedBox(
+                        width: 0.35*screenWidth,
+                        child: AutoSizeText(
+                          player.name,
+                          style: const TextStyle(
+                              fontSize: 15,
+                              color: Colors.black54,
+                              fontWeight: FontWeight.bold
+                          ),
+                          maxLines: 1,
+                          textAlign: TextAlign.center,
+                        )
+                    )
+                  ],
+                )
+              ],
+            ),
+            //角色外觀 & 名稱
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Container(
+                  height: 0.03*screenHeight,
+                  width: 0.12*screenWidth,
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/CharacterStatus/New_CharacterStatus_LV_Text.png'),
+                        fit: BoxFit.contain,
+                      )
+                  ),
+                ),
+                Container(
+                  height: 0.03*screenHeight,
+                  width: 0.12*screenWidth,
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/CharacterStatus/New_CharacterStatus_MP_Text.png'),
+                        fit: BoxFit.contain,
+                      )
+                  ),
+                ),
+                Container(
+                  height: 0.03*screenHeight,
+                  width: 0.12*screenWidth,
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/CharacterStatus/New_CharacterStatus_EXP_Text.png'),
+                        fit: BoxFit.contain,
+                      )
+                  ),
+                ),
+                Container(
+                  height: 0.03*screenHeight,
+                  width: 0.12*screenWidth,
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/CharacterStatus/CharacterStatus_Coin.png'),
+                        fit: BoxFit.contain,
+                      )
+                  ),
+                ),
+              ],
+            ), // LV MP EXP Coin標題
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                SizedBox(
+                  height: 0.03*screenHeight,
+                  width: 0.35*screenWidth,
+                  child: numberBlock(screenWidth, screenHeight, player.level),
+                ),
+                mpBarBlock(screenWidth, screenHeight,player.mp/player.maxMp),
+                eXPBarBlock(screenWidth, screenHeight,player.exp/player.maxExp),
+                SizedBox(
+                  height: 0.03*screenHeight,
+                  width: 0.35*screenWidth,
+                  child: numberBlock(screenWidth, screenHeight, player.coin),
+                ),
+              ],
+            ), //LV Coin number & mp exp值
+            Column(
+              children: [
+                SizedBox(height: 0.15*screenHeight,),
+                GestureDetector(
+                    onTap: (){
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context)=>MainPage()
+                          )
+                      );
+                    },
+                    child: SizedBox(
+                      width: 0.11*screenWidth,
+                      height: 0.05*screenHeight,
+                      child: Image.asset('assets/CharacterStatus/CharacterStatus_Home_Button.png',fit: BoxFit.fill,),
                     )
                 ),
               ],

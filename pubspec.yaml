@@ -94,6 +94,7 @@ flutter:
     - assets/Thumbnail/ForeHair/
     - assets/Thumbnail/Potions/
     - assets/Shop/
+    - assets/Info/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

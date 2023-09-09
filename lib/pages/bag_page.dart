@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:liver_remake/pages/info_page.dart';
 import 'package:liver_remake/pages/main_page.dart';
 import 'package:liver_remake/pages/train_page.dart';
 import 'package:liver_remake/widget/characterStatusBlock.dart';
 
-class ShopPage extends StatefulWidget{
+class BagPage extends StatefulWidget{
   @override
-  _ShopPage createState() => _ShopPage();
+  _BagPage createState() => _BagPage();
 }
 
-class _ShopPage extends State<ShopPage>{
+class _BagPage extends State<BagPage>{
 
-  int _shopUITypeIndex=0;
+  int _bagUITypeIndex=0;
   int _nowItemIndex = 0;
 
   Player player = Player(
       bodyIndex: 2, earsTypeIndex: 0, earsColorIndex: 0, clothesIndex: 0, pantsIndex: 0, shoesIndex: 0,
       eyesTypeIndex: 0, eyesColorIndex: 0, mouthIndex: 0, backHairTypeIndex: 1, backHairColorIndex: 0,
       foreHairTypeIndex: 1, foreHairColorIndex: 0, backItemIndex: 0, eyeDecorationIndex: 0, heavyWeaponIndex: 0, lightWeaponIndex: 0,
-      name: 'name', level: 99, STR:0,INT:0,VIT:0,hp:1,mp: 10, exp: 8, maxMp: 10, maxExp: 10, coin: 93);
+      name: 'name', level: 99, STR:0,INT:0,VIT:0,hp:1,mp: 1, exp: 8, maxMp: 10, maxExp: 10, coin: 93);
   List<Item> allItemsList= [
     //0: weapon
     Item(0, 50, 10, 0, 0, 0, 'HeavyWeapon', '0','',0,0,),
@@ -171,15 +172,185 @@ class _ShopPage extends State<ShopPage>{
     Item(4, 10, 0, 0, 0, 0, 'Potions', '0','EXP + 10',10,0,),
     Item(4, 10, 0, 0, 0, 0, 'Potions', '1','MP + 10',0,10,),
   ];
+  List<Item> bagItemList= [
+    //0: weapon
+    Item(0, 50, 10, 0, 0, 0, 'HeavyWeapon', '0','',0,0,),
+    Item(0, 60, 15, 0, 0, 0, 'HeavyWeapon', '1','',0,0,),
+    Item(0, 20, 5, 0, 0, 0, 'LightWeapon', '0','',0,0,),
+    Item(0, 20, 5, 0, 0, 0, 'LightWeapon', '2','',0,0,),
+    Item(0, 25, 8, 0, 0, 0, 'LightWeapon', '3','',0,0,),
+    Item(0, 20, 13, 0, 0, 0, 'LightWeapon', '4','',0,0,),
+    //1:armors
+    Item(1, 100, 0, 0, 0, 0, 'Clothes', '0','',0,0,),
+    Item(1, 100, 0, 0, 0, 0, 'Clothes', '1','',0,0,),
+    Item(1, 100, 0, 0, 0, 0, 'Clothes', '2','',0,0,),
+    Item(1, 100, 0, 0, 0, 0, 'Clothes', '3','',0,0,),
+    Item(1, 100, 0, 0, 0, 0, 'Clothes', '4','',0,0,),
+    Item(1, 100, 0, 0, 0, 0, 'Clothes', '5','',0,0,),
+    Item(1, 100, 0, 0, 0, 0, 'Clothes', '6','',0,0,),
+    Item(1, 100, 0, 0, 0, 0, 'Clothes', '7','',0,0,),
+    Item(1, 90, 0, 0, 0, 0, 'Pants', '0','',0,0,),
+    Item(1, 90, 0, 0, 0, 0, 'Pants', '1','',0,0,),
+    Item(1, 90, 0, 0, 0, 0, 'Pants', '2','',0,0,),
+    Item(1, 90, 0, 0, 0, 0, 'Pants', '3','',0,0,),
+    Item(1, 90, 0, 0, 0, 0, 'Pants', '4','',0,0,),
+    Item(1, 90, 0, 0, 0, 0, 'Pants', '5','',0,0,),
+    Item(1, 90, 0, 0, 0, 0, 'Pants', '6','',0,0,),
+    Item(1, 90, 0, 0, 0, 0, 'Pants', '7','',0,0,),
+    Item(1, 90, 0, 0, 0, 0, 'Pants', '8','',0,0,),
+    Item(1, 90, 0, 0, 0, 0, 'Pants', '9','',0,0,),
+    Item(1, 90, 0, 0, 0, 0, 'Pants', '10','',0,0,),
+    Item(1, 90, 0, 0, 0, 0, 'Pants', '11','',0,0,),
+    Item(1, 80, 0, 0, 0, 0, 'Shoes', '0','',0,0,),
+    Item(1, 80, 0, 0, 0, 0, 'Shoes', '1','',0,0,),
+    Item(1, 80, 0, 0, 0, 0, 'Shoes', '2','',0,0,),
+    Item(1, 80, 0, 0, 0, 0, 'Shoes', '3','',0,0,),
+    Item(1, 80, 0, 0, 0, 0, 'Shoes', '4','',0,0,),
+    Item(1, 80, 0, 0, 0, 0, 'Shoes', '5','',0,0,),
+    //2:accessories
+    Item(2, 200, 0, 50, 0, 0, 'BackItem', '0','',0,0,),
+    Item(2, 200, 0, 0, 10, 0, 'EyeDecoration', '0','',0,0,),
+    Item(2, 200, 0, 0, 20, 0, 'EyeDecoration', '1','',0,0,),
+    //3:body
+    Item(3, 80, 0, 0, 0, 0, 'Head_Body', '0','',0,0,),
+    Item(3, 80, 0, 0, 0, 0, 'Head_Body', '1','',0,0,),
+    Item(3, 80, 0, 0, 0, 0, 'Head_Body', '2','',0,0,),
+    Item(3, 80, 0, 0, 0, 0, 'Head_Body', '3','',0,0,),
+    Item(3, 80, 0, 0, 0, 0, 'Head_Body', '4','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-0','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-1','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-2','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-3','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-4','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-5','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-6','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-7','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-8','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-0','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-1','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-2','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-3','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-4','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-5','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-6','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-7','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-8','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '2','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '0','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-0','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-1','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-2','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-3','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-4','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-5','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-6','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-7','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-8','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-0','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-1','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-2','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-3','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-4','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-5','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-6','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-7','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-8','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-0','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-1','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-2','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-3','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-4','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-5','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-6','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-7','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-8','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Ears', '0-0','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Ears', '0-1','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Ears', '0-2','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Ears', '0-3','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Ears', '0-4','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Ears', '1-0','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Ears', '1-1','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Ears', '1-2','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Ears', '1-3','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Ears', '1-4','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-0','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-1','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-2','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-3','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-4','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-5','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-6','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-7','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-8','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-9','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-0','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-1','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-2','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-3','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-4','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-5','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-6','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-7','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-8','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-9','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-0','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-1','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-2','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-3','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-4','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-5','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-6','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-7','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-8','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-9','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-0','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-1','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-2','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-3','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-4','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-5','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-6','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-7','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-8','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-9','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Mouth', '0','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Mouth', '1','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Mouth', '2','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Mouth', '3','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Mouth', '4','',0,0,),
+    //4:items
+    Item(4, 10, 0, 0, 0, 0, 'Potions', '0','EXP + 10',1,0,),
+    Item(4, 10, 0, 0, 0, 0, 'Potions', '1','MP + 10',0,1,),
+    Item(4, 10, 0, 0, 0, 0, 'Potions', '0','EXP + 10',1,0,),
+    Item(4, 10, 0, 0, 0, 0, 'Potions', '1','MP + 10',0,1,),
+    Item(4, 10, 0, 0, 0, 0, 'Potions', '0','EXP + 10',1,0,),
+    Item(4, 10, 0, 0, 0, 0, 'Potions', '1','MP + 10',0,1,),
+    Item(4, 10, 0, 0, 0, 0, 'Potions', '0','EXP + 10',1,0,),
+    Item(4, 10, 0, 0, 0, 0, 'Potions', '1','MP + 10',0,1,),
+  ];
 
-  List<Item> getListByTypeAndStatus(int type,int status){
+  List<Item> getBagListByType(int type){
     List<Item> result = [];
-    for(int i=0;i<allItemsList.length;i++){
-      if(allItemsList[i].type==type && allItemsList[i].status==status){
-        result.add(allItemsList[i]);
+    for(int i=0;i<bagItemList.length;i++){
+      if(bagItemList[i].type==type){
+        result.add(bagItemList[i]);
       }
     }
     return result;
+  }
+
+  void unloadTypeItem(String whatItem){
+    for(int i=0;i<bagItemList.length;i++){
+      if(bagItemList[i].whatItem==whatItem){
+        if(bagItemList[i].status==2){
+          player.STR-=bagItemList[i].addSTR;
+          player.INT-=bagItemList[i].addINT;
+          player.VIT-=bagItemList[i].addVIT;
+        }
+        bagItemList[i].status=1;
+      }
+    }
   }
 
   int getItemType(String itemIndex){
@@ -188,91 +359,6 @@ class _ShopPage extends State<ShopPage>{
 
   int getItemIndex(String itemIndex){
     return int.parse(itemIndex.split("-")[1]);
-  }
-
-  Widget menuBlock(double screenWidth, double screenHeight){
-    return Container(
-      width: 0.9*screenWidth,
-      height: 0.5*screenHeight,
-      decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('assets/Menu_UI.png'),
-              fit: BoxFit.contain
-          )
-      ),
-      child: Column(
-        children: [
-          SizedBox(height: 0.075*screenHeight,),
-          GestureDetector(
-            onTap: (){
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context)=>MainPage()
-                  )
-              );
-            },
-            child: SizedBox(
-              width: 0.6*screenWidth,
-              height: 0.065*screenHeight,
-              child: Image.asset('assets/New_Battle_Button.png',fit: BoxFit.contain,),
-            ),
-          ),
-          GestureDetector(
-            onTap: (){
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context)=>TrainPage()
-                  )
-              );
-            },
-            child: SizedBox(
-              width: 0.6*screenWidth,
-              height: 0.065*screenHeight,
-              child: Image.asset('assets/New_Train_Button.png',fit: BoxFit.contain,),
-            ),
-          ),
-          GestureDetector(
-            onTap: (){
-              Navigator.of(context).pop();
-            },
-            child: SizedBox(
-              width: 0.6*screenWidth,
-              height: 0.065*screenHeight,
-              child: Image.asset('assets/New_Skill_Button.png',fit: BoxFit.contain,),
-            ),
-          ),
-          GestureDetector(
-            onTap: (){
-            },
-            child: SizedBox(
-              width: 0.6*screenWidth,
-              height: 0.065*screenHeight,
-              child: Image.asset('assets/New_Shop_Button.png',fit: BoxFit.contain,),
-            ),
-          ),
-          GestureDetector(
-            onTap: (){
-            },
-            child: SizedBox(
-              width: 0.6*screenWidth,
-              height: 0.065*screenHeight,
-              child: Image.asset('assets/New_Log_Button.png',fit: BoxFit.contain,),
-            ),
-          ),
-          GestureDetector(
-            onTap: (){
-            },
-            child: SizedBox(
-              width: 0.6*screenWidth,
-              height: 0.065*screenHeight,
-              child: Image.asset('assets/New_Logout_Button.png',fit: BoxFit.contain,),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 
   Widget arrowAndMenuBar(double screenWidth, double screenHeight){
@@ -287,11 +373,11 @@ class _ShopPage extends State<ShopPage>{
                   onTap: (){
                     setState(() {
                       _nowItemIndex=0;
-                      if(_shopUITypeIndex>0){
-                        _shopUITypeIndex--;
+                      if(_bagUITypeIndex>0){
+                        _bagUITypeIndex--;
                       }
                       else{
-                        _shopUITypeIndex=4;
+                        _bagUITypeIndex=4;
                       }
                     });
                   },
@@ -306,11 +392,11 @@ class _ShopPage extends State<ShopPage>{
                   onTap: (){
                     setState(() {
                       _nowItemIndex=0;
-                      if(_shopUITypeIndex<4){
-                        _shopUITypeIndex++;
+                      if(_bagUITypeIndex<4){
+                        _bagUITypeIndex++;
                       }
                       else{
-                        _shopUITypeIndex=0;
+                        _bagUITypeIndex=0;
                       }
                     });
 
@@ -326,34 +412,42 @@ class _ShopPage extends State<ShopPage>{
         ),
         GestureDetector(
           onTap: (){
-            showDialog(
-                context: context,
-                barrierDismissible: true,
-                builder: (BuildContext context){
-                  return AlertDialog(
-                    backgroundColor: const Color.fromRGBO(0, 0, 0, 0),
-                    content: menuBlock(screenWidth, screenHeight),
-                  );
-                }
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context)=>InfoPage()
+                )
             );
           },
-          child: SizedBox(
+          child: Container(
             width: 0.18*screenWidth,
             height: 0.08*screenHeight,
-            child: Image.asset('assets/Menu_Button.png',fit: BoxFit.cover,),
+            child: Image.asset('assets/Info/Info_Button.png',fit: BoxFit.cover,),
           ),
         ),
       ],
     );
   }
 
-  Widget buyButton(double screenWidth, double screenHeight,Item item,Player player){
+  Widget equipButton(double screenWidth, double screenHeight,Item item,Player player){
     return GestureDetector(
       onTap: (){
-        if(player.coin>=item.coin){
+        if(item.status!=2){
           setState(() {
-            player.coin-=item.coin;
-            allItemsList[item.indexInList].status=1;
+            player.STR += item.addSTR;
+            player.INT += item.addINT;
+            player.VIT += item.addVIT;
+            unloadTypeItem(item.whatItem);
+            bagItemList[item.indexInList].status=2;
+          });
+        }
+        else{
+          setState(() {
+            player.STR -= item.addSTR;
+            player.INT -= item.addINT;
+            player.VIT -= item.addVIT;
+            unloadTypeItem(item.whatItem);
+            bagItemList[item.indexInList].status=1;
           });
         }
       },
@@ -362,7 +456,7 @@ class _ShopPage extends State<ShopPage>{
         height: 0.1*screenHeight,
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: (player.coin>=item.coin?AssetImage('assets/Shop/Shop_BuyButton.png'):AssetImage('assets/Shop/Shop_BuyButton_Unvailable.png')),
+                image: (item.status==2?const AssetImage('assets/Info/Unload_Button.png'):const AssetImage('assets/Info/Equip_Button.png')),
                 fit: BoxFit.contain
             )
         ),
@@ -370,7 +464,47 @@ class _ShopPage extends State<ShopPage>{
     );
   }
 
-  Widget shopItem(double screenWidth, double screenHeight,Item item,int index){
+  Widget useButton(double screenWidth, double screenHeight,Item item,Player player){
+    return GestureDetector(
+      onTap: (){
+        setState(() {
+          if(item.addMp>0){
+            if(player.mp<player.maxMp){
+              player.mp+=item.addMp;
+              if(player.mp>player.maxMp){
+                player.mp=player.maxMp;
+              }
+            }
+          }
+          else{
+            player.exp+=item.addExp;
+            if(player.exp>player.maxExp){
+              player.exp-=player.maxExp;
+              player.level++;
+            }
+          }
+          print(item.indexInList);
+          bagItemList.removeAt(item.indexInList);
+          print(bagItemList.length);
+          for(int bagIndex=0;bagIndex<bagItemList.length;bagIndex++){
+            //bagItemList[bagIndex].getIndexInList(bagIndex);
+          }
+        });
+      },
+      child: Container(
+        width: 0.3*screenWidth,
+        height: 0.1*screenHeight,
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image:AssetImage('assets/Info/Use_Button.png'),
+                fit: BoxFit.contain
+            )
+        ),
+      ),
+    );
+  }
+
+  Widget bagItem(double screenWidth, double screenHeight,Item item,int index){
     return GestureDetector(
       onTap: (){
         setState(() {
@@ -447,41 +581,23 @@ class _ShopPage extends State<ShopPage>{
                 ),
                 SizedBox(width: 0.03*screenWidth,),
                 Container(
-                  width: 0.1*screenWidth,
+                  width: 0.2*screenWidth,
                   height: 0.03*screenHeight,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('assets/CharacterStatus/CharacterStatus_Coin.png'),
+                          image: (item.status==2 ? const AssetImage('assets/Info/Backpack_ItemUI_EquippedMark.png'):const AssetImage('')),
                           fit: BoxFit.contain
                       )
                   ),
                 ),
-                Column(
-                  children: [
-                    SizedBox(height:0.01*screenHeight),
-                    SizedBox(
-                      width: 0.1*screenWidth,
-                      height: 0.05*screenHeight,
-                      child: AutoSizeText(
-                        item.coin.toString(),
-                        style: const TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFFE3A16D),
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    )
-                  ],
-                )
               ],
             ),
-            SizedBox(height:0.008*screenHeight),
+            SizedBox(height:0.015*screenHeight),
             SizedBox(
               width: 0.35*screenWidth,
               height: 0.04*screenHeight,
               child: AutoSizeText(
-                  (item.type!=4? item.getDescription():item.description),
+                (item.type!=4? item.getDescription():item.description),
                 style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -495,7 +611,7 @@ class _ShopPage extends State<ShopPage>{
     );
   }
 
-  Widget shopUIScene(double screenWidth, double screenHeight,Player player){
+  Widget bagUIScene(double screenWidth, double screenHeight,Player player){
 
     List<ImageProvider> shopUIList = [
       const AssetImage('assets/Shop/Shop_UI_Weapons.png'),
@@ -510,7 +626,7 @@ class _ShopPage extends State<ShopPage>{
       height: 0.62*screenHeight,
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: shopUIList[_shopUITypeIndex],
+              image: shopUIList[_bagUITypeIndex],
               fit: BoxFit.contain
           )
       ),
@@ -524,10 +640,10 @@ class _ShopPage extends State<ShopPage>{
                 width: 0.5*screenWidth,
                 height: 0.375*screenHeight,
                 child: ListView.builder(
-                  itemCount: getListByTypeAndStatus(_shopUITypeIndex, 0).length,
+                  itemCount: getBagListByType(_bagUITypeIndex).length,
                   itemBuilder: (BuildContext context,int index){
                     return ListTile(
-                      title: shopItem(screenWidth, screenHeight, getListByTypeAndStatus(_shopUITypeIndex,0)[index],index),
+                      title: bagItem(screenWidth, screenHeight, getBagListByType(_bagUITypeIndex)[index],index),
                     );
                   },
                 ),
@@ -541,7 +657,7 @@ class _ShopPage extends State<ShopPage>{
                     SizedBox(height: 0.08*screenHeight,),
                     character(screenWidth, screenHeight, player),
                     SizedBox(height: 0.025*screenHeight,),
-                    buyButton(screenWidth, screenHeight, getListByTypeAndStatus(_shopUITypeIndex,0)[_nowItemIndex], player)
+                    (_bagUITypeIndex==4?useButton(screenWidth, screenHeight, getBagListByType(_bagUITypeIndex)[_nowItemIndex], player):equipButton(screenWidth, screenHeight, getBagListByType(_bagUITypeIndex)[_nowItemIndex], player))
                   ],
                 ),
               ),
@@ -556,17 +672,17 @@ class _ShopPage extends State<ShopPage>{
   Widget build(BuildContext context){
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    for(int i=0;i<allItemsList.length;i++){
-      allItemsList[i].getIndexInList(i);
+    for(int i=0;i<bagItemList.length;i++){
+      bagItemList[i].getIndexInList(i);
     }
     return Scaffold(
       backgroundColor: const Color(0xFFE2C799),
       body: SafeArea(
         child: Column(
           children: [
-            characterStatusBlockWithInfoButton(screenWidth, screenHeight,player,context),
+            characterStatusBlockWithHomeButton(screenWidth, screenHeight,player,context),
             SizedBox(height: 0.03*screenHeight,),
-            shopUIScene(screenWidth, screenHeight,player),
+            bagUIScene(screenWidth, screenHeight,player),
             arrowAndMenuBar(screenWidth, screenHeight),
           ],
         ),
