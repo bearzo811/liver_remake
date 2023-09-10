@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:liver_remake/pages/shop_page.dart';
 import 'package:liver_remake/pages/train_page.dart';
 import 'package:liver_remake/pages/skill_page.dart';
 import 'package:liver_remake/widget/characterStatusBlock.dart';
+
+import 'log_page.dart';
 
 class MainPage extends StatefulWidget{
   @override
@@ -299,7 +302,7 @@ class _MainPage extends State<MainPage>{
     );
   }
 
-  Widget MenuBlock(double screenWidth, double screenHeight){
+  Widget menuBlock(double screenWidth, double screenHeight){
     return Container(
       width: 0.9*screenWidth,
       height: 0.5*screenHeight,
@@ -314,10 +317,9 @@ class _MainPage extends State<MainPage>{
           SizedBox(height: 0.075*screenHeight,),
           GestureDetector(
             onTap: (){
-              print('Battle！');
               Navigator.of(context).pop();
             },
-            child: Container(
+            child: SizedBox(
               width: 0.6*screenWidth,
               height: 0.065*screenHeight,
               child: Image.asset('assets/New_Battle_Button.png',fit: BoxFit.contain,),
@@ -325,15 +327,14 @@ class _MainPage extends State<MainPage>{
           ),
           GestureDetector(
             onTap: (){
-              print('Train！');
               Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context)=>TrainPage()
-                )
+                  context,
+                  MaterialPageRoute(
+                      builder: (context)=>TrainPage()
+                  )
               );
             },
-            child: Container(
+            child: SizedBox(
               width: 0.6*screenWidth,
               height: 0.065*screenHeight,
               child: Image.asset('assets/New_Train_Button.png',fit: BoxFit.contain,),
@@ -341,7 +342,6 @@ class _MainPage extends State<MainPage>{
           ),
           GestureDetector(
             onTap: (){
-              print('Skill！');
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -349,7 +349,7 @@ class _MainPage extends State<MainPage>{
                   )
               );
             },
-            child: Container(
+            child: SizedBox(
               width: 0.6*screenWidth,
               height: 0.065*screenHeight,
               child: Image.asset('assets/New_Skill_Button.png',fit: BoxFit.contain,),
@@ -357,9 +357,14 @@ class _MainPage extends State<MainPage>{
           ),
           GestureDetector(
             onTap: (){
-              print('Shop！');
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context)=>ShopPage()
+                  )
+              );
             },
-            child: Container(
+            child: SizedBox(
               width: 0.6*screenWidth,
               height: 0.065*screenHeight,
               child: Image.asset('assets/New_Shop_Button.png',fit: BoxFit.contain,),
@@ -367,9 +372,14 @@ class _MainPage extends State<MainPage>{
           ),
           GestureDetector(
             onTap: (){
-              print('Log！');
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context)=>LogPage()
+                  )
+              );
             },
-            child: Container(
+            child: SizedBox(
               width: 0.6*screenWidth,
               height: 0.065*screenHeight,
               child: Image.asset('assets/New_Log_Button.png',fit: BoxFit.contain,),
@@ -379,7 +389,7 @@ class _MainPage extends State<MainPage>{
             onTap: (){
               print('Logout！');
             },
-            child: Container(
+            child: SizedBox(
               width: 0.6*screenWidth,
               height: 0.065*screenHeight,
               child: Image.asset('assets/New_Logout_Button.png',fit: BoxFit.contain,),
@@ -413,7 +423,7 @@ class _MainPage extends State<MainPage>{
               builder: (BuildContext context){
                 return AlertDialog(
                   backgroundColor: Color.fromRGBO(0, 0, 0, 0),
-                  content: MenuBlock(screenWidth, screenHeight),
+                  content: menuBlock(screenWidth, screenHeight),
                 );
               }
             );

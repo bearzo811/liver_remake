@@ -320,8 +320,8 @@ class _BagPage extends State<BagPage>{
     Item(3, 20, 0, 0, 0, 1, 'Mouth', '3','',0,0,),
     Item(3, 20, 0, 0, 0, 1, 'Mouth', '4','',0,0,),
     //4:items
-    Item(4, 10, 0, 0, 0, 0, 'Potions', '0','EXP + 10',1,0,),
-    Item(4, 10, 0, 0, 0, 0, 'Potions', '1','MP + 10',0,1,),
+    Item(4, 10, 0, 0, 0, 1, 'Potions', '0','EXP + 10',1,0,),
+    Item(4, 10, 0, 0, 0, 1, 'Potions', '1','MP + 10',0,1,),
   ];
 
   List<Item> getBagListByType(int type){
@@ -332,6 +332,7 @@ class _BagPage extends State<BagPage>{
         result.add(bagItemList[i]);
       }
     }
+    print('bagItemList: ${result.length}');
     return result;
   }
 
@@ -422,6 +423,23 @@ class _BagPage extends State<BagPage>{
         ),
       ],
     );
+  }
+
+  Widget useOrEquipButton(double screenWidth, double screenHeight,Item item,Player player){
+    if(getBagListByType(_bagUITypeIndex).isNotEmpty){
+      if(_bagUITypeIndex==4){
+        return useButton(screenWidth, screenHeight, item, player);
+      }
+      else{
+        return equipButton(screenWidth, screenHeight, item, player);
+      }
+    }
+    else{
+      return Container(
+        width: 0.3*screenWidth,
+        height: 0.1*screenHeight,
+      );
+    }
   }
 
   Widget equipButton(double screenWidth, double screenHeight,Item item,Player player){
@@ -654,7 +672,7 @@ class _BagPage extends State<BagPage>{
                     SizedBox(height: 0.08*screenHeight,),
                     character(screenWidth, screenHeight, player),
                     SizedBox(height: 0.025*screenHeight,),
-                    ((getBagListByType(4).isNotEmpty) ? useButton(screenWidth, screenHeight, getBagListByType(_bagUITypeIndex)[_nowItemIndex], player):equipButton(screenWidth, screenHeight, getBagListByType(_bagUITypeIndex)[_nowItemIndex], player))
+                    (getBagListByType(_bagUITypeIndex).isNotEmpty?useOrEquipButton(screenWidth, screenHeight, getBagListByType(_bagUITypeIndex)[_nowItemIndex], player):Container())
                   ],
                 ),
               ),

@@ -111,6 +111,22 @@ class Player{
     required this.maxExp,
     required this.coin,
   });
+
+  int deadLoseSTR(){
+    return STR~/2;
+  }
+
+  int deadLoseINT(){
+    return INT~/2;
+  }
+
+  int deadLoseVIT(){
+    return VIT~/2;
+  }
+
+  int deadLoseExp(){
+    return exp;
+  }
 }
 
 Widget character(double screenWidth, double screenHeight,Player player){

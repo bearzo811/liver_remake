@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:liver_remake/pages/main_page.dart';
+import 'package:liver_remake/pages/shop_page.dart';
 import 'package:liver_remake/pages/train_page.dart';
 import 'package:liver_remake/widget/characterStatusBlock.dart';
+
+import 'log_page.dart';
 
 class SkillModel{
   int _skillLV = 1;
@@ -46,7 +49,7 @@ class _SkillPage extends State<SkillPage>{
     ]
   ];
 
-  Widget MenuBlock(double screenWidth, double screenHeight){
+  Widget menuBlock(double screenWidth, double screenHeight){
     return Container(
       width: 0.9*screenWidth,
       height: 0.5*screenHeight,
@@ -61,15 +64,14 @@ class _SkillPage extends State<SkillPage>{
           SizedBox(height: 0.075*screenHeight,),
           GestureDetector(
             onTap: (){
-              print('Battle！');
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context)=>MainPage()
+                      builder: (context) => MainPage()
                   )
               );
             },
-            child: Container(
+            child: SizedBox(
               width: 0.6*screenWidth,
               height: 0.065*screenHeight,
               child: Image.asset('assets/New_Battle_Button.png',fit: BoxFit.contain,),
@@ -77,15 +79,14 @@ class _SkillPage extends State<SkillPage>{
           ),
           GestureDetector(
             onTap: (){
-              print('Train！');
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context)=>TrainPage()
+                      builder: (context) => TrainPage()
                   )
               );
             },
-            child: Container(
+            child: SizedBox(
               width: 0.6*screenWidth,
               height: 0.065*screenHeight,
               child: Image.asset('assets/New_Train_Button.png',fit: BoxFit.contain,),
@@ -93,10 +94,9 @@ class _SkillPage extends State<SkillPage>{
           ),
           GestureDetector(
             onTap: (){
-              print('Skill！');
               Navigator.of(context).pop();
             },
-            child: Container(
+            child: SizedBox(
               width: 0.6*screenWidth,
               height: 0.065*screenHeight,
               child: Image.asset('assets/New_Skill_Button.png',fit: BoxFit.contain,),
@@ -104,9 +104,14 @@ class _SkillPage extends State<SkillPage>{
           ),
           GestureDetector(
             onTap: (){
-              print('Shop！');
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context)=>ShopPage()
+                  )
+              );
             },
-            child: Container(
+            child: SizedBox(
               width: 0.6*screenWidth,
               height: 0.065*screenHeight,
               child: Image.asset('assets/New_Shop_Button.png',fit: BoxFit.contain,),
@@ -114,9 +119,14 @@ class _SkillPage extends State<SkillPage>{
           ),
           GestureDetector(
             onTap: (){
-              print('Log！');
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context)=>LogPage()
+                  )
+              );
             },
-            child: Container(
+            child: SizedBox(
               width: 0.6*screenWidth,
               height: 0.065*screenHeight,
               child: Image.asset('assets/New_Log_Button.png',fit: BoxFit.contain,),
@@ -126,7 +136,7 @@ class _SkillPage extends State<SkillPage>{
             onTap: (){
               print('Logout！');
             },
-            child: Container(
+            child: SizedBox(
               width: 0.6*screenWidth,
               height: 0.065*screenHeight,
               child: Image.asset('assets/New_Logout_Button.png',fit: BoxFit.contain,),
@@ -194,7 +204,7 @@ class _SkillPage extends State<SkillPage>{
                 builder: (BuildContext context){
                   return AlertDialog(
                     backgroundColor: Color.fromRGBO(0, 0, 0, 0),
-                    content: MenuBlock(screenWidth, screenHeight),
+                    content: menuBlock(screenWidth, screenHeight),
                   );
                 }
             );

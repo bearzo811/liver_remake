@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:liver_remake/pages/main_page.dart';
+import 'package:liver_remake/pages/skill_page.dart';
 import 'package:liver_remake/pages/train_page.dart';
 import 'package:liver_remake/widget/characterStatusBlock.dart';
+
+import 'log_page.dart';
 
 class ShopPage extends StatefulWidget{
   @override
@@ -208,7 +211,7 @@ class _ShopPage extends State<ShopPage>{
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context)=>MainPage()
+                      builder: (context) => MainPage()
                   )
               );
             },
@@ -223,7 +226,7 @@ class _ShopPage extends State<ShopPage>{
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context)=>TrainPage()
+                      builder: (context) => TrainPage()
                   )
               );
             },
@@ -235,7 +238,12 @@ class _ShopPage extends State<ShopPage>{
           ),
           GestureDetector(
             onTap: (){
-              Navigator.of(context).pop();
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => SkillPage()
+                  )
+              );
             },
             child: SizedBox(
               width: 0.6*screenWidth,
@@ -245,6 +253,7 @@ class _ShopPage extends State<ShopPage>{
           ),
           GestureDetector(
             onTap: (){
+              Navigator.of(context).pop();
             },
             child: SizedBox(
               width: 0.6*screenWidth,
@@ -254,6 +263,12 @@ class _ShopPage extends State<ShopPage>{
           ),
           GestureDetector(
             onTap: (){
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context)=>LogPage()
+                  )
+              );
             },
             child: SizedBox(
               width: 0.6*screenWidth,
@@ -263,6 +278,7 @@ class _ShopPage extends State<ShopPage>{
           ),
           GestureDetector(
             onTap: (){
+              print('Logout！');
             },
             child: SizedBox(
               width: 0.6*screenWidth,
