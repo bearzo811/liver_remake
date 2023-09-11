@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:liver_remake/PlayerData/playerData.dart';
 import 'package:liver_remake/pages/main_page.dart';
 import 'package:liver_remake/Model/Models.dart';
+import 'package:provider/provider.dart';
 
 class CreateCharacterPage extends StatefulWidget{
   final Key? keyCreateCharacterPage;
@@ -14,10 +16,35 @@ class CreateCharacterPageState extends State<CreateCharacterPage>{
   int _selectBoxIndex = 0;
   final List<String> _selectBoxTitleList = ['身體 & 耳朵','服裝','眼睛 & 嘴吧','髮型'];
   Player player = Player(
-      bodyIndex: 2, earsTypeIndex: 0, earsColorIndex: 0, clothesIndex: 0, pantsIndex: 0, shoesIndex: 0,
-      eyesTypeIndex: 0, eyesColorIndex: 0, mouthIndex: 0, backHairTypeIndex: 1, backHairColorIndex: 0,
-      foreHairTypeIndex: 1, foreHairColorIndex: 0, backItemIndex: 0, eyeDecorationIndex: 0, heavyWeaponIndex: 0, lightWeaponIndex: 0,
-      name: 'name', level: 99, STR:0,INT:0,VIT:0,hp:1,mp: 10, exp: 8, maxMp: 10, maxExp: 10, coin: 93);
+      bodyIndex: 2,
+      earsTypeIndex: 1,
+      earsColorIndex: 2,
+      clothesIndex: 5,
+      pantsIndex: 5,
+      shoesIndex: 5,
+      eyesTypeIndex: 2,
+      eyesColorIndex: 1,
+      mouthIndex: 1,
+      backHairTypeIndex: 1,
+      backHairColorIndex: 1,
+      foreHairTypeIndex: 3,
+      foreHairColorIndex: 1,
+      backItemIndex: -1,
+      eyeDecorationIndex: -1,
+      heavyWeaponIndex: -1,
+      lightWeaponIndex: -1,
+      name: '測試玩家',
+      level: 1,
+      STR: 1,
+      INT: 1,
+      VIT: 1,
+      hp: 1,
+      mp: 10,
+      exp: 0,
+      maxMp: 10,
+      maxExp: 10,
+      coin: 20
+  );
   TextEditingController nameController = TextEditingController();
   String _name = '';
 
@@ -752,6 +779,7 @@ class CreateCharacterPageState extends State<CreateCharacterPage>{
   Widget build(BuildContext context){
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    final playerData = Provider.of<PlayerData>(context);
     return Scaffold(
       backgroundColor: const Color.fromRGBO(146, 65, 1, 100),
       body: SingleChildScrollView(
@@ -794,12 +822,54 @@ class CreateCharacterPageState extends State<CreateCharacterPage>{
                           ],
                         ),
                       ),
-                      character(screenWidth, screenHeight,player),
+                      Container(
+                        width: 0.5*screenWidth,
+                        height: 0.43*screenWidth,
+                        child: Row(
+                          children: [
+                            SizedBox(width: 0.05*screenWidth,),
+                            character(screenWidth, screenHeight,player),
+                          ],
+                        )
+                      ),
                       arrowBar(screenWidth, screenHeight),
                       SizedBox(height: 0.01*screenHeight,),
                       selectBox(screenWidth, screenHeight,_selectBoxIndex),
                       SizedBox(height: 0.01*screenHeight,),
-                      okLogoutBar(screenWidth, screenHeight)
+                      Row(
+                        //mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left:0.3*screenWidth,right: 0.13*screenWidth),
+                            child: GestureDetector(
+                                onTap: (){
+                                  _name = nameController.text;
+                                  player.name = _name;
+                                  playerData.updatePlayer(player);
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context)=>const MainPage()
+                                      )
+                                  );
+                                },
+                                child: SizedBox(
+                                  width: 0.4*screenWidth,
+                                  height: 0.05*screenHeight,
+                                  child: Image.asset('assets/OKButton.png',fit: BoxFit.cover,),
+                                )
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: (){},
+                            child: SizedBox(
+                              width: 0.125*screenWidth,
+                              height: 0.05*screenHeight,
+                              child: Image.asset('assets/LogOutButton.png',fit: BoxFit.cover,),
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 )
@@ -809,21 +879,3 @@ class CreateCharacterPageState extends State<CreateCharacterPage>{
     );
   }
 }
-/*
-Stack(
-children: [
-const Image(image: AssetImage('assets/Name_TextBar.png'),fit: BoxFit.cover,),
-Container(
-color: Colors.amber,
-height: 0.05*screenHeight,
-width: 0.5*screenWidth,
-child: TextField(
-controller: nameController,
-textAlign: TextAlign.center,
-decoration: const InputDecoration(
-border: InputBorder.none,
-hintText: '請輸入您的名稱',
-),
-),
-),
-*/

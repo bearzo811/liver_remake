@@ -192,6 +192,34 @@ class Player{
   }
 }
 
+class Monster{
+  String monsterName = '';
+  int monsterHp = 0;
+  int monsterMaxHp = 0;
+  int monsterLevel = 0;
+  int getSTR = 0;
+  int getINT = 0;
+  int getVIT = 0;
+  int getEXP = 0;
+  int type = 0; //0:STR | 1:INT | 2:VIT
+  bool hasBeAttacked = false;
+  Monster({
+    required this.monsterName,
+    required this.type,
+    required this.monsterLevel,
+  });
+
+  void initMonster(){
+    monsterMaxHp = monsterLevel*10;
+    monsterHp = monsterLevel*10;
+    getSTR = monsterLevel;
+    getINT = monsterLevel;
+    getVIT = monsterLevel;
+    getEXP = monsterLevel*10;
+    hasBeAttacked = false;
+  }
+}
+
 Widget character(double screenWidth, double screenHeight,Player player){
   List<ImageProvider> bodyList = [
     const AssetImage('assets/Head_Body/0.png'),

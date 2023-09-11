@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:liver_remake/PlayerData/playerData.dart';
 import 'package:liver_remake/pages/shop_page.dart';
 import 'package:liver_remake/pages/train_page.dart';
 import 'package:liver_remake/pages/skill_page.dart';
+import 'package:liver_remake/pages/log_page.dart';
 import 'package:liver_remake/Model/Models.dart';
-
-import 'log_page.dart';
+import 'package:provider/provider.dart';
 
 class MainPage extends StatefulWidget{
 
@@ -17,14 +18,7 @@ class MainPage extends StatefulWidget{
 }
 
 class MainPageState extends State<MainPage>{
-  Player player = Player(
-      bodyIndex: 2, earsTypeIndex: 0, earsColorIndex: 0, clothesIndex: 0, pantsIndex: 0, shoesIndex: 0,
-      eyesTypeIndex: 0, eyesColorIndex: 0, mouthIndex: 0, backHairTypeIndex: 1, backHairColorIndex: 0,
-      foreHairTypeIndex: 1, foreHairColorIndex: 0, backItemIndex: 0, eyeDecorationIndex: 0, heavyWeaponIndex: 0, lightWeaponIndex: 0,
-      name: 'name', level: 99, STR:0,INT:0,VIT:0,hp:1,mp: 10, exp: 8, maxMp: 10, maxExp: 10, coin: 93);
   int _battleSceneIndex = 0;
-  double _monsterHpRatio = 0;
-  String _monsterName = '';
   TextEditingController monsterNameTextFieldController = TextEditingController();
   List<ImageProvider> battleSceneFileName = [
     const AssetImage('assets/BattleScene_Background_1_R.png'),
@@ -51,7 +45,51 @@ class MainPageState extends State<MainPage>{
     );
   }
 
-  Widget hpBarBlock(double screenWidth, double screenHeight,double hpRatio){
+  Widget monsterNameAndHpBarBlock(double screenWidth, double screenHeight,Monster monster){
+    double monsterHpRatio = monster.monsterHp/monster.monsterMaxHp;
+    String monsterName = monster.monsterName;
+    print('${monster.monsterHp} | ${monster.monsterMaxHp} | $monsterName');
+    if(monsterHpRatio>0){
+      return Column(
+        children: [
+          Container(
+            width: 0.3*screenWidth,
+            color: Colors.white70.withOpacity((monsterHpRatio>0 ? 0.5 : 0)),
+            child: SizedBox(
+              width: 0.3*screenWidth,
+              child: AutoSizeText(
+                monsterName,
+                style: const TextStyle(
+                    fontSize: 30,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold
+                ),
+                maxLines: 1,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ), //怪物名稱
+          SizedBox(height: 0.0035*screenHeight,),
+          (monsterHpRatio>0 ? hpBarBlock(screenWidth, screenHeight, monster):
+          SizedBox(width: 0.6*screenWidth,
+            height: 0.05*screenHeight,))
+        ],
+      );
+    }
+    else{
+      return Column(
+        children: [
+          SizedBox(
+            width: 0.6*screenWidth,
+            height: 0.1*screenHeight,
+          )
+        ],
+      );
+    }
+  }
+
+  Widget hpBarBlock(double screenWidth, double screenHeight,Monster monster){
+    double hpRatio = monster.monsterHp/monster.monsterMaxHp;
     return Container(
         width: 0.6*screenWidth,
         height: 0.05*screenHeight,
@@ -74,36 +112,8 @@ class MainPageState extends State<MainPage>{
     );
   }
 
-
-  Widget monsterNameAndHpBarBlock(double screenWidth, double screenHeight){
-    return Column(
-      children: [
-        Container(
-          width: 0.3*screenWidth,
-          color: Colors.white70.withOpacity((_monsterHpRatio>0 ? 0.5 : 0)),
-          child: SizedBox(
-            width: 0.3*screenWidth,
-            child: AutoSizeText(
-              _monsterName,
-              style: const TextStyle(
-                  fontSize: 30,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold
-              ),
-              maxLines: 1,
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ), //怪物名稱
-        SizedBox(height: 0.0035*screenHeight,),
-        (_monsterHpRatio>0 ? hpBarBlock(screenWidth, screenHeight, _monsterHpRatio):
-        SizedBox(width: 0.6*screenWidth,
-          height: 0.05*screenHeight,))
-      ],
-    );
-  }
-
-  Widget monsterAndArrowBlock(double screenWidth, double screenHeight){
+  Widget monsterAndArrowBlock(double screenWidth, double screenHeight,Monster monster){
+    double monsterHpRatio = monster.monsterHp/monster.monsterMaxHp;
     List<ImageProvider> monsterList = [
       const AssetImage('assets/Monster_R_0.png'),
       const AssetImage('assets/Monster_B_0.png'),
@@ -147,7 +157,52 @@ class MainPageState extends State<MainPage>{
       );
     }
 
-    if(_monsterHpRatio <=0){
+    if(monsterHpRatio>0){
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          GestureDetector(
+            onTap: (){
+              setState(() {
+                if(_battleSceneIndex>0){
+                  _battleSceneIndex--;
+                }
+                else{
+                  _battleSceneIndex=2;
+                }
+              });
+            },
+            child: SizedBox(
+              height: 0.0625*screenHeight,
+              width: 0.125*screenWidth,
+              child: Image.asset('assets/Left_Arrow.png',fit: BoxFit.cover,),
+            ),
+          ),
+          Padding(
+              padding: EdgeInsets.symmetric(horizontal: 0.05*screenWidth),
+              child: monsterImage()
+          ),
+          GestureDetector(
+            onTap: (){
+              setState(() {
+                if(_battleSceneIndex<2){
+                  _battleSceneIndex++;
+                }
+                else{
+                  _battleSceneIndex=0;
+                }
+              });
+            },
+            child: SizedBox(
+              height: 0.0625*screenHeight,
+              width: 0.125*screenWidth,
+              child: Image.asset('assets/Right_Arrow.png',fit: BoxFit.cover,),
+            ),
+          )
+        ],
+      );
+    }
+    else{
       return Column(
         children: [
           SizedBox(height: 0.17*screenHeight,),
@@ -198,56 +253,11 @@ class MainPageState extends State<MainPage>{
         ],
       );
     }
-    else{
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          GestureDetector(
-            onTap: (){
-              setState(() {
-                if(_battleSceneIndex>0){
-                  _battleSceneIndex--;
-                }
-                else{
-                  _battleSceneIndex=2;
-                }
-              });
-            },
-            child: SizedBox(
-              height: 0.0625*screenHeight,
-              width: 0.125*screenWidth,
-              child: Image.asset('assets/Left_Arrow.png',fit: BoxFit.cover,),
-            ),
-          ),
-          Padding(
-              padding: EdgeInsets.symmetric(horizontal: 0.05*screenWidth),
-              child: monsterImage()
-          ),
-          GestureDetector(
-            onTap: (){
-              setState(() {
-                if(_battleSceneIndex<2){
-                  _battleSceneIndex++;
-                }
-                else{
-                  _battleSceneIndex=0;
-                }
-              });
-            },
-            child: SizedBox(
-              height: 0.0625*screenHeight,
-              width: 0.125*screenWidth,
-              child: Image.asset('assets/Right_Arrow.png',fit: BoxFit.cover,),
-            ),
-          )
-        ],
-      );
-    }
-
 
   }
 
   Widget createMonsterBlock(double screenWidth, double screenHeight){
+    final playerData = Provider.of<PlayerData>(context);
     return Container(
       width: 0.9*screenWidth,
       height: 0.25*screenHeight,
@@ -286,10 +296,7 @@ class MainPageState extends State<MainPage>{
             children: [
               GestureDetector(
                   onTap: (){
-                    setState(() {
-                      _monsterName = monsterNameTextFieldController.text;
-                      _monsterHpRatio=1;
-                    });
+                    playerData.createMonster(_battleSceneIndex, monsterNameTextFieldController.text);
                     monsterNameTextFieldController.clear();
                     Navigator.of(context).pop();
                   },
@@ -403,18 +410,22 @@ class MainPageState extends State<MainPage>{
     );
   }
 
-  Widget attackMenuBar(double screenWidth, double screenHeight){
+  Widget attackMenuBar(double screenWidth, double screenHeight,Monster monster){
+    final playerData = Provider.of<PlayerData>(context);
     return Row(
-      //mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
           padding: EdgeInsets.only(left:0.41*screenWidth,right: 0.22*screenWidth),
           child: GestureDetector(
-              onTap: (){},
+              onTap: (){
+                if(!monster.hasBeAttacked){
+                  playerData.attackMonster(_battleSceneIndex);
+                }
+              },
               child: SizedBox(
                 width: 0.18*screenWidth,
                 height: 0.08*screenHeight,
-                child: Image.asset('assets/Attack_Button.png',fit: BoxFit.cover,),
+                child: (monster.hasBeAttacked ? Image.asset('assets/Attack_Button_Unvailable.png',fit: BoxFit.cover,) : Image.asset('assets/Attack_Button.png',fit: BoxFit.cover,)),
               )
           ),
         ),
@@ -445,6 +456,8 @@ class MainPageState extends State<MainPage>{
   Widget build(BuildContext context){
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    final player = Provider.of<PlayerData>(context).player;
+    final monsterList = Provider.of<PlayerData>(context).allMonsterList;
     return Scaffold(
         body: SingleChildScrollView(
           child: SafeArea(
@@ -455,11 +468,11 @@ class MainPageState extends State<MainPage>{
                     children: [
                       characterStatusBlockWithInfoButton(screenWidth, screenHeight,player,context), //character status bar
                       SizedBox(height: 0.05*screenHeight,),
-                      monsterNameAndHpBarBlock(screenWidth, screenHeight),
+                      monsterNameAndHpBarBlock(screenWidth, screenHeight,monsterList[_battleSceneIndex]),
                       SizedBox(height: 0.05*screenHeight,),
-                      monsterAndArrowBlock(screenWidth, screenHeight),//怪物 & 左右箭頭
+                      monsterAndArrowBlock(screenWidth, screenHeight,monsterList[_battleSceneIndex]),//怪物 & 左右箭頭
                       SizedBox(height: 0.05*screenHeight,),
-                      attackMenuBar(screenWidth, screenHeight),
+                      attackMenuBar(screenWidth, screenHeight,monsterList[_battleSceneIndex]),
                     ],
                   )
                 ],
