@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:liver_remake/PlayerData/playerData.dart';
+import 'package:liver_remake/pages/log_page.dart';
 import 'package:liver_remake/pages/main_page.dart';
 import 'package:liver_remake/Model/Models.dart';
 import 'package:provider/provider.dart';
@@ -43,7 +44,8 @@ class CreateCharacterPageState extends State<CreateCharacterPage>{
       exp: 0,
       maxMp: 10,
       maxExp: 10,
-      coin: 20
+      coin: 20,
+      sp:0
   );
   TextEditingController nameController = TextEditingController();
   String _name = '';

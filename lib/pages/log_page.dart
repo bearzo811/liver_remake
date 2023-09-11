@@ -1,47 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:liver_remake/PlayerData/playerData.dart';
 import 'package:liver_remake/pages/achievement_page.dart';
 import 'package:liver_remake/pages/main_page.dart';
 import 'package:liver_remake/pages/shop_page.dart';
 import 'package:liver_remake/pages/skill_page.dart';
 import 'package:liver_remake/pages/train_page.dart';
 import 'package:liver_remake/Model/Models.dart';
+import 'package:provider/provider.dart';
 
-class Log{
-  int logType = 0; //0:attack 1:interest 2:dead 3:date
-  String playerName='';
-  String monsterName='';
-  int attackPoint=0;
-  String trainName = '';
-  int trainLevel = 0;
-  int trainAddSTR = 0;
-  int trainAddINT = 0;
-  int trainAddVIT = 0;
-  int trainAddEXP = 0;
-  int deadLoseSTR = 0;
-  int deadLoseINT = 0;
-  int deadLoseVIT = 0;
-  int deadLoseEXP = 0;
-  String date = '';
-  
-  Log({
-    required this.logType,
-    required this.playerName,
-    required this.monsterName,
-    required this.attackPoint,
-    required this.trainName,
-    required this. trainLevel,
-    required this. trainAddSTR,
-    required this. trainAddINT,
-    required this. trainAddVIT,
-    required this. trainAddEXP,
-    required this. deadLoseSTR,
-    required this. deadLoseINT,
-    required this. deadLoseVIT,
-    required this. deadLoseEXP,
-    required this.date,
-});
-}
+
 
 class LogPage extends StatefulWidget{
   final Key? keyLogPage;
@@ -51,12 +19,6 @@ class LogPage extends StatefulWidget{
 }
 
 class LogPageState extends State<LogPage>{
-
-  Player player = Player(
-      bodyIndex: 2, earsTypeIndex: 0, earsColorIndex: 0, clothesIndex: 0, pantsIndex: 0, shoesIndex: 0,
-      eyesTypeIndex: 0, eyesColorIndex: 0, mouthIndex: 0, backHairTypeIndex: 1, backHairColorIndex: 0,
-      foreHairTypeIndex: 1, foreHairColorIndex: 0, backItemIndex: 0, eyeDecorationIndex: 0, heavyWeaponIndex: 0, lightWeaponIndex: 0,
-      name: 'name', level: 99, STR:12,INT:70,VIT:19,hp:1,mp: 10, exp: 8, maxMp: 10, maxExp: 10, coin: 93);
 
   Widget attackLogBar(double screenWidth,double screenHeight,String playerName,String monsterName,int attackPoint){
     return Container(
@@ -234,19 +196,8 @@ class LogPageState extends State<LogPage>{
     }
   }
 
-  List<Log> allLogList = [
-    Log(logType: 3, playerName: '測試員', monsterName: '每日晨跑', attackPoint: 10, trainName: '玩激鬥峽谷', trainLevel: 9, trainAddSTR: 0, trainAddINT: 0, trainAddVIT: 15, trainAddEXP: 2, deadLoseSTR: 10, deadLoseINT: 5, deadLoseVIT: 2, deadLoseEXP: 8, date: '2023 / 09 /10'),
-    Log(logType: 2, playerName: '測試員', monsterName: '每日晨跑', attackPoint: 10, trainName: '玩激鬥峽谷', trainLevel: 9, trainAddSTR: 0, trainAddINT: 0, trainAddVIT: 15, trainAddEXP: 2, deadLoseSTR: 10, deadLoseINT: 5, deadLoseVIT: 2, deadLoseEXP: 8, date: '2023 / 09 /10'),
-    Log(logType: 1, playerName: '測試員', monsterName: '每日晨跑', attackPoint: 10, trainName: '玩激鬥峽谷', trainLevel: 9, trainAddSTR: 0, trainAddINT: 0, trainAddVIT: 15, trainAddEXP: 2, deadLoseSTR: 10, deadLoseINT: 5, deadLoseVIT: 2, deadLoseEXP: 8, date: '2023 / 09 /10'),
-    Log(logType: 0, playerName: '測試員', monsterName: '每日晨跑', attackPoint: 10, trainName: '玩激鬥峽谷', trainLevel: 9, trainAddSTR: 0, trainAddINT: 0, trainAddVIT: 15, trainAddEXP: 2, deadLoseSTR: 10, deadLoseINT: 5, deadLoseVIT: 2, deadLoseEXP: 8, date: '2023 / 09 /10'),
-    Log(logType: 0, playerName: '測試員', monsterName: '每日煮飯', attackPoint: 10, trainName: '玩激鬥峽谷', trainLevel: 9, trainAddSTR: 0, trainAddINT: 0, trainAddVIT: 15, trainAddEXP: 2, deadLoseSTR: 10, deadLoseINT: 5, deadLoseVIT: 2, deadLoseEXP: 8, date: '2023 / 09 /10'),
-    Log(logType: 1, playerName: '測試員', monsterName: '每日晨跑', attackPoint: 10, trainName: '運動', trainLevel: 10, trainAddSTR: 15, trainAddINT: 0, trainAddVIT: 0, trainAddEXP: 2, deadLoseSTR: 10, deadLoseINT: 5, deadLoseVIT: 2, deadLoseEXP: 8, date: '2023 / 09 /10'),
-
-  ];
-  
-
-
   Widget logScene(double screenWidth,double screenHeight){
+    List<Log> allLogList = Provider.of<PlayerData>(context).allLogList;
     return Container(
       width: 0.9*screenWidth,
       height: 0.62*screenHeight,
@@ -417,6 +368,7 @@ class LogPageState extends State<LogPage>{
   Widget build(BuildContext context){
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    final player = Provider.of<PlayerData>(context).player;
     return Scaffold(
       backgroundColor: const Color(0xFFE2C799),
       body: SafeArea(

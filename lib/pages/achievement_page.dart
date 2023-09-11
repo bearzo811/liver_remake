@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:liver_remake/PlayerData/playerData.dart';
 import 'package:liver_remake/pages/log_page.dart';
 import 'package:liver_remake/pages/main_page.dart';
 import 'package:liver_remake/pages/shop_page.dart';
 import 'package:liver_remake/pages/skill_page.dart';
 import 'package:liver_remake/pages/train_page.dart';
 import 'package:liver_remake/Model/Models.dart';
-
+import 'package:provider/provider.dart';
 
 class AchievementPage extends StatefulWidget{
   final Key? keyAchievementPage;
@@ -16,12 +17,6 @@ class AchievementPage extends StatefulWidget{
 }
 
 class AchievementPageState extends State<AchievementPage>{
-
-  Player player = Player(
-      bodyIndex: 2, earsTypeIndex: 0, earsColorIndex: 0, clothesIndex: 0, pantsIndex: 0, shoesIndex: 0,
-      eyesTypeIndex: 0, eyesColorIndex: 0, mouthIndex: 0, backHairTypeIndex: 1, backHairColorIndex: 0,
-      foreHairTypeIndex: 1, foreHairColorIndex: 0, backItemIndex: 0, eyeDecorationIndex: 0, heavyWeaponIndex: 0, lightWeaponIndex: 0,
-      name: 'name', level: 99, STR:12,INT:70,VIT:19,hp:1,mp: 10, exp: 8, maxMp: 10, maxExp: 10, coin: 93);
 
   Widget menuBlock(double screenWidth, double screenHeight){
     return Container(
@@ -203,10 +198,11 @@ class AchievementPageState extends State<AchievementPage>{
                   child: AutoSizeText(
                     achievement.description,
                     style: const TextStyle(
-                      fontSize: 20,
+                      fontSize: 16,
                       fontWeight: FontWeight.bold
                     ),
                     textAlign: TextAlign.center,
+                    maxLines: 1,
                   ),
                 ),
                 SizedBox(height: 0.01*screenHeight,),
@@ -233,6 +229,7 @@ class AchievementPageState extends State<AchievementPage>{
   }
 
   Widget achievementScene(double screenWidth, double screenHeight){
+    List<Achievement> allAchievementList = Provider.of<PlayerData>(context).allAchievementList;
     return SizedBox(
       width: screenWidth,
       height: 0.62*screenHeight,
@@ -258,21 +255,11 @@ class AchievementPageState extends State<AchievementPage>{
     );
   }
 
-  List<Achievement> allAchievementList = [
-    Achievement(type: 0, description: '達到10級', date: '2023 / 09 / 10'),
-    Achievement(type: 1, description: '達到10級', date: '2023 / 09 / 10'),
-    Achievement(type: 4, description: '達到10級', date: '2023 / 09 / 10'),
-    Achievement(type: 2, description: '達到10級', date: '2023 / 09 / 10'),
-    Achievement(type: 6, description: '達到10級', date: '2023 / 09 / 10'),
-    Achievement(type: 3, description: '達到10級', date: '2023 / 09 / 10'),
-    Achievement(type: 5, description: '達到10級', date: '2023 / 09 / 10'),
-    Achievement(type: 0, description: '達到10級', date: '2023 / 09 / 10'),
-  ];
-
   @override
   Widget build(BuildContext context){
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    final player = Provider.of<PlayerData>(context).player;
     return Scaffold(
       body: SafeArea(
           child: Stack(

@@ -425,7 +425,7 @@ class MainPageState extends State<MainPage>{
               child: SizedBox(
                 width: 0.18*screenWidth,
                 height: 0.08*screenHeight,
-                child: (monster.hasBeAttacked ? Image.asset('assets/Attack_Button_Unvailable.png',fit: BoxFit.cover,) : Image.asset('assets/Attack_Button.png',fit: BoxFit.cover,)),
+                child: ((monster.hasBeAttacked || monster.monsterHp<=0) ? Image.asset('assets/Attack_Button_Unvailable.png',fit: BoxFit.cover,) : Image.asset('assets/Attack_Button.png',fit: BoxFit.cover,)),
               )
           ),
         ),
@@ -454,6 +454,7 @@ class MainPageState extends State<MainPage>{
 
   @override
   Widget build(BuildContext context){
+    print('${DateTime.now().year} / ${DateTime.now().month} / ${DateTime.now().day}');
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     final player = Provider.of<PlayerData>(context).player;

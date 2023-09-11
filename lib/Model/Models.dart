@@ -142,6 +142,7 @@ class Player{
   int maxMp = 0;
   int maxExp = 0;
   int coin = 0;
+  int sp =0;
   List<Item> shopItemList = [];
   List<Item> bagItemList = [];
   Player({
@@ -173,6 +174,7 @@ class Player{
     required this.maxMp,
     required this.maxExp,
     required this.coin,
+    required this.sp,
   });
 
   int deadLoseSTR(){
@@ -201,6 +203,7 @@ class Monster{
   int getINT = 0;
   int getVIT = 0;
   int getEXP = 0;
+  int getCoin = 0;
   int type = 0; //0:STR | 1:INT | 2:VIT
   bool hasBeAttacked = false;
   Monster({
@@ -210,14 +213,51 @@ class Monster{
   });
 
   void initMonster(){
-    monsterMaxHp = monsterLevel*10;
-    monsterHp = monsterLevel*10;
+    monsterMaxHp = monsterLevel*50;
+    monsterHp = monsterLevel*50;
     getSTR = monsterLevel;
     getINT = monsterLevel;
     getVIT = monsterLevel;
     getEXP = monsterLevel*10;
+    getCoin = monsterLevel*10;
     hasBeAttacked = false;
   }
+}
+
+class Log{
+  int logType = 0; //0:attack 1:interest 2:dead 3:date
+  String playerName='';
+  String monsterName='';
+  int attackPoint=0;
+  String trainName = '';
+  int trainLevel = 0;
+  int trainAddSTR = 0;
+  int trainAddINT = 0;
+  int trainAddVIT = 0;
+  int trainAddEXP = 0;
+  int deadLoseSTR = 0;
+  int deadLoseINT = 0;
+  int deadLoseVIT = 0;
+  int deadLoseEXP = 0;
+  String date = '';
+
+  Log({
+    required this.logType,
+    required this.playerName,
+    required this.monsterName,
+    required this.attackPoint,
+    required this.trainName,
+    required this. trainLevel,
+    required this. trainAddSTR,
+    required this. trainAddINT,
+    required this. trainAddVIT,
+    required this. trainAddEXP,
+    required this. deadLoseSTR,
+    required this. deadLoseINT,
+    required this. deadLoseVIT,
+    required this. deadLoseEXP,
+    required this.date,
+  });
 }
 
 Widget character(double screenWidth, double screenHeight,Player player){

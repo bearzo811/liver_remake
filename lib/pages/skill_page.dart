@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:liver_remake/PlayerData/playerData.dart';
 import 'package:liver_remake/pages/main_page.dart';
 import 'package:liver_remake/pages/shop_page.dart';
 import 'package:liver_remake/pages/train_page.dart';
 import 'package:liver_remake/Model/Models.dart';
 import 'log_page.dart';
+import 'package:provider/provider.dart';
 
 
 class SkillPage extends StatefulWidget{
@@ -17,29 +19,6 @@ class SkillPage extends StatefulWidget{
 class SkillPageState extends State<SkillPage>{
 
   int _skillUITypeIndex = 0 ;
-  int _sp = 99;
-  Player player = Player(
-      bodyIndex: 2, earsTypeIndex: 0, earsColorIndex: 0, clothesIndex: 0, pantsIndex: 0, shoesIndex: 0,
-      eyesTypeIndex: 0, eyesColorIndex: 0, mouthIndex: 0, backHairTypeIndex: 1, backHairColorIndex: 0,
-      foreHairTypeIndex: 1, foreHairColorIndex: 0, backItemIndex: 0, eyeDecorationIndex: 0, heavyWeaponIndex: 0, lightWeaponIndex: 0,
-      name: 'name', level: 99, STR:0,INT:0,VIT:0,hp:1,mp: 10, exp: 8, maxMp: 10, maxExp: 10, coin: 93);
-  List<List<SkillModel>> skillModelList = [
-    [
-      SkillModel(1,true, false, true,5,1),
-      SkillModel(1,false, false, true,10,3),
-      SkillModel(1,false, false, false,200,0),
-    ],
-    [
-      SkillModel(1,true, false, true,5,1),
-      SkillModel(1,false, false, true,10,3),
-      SkillModel(1,false, false, false,200,0),
-    ],
-    [
-      SkillModel(1,true, false, true,5,1),
-      SkillModel(1,false, false, true,10,3),
-      SkillModel(1,false, false, false,200,0),
-    ]
-  ];
 
   Widget menuBlock(double screenWidth, double screenHeight){
     return Container(
@@ -209,7 +188,7 @@ class SkillPageState extends State<SkillPage>{
   }
   
   Widget skillUIScene(double screenWidth, double screenHeight){
-
+    final player = Provider.of<PlayerData>(context).player;
     List<ImageProvider> skillUIList = [
       const AssetImage('assets/Skill/Skill_UI_STR.png'),
       const AssetImage('assets/Skill/Skill_UI_INT.png'),
@@ -241,7 +220,7 @@ class SkillPageState extends State<SkillPage>{
                   )
                 ),
                 child: AutoSizeText(
-                  _sp.toString(),
+                  player.sp.toString(),
                   style: const TextStyle(
                     fontSize: 34,
                     color: Color(0xFF924101),
@@ -264,6 +243,7 @@ class SkillPageState extends State<SkillPage>{
   }
   
   Widget useOrGetButton(double screenWidth, double screenHeight,int skillType,int skillIndex){
+    final List<List<SkillModel>> skillModelList = Provider.of<PlayerData>(context).skillModelList;
     if(skillModelList[skillType][skillIndex].hasLearned){
       return GestureDetector(
         onTap: (){
@@ -331,6 +311,8 @@ class SkillPageState extends State<SkillPage>{
   }
 
   Widget skillItem(double screenWidth, double screenHeight,int skillType,int skillIndex){
+    final List<List<SkillModel>> skillModelList = Provider.of<PlayerData>(context).skillModelList;
+    final playerData = Provider.of<PlayerData>(context);
     List<List<ImageProvider>> skillIconList = [
       [
         const AssetImage('assets/Skill/Skill_Icon_STR_0_Primary.png'),
@@ -353,17 +335,17 @@ class SkillPageState extends State<SkillPage>{
       [
         '消耗${skillModelList[skillType][skillIndex].useConsumeMp.toString()}點 MP\n下次攻擊傷害+ ${(skillModelList[skillType][skillIndex].skillLV+1).toString()}%\n升級所需點數： ${skillModelList[skillType][skillIndex].levelUpConsumeMp.toString()} SP\n',
         '消耗${skillModelList[skillType][skillIndex].useConsumeMp.toString()}點 MP\n下次攻擊以 ${(skillModelList[skillType][skillIndex].skillLV+1).toString()}% 機率獲得隨機武器\n升級所需點數： ${skillModelList[skillType][skillIndex].levelUpConsumeMp.toString()} SP\n',
-        '消耗${skillModelList[skillType][skillIndex].useConsumeMp.toString()}點 MP\n\n格檔一次魔物的傷害\n',
+        '消耗${skillModelList[skillType][skillIndex].useConsumeMp.toString()}點 MP\n格檔一次魔物的傷害\n升級所需點數： ${skillModelList[skillType][skillIndex].levelUpConsumeMp.toString()} SP\n',
       ],
       [
         '消耗${skillModelList[skillType][skillIndex].useConsumeMp.toString()}點 MP\n下次獲得經驗值+ ${(skillModelList[skillType][skillIndex].skillLV+1).toString()}%\n升級所需點數： ${skillModelList[skillType][skillIndex].levelUpConsumeMp.toString()} SP\n',
         '消耗${skillModelList[skillType][skillIndex].useConsumeMp.toString()}點 MP\n下次攻擊以 ${(skillModelList[skillType][skillIndex].skillLV+1).toString()}% 機率獲得隨機道具\n升級所需點數： ${skillModelList[skillType][skillIndex].levelUpConsumeMp.toString()} SP\n',
-        '消耗${skillModelList[skillType][skillIndex].useConsumeMp.toString()}點 MP\n\n下次死亡不會受到懲罰\n',
+        '消耗${skillModelList[skillType][skillIndex].useConsumeMp.toString()}點 MP\n下次死亡不會受到懲罰\n升級所需點數： ${skillModelList[skillType][skillIndex].levelUpConsumeMp.toString()} SP\n',
       ],
       [
         '消耗${skillModelList[skillType][skillIndex].useConsumeMp.toString()}點 MP\n下次獲得金幣+ ${(skillModelList[skillType][skillIndex].skillLV+1).toString()}%\n升級所需點數： ${skillModelList[skillType][skillIndex].levelUpConsumeMp.toString()} SP\n',
         '消耗${skillModelList[skillType][skillIndex].useConsumeMp.toString()}點 MP\n下次攻擊以 ${(skillModelList[skillType][skillIndex].skillLV+1).toString()}% 機率獲得隨機飾品\n升級所需點數： ${skillModelList[skillType][skillIndex].levelUpConsumeMp.toString()} SP\n',
-        '消耗${skillModelList[skillType][skillIndex].useConsumeMp.toString()}點 MP\n\n獲得一次額外攻擊機會\n',
+        '消耗${skillModelList[skillType][skillIndex].useConsumeMp.toString()}點 MP\n獲得一次額外攻擊機會\n升級所需點數： ${skillModelList[skillType][skillIndex].levelUpConsumeMp.toString()} SP\n',
       ]
     ];
 
@@ -444,10 +426,11 @@ class SkillPageState extends State<SkillPage>{
                     SizedBox(width: 0.02*screenWidth,),
                     GestureDetector(
                       onTap: (){
-                        if(skillModelList[skillType][skillIndex].skillLV<99 && _sp >= skillModelList[skillType][skillIndex].levelUpConsumeMp){
+                        if(skillModelList[skillType][skillIndex].skillLV<99 && playerData.player.sp >= skillModelList[skillType][skillIndex].levelUpConsumeMp){
                           setState(() {
-                            _sp -= skillModelList[skillType][skillIndex].levelUpConsumeMp;
-                            skillModelList[skillType][skillIndex].skillLV++;
+                            playerData.player.sp -= skillModelList[skillType][skillIndex].levelUpConsumeMp;
+                            playerData.levelUpSkill(skillType, skillIndex);
+                            //skillModelList[skillType][skillIndex].skillLV++;
                           });
                         }
                       },
@@ -483,6 +466,7 @@ class SkillPageState extends State<SkillPage>{
   Widget build(BuildContext context){
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    final player = Provider.of<PlayerData>(context).player;
     return Scaffold(
       backgroundColor: const Color(0xFFE2C799),
       body: SafeArea(

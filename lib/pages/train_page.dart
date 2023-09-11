@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:liver_remake/PlayerData/playerData.dart';
 import 'package:liver_remake/pages/main_page.dart';
 import 'package:liver_remake/pages/shop_page.dart';
 import 'package:liver_remake/pages/skill_page.dart';
 import 'package:liver_remake/Model/Models.dart';
 import 'log_page.dart';
+import 'package:provider/provider.dart';
 
 class TrainPage extends StatefulWidget{
   final Key? keyTrainPage;
@@ -16,13 +18,7 @@ class TrainPage extends StatefulWidget{
 
 class TrainPageState extends State<TrainPage>{
 
-  Player player = Player(
-      bodyIndex: 2, earsTypeIndex: 0, earsColorIndex: 0, clothesIndex: 0, pantsIndex: 0, shoesIndex: 0,
-      eyesTypeIndex: 0, eyesColorIndex: 0, mouthIndex: 0, backHairTypeIndex: 1, backHairColorIndex: 0,
-      foreHairTypeIndex: 1, foreHairColorIndex: 0, backItemIndex: 0, eyeDecorationIndex: 0, heavyWeaponIndex: 0, lightWeaponIndex: 0,
-      name: 'name', level: 99, STR:0,INT:0,VIT:0,hp:1,mp: 10, exp: 8, maxMp: 10, maxExp: 10, coin: 93);
   TrainItem _trainItem = TrainItem('',0,0);
-  List<TrainItem> trainItemList = [];
 
   Widget menuBlock(double screenWidth, double screenHeight){
     return Container(
@@ -123,6 +119,8 @@ class TrainPageState extends State<TrainPage>{
   }
 
   Widget createMenuBar(double screenWidth, double screenHeight){
+    List<TrainItem> trainItemList = Provider.of<PlayerData>(context).trainItemList;
+    final playerData = Provider.of<PlayerData>(context);
     return Row(
       children: [
         Padding(
@@ -141,7 +139,7 @@ class TrainPageState extends State<TrainPage>{
                       );
                     }
                 );
-                trainItemList.add(_trainItem);
+                playerData.addTrainList(_trainItem);
               },
               child: SizedBox(
                 width: 0.18*screenWidth,
@@ -174,7 +172,8 @@ class TrainPageState extends State<TrainPage>{
   }
 
   Widget trainItemBar(double screenWidth, double screenHeight,int trainItemType,int trainLevel,String trainName,int index){
-    
+    final trainItemList = Provider.of<PlayerData>(context).trainItemList;
+    final playerData = Provider.of<PlayerData>(context);
     List<ImageProvider> trainItemTypeList = [
       const AssetImage('assets/Train/Train_Item_S.png'),
       const AssetImage('assets/Train/Train_Item_I.png'),
@@ -185,6 +184,7 @@ class TrainPageState extends State<TrainPage>{
       onTap: (){
         if(trainItemList[index].trainLevel<99){
           setState(() {
+            playerData.completeTrain(trainItemList[index]);
             trainItemList[index].trainLevel++;
           });
         }
@@ -237,7 +237,8 @@ class TrainPageState extends State<TrainPage>{
             GestureDetector(
                 onTap: (){
                   setState(() {
-                    trainItemList.removeAt(index);
+                    //trainItemList.removeAt(index);
+                    playerData.removeTrain(trainItemList[index]);
                   });
                 },
                 child: SizedBox(
@@ -256,6 +257,8 @@ class TrainPageState extends State<TrainPage>{
   Widget build(BuildContext context){
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    final player = Provider.of<PlayerData>(context).player;
+    final trainItemList = Provider.of<PlayerData>(context).trainItemList;
     return Scaffold(
       backgroundColor: const Color(0xFFE2C799),
       body: SingleChildScrollView(

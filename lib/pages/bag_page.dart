@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:liver_remake/PlayerData/playerData.dart';
 import 'package:liver_remake/pages/info_page.dart';
 import 'package:liver_remake/Model/Models.dart';
+import 'package:provider/provider.dart';
 
 class BagPage extends StatefulWidget{
   final Key? keyBagPage;
@@ -15,11 +17,6 @@ class BagPageState extends State<BagPage>{
   int _bagUITypeIndex=0;
   int _nowItemIndex = 0;
 
-  Player player = Player(
-      bodyIndex: 2, earsTypeIndex: 0, earsColorIndex: 0, clothesIndex: 0, pantsIndex: 0, shoesIndex: 0,
-      eyesTypeIndex: 0, eyesColorIndex: 0, mouthIndex: 0, backHairTypeIndex: 1, backHairColorIndex: 0,
-      foreHairTypeIndex: 1, foreHairColorIndex: 0, backItemIndex: 0, eyeDecorationIndex: 0, heavyWeaponIndex: 0, lightWeaponIndex: 0,
-      name: 'name', level: 99, STR:0,INT:0,VIT:0,hp:1,mp: 1, exp: 8, maxMp: 10, maxExp: 10, coin: 93);
   List<Item> allItemsList= [
     //0: weapon
     Item(0, 50, 10, 0, 0, 0, 'HeavyWeapon', '0','',0,0,),
@@ -335,7 +332,7 @@ class BagPageState extends State<BagPage>{
     return result;
   }
 
-  void unloadTypeItem(String whatItem){
+  void unloadTypeItem(String whatItem,Player player){
     for(int i=0;i<bagItemList.length;i++){
       if(bagItemList[i].whatItem==whatItem){
         if(bagItemList[i].status==2){
@@ -449,7 +446,7 @@ class BagPageState extends State<BagPage>{
             player.STR += item.addSTR;
             player.INT += item.addINT;
             player.VIT += item.addVIT;
-            unloadTypeItem(item.whatItem);
+            unloadTypeItem(item.whatItem,player);
             bagItemList[item.indexInList].status=2;
           });
         }
@@ -458,7 +455,7 @@ class BagPageState extends State<BagPage>{
             player.STR -= item.addSTR;
             player.INT -= item.addINT;
             player.VIT -= item.addVIT;
-            unloadTypeItem(item.whatItem);
+            unloadTypeItem(item.whatItem,player);
             bagItemList[item.indexInList].status=1;
           });
         }
@@ -513,6 +510,7 @@ class BagPageState extends State<BagPage>{
   }
 
   Widget bagItem(double screenWidth, double screenHeight,Item item,int index){
+    final player = Provider.of<PlayerData>(context).player;
     return GestureDetector(
       onTap: (){
         setState(() {
@@ -680,6 +678,7 @@ class BagPageState extends State<BagPage>{
   Widget build(BuildContext context){
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    final player = Provider.of<PlayerData>(context).player;
     for(int i=0;i<bagItemList.length;i++){
       bagItemList[i].getIndexInList(i);
     }

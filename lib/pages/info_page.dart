@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:liver_remake/PlayerData/playerData.dart';
 import 'package:liver_remake/pages/bag_page.dart';
 import 'package:liver_remake/Model/Models.dart';
+import 'package:provider/provider.dart';
 
 class InfoPage extends StatefulWidget{
   final Key? keyInfoPage;
@@ -11,12 +13,6 @@ class InfoPage extends StatefulWidget{
 }
 
 class InfoPageState extends State<InfoPage>{
-
-  Player player = Player(
-      bodyIndex: 2, earsTypeIndex: 0, earsColorIndex: 0, clothesIndex: 0, pantsIndex: 0, shoesIndex: 0,
-      eyesTypeIndex: 0, eyesColorIndex: 0, mouthIndex: 0, backHairTypeIndex: 1, backHairColorIndex: 0,
-      foreHairTypeIndex: 1, foreHairColorIndex: 0, backItemIndex: 0, eyeDecorationIndex: 0, heavyWeaponIndex: 0, lightWeaponIndex: 0,
-      name: 'name', level: 99, STR:0,INT:0,VIT:0,hp:1,mp: 10, exp: 8, maxMp: 10, maxExp: 10, coin: 93);
 
   Widget infoBlock(double screenWidth,double screenHeight,Player player){
     return Container(
@@ -262,6 +258,7 @@ class InfoPageState extends State<InfoPage>{
   Widget build(BuildContext context){
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    final player = Provider.of<PlayerData>(context).player;
     return Scaffold(
       backgroundColor: const Color(0xFFE2C799),
       body: SafeArea(
