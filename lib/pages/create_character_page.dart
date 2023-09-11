@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:liver_remake/pages/main_page.dart';
-import 'package:liver_remake/widget/characterStatusBlock.dart';
+import 'package:liver_remake/Model/Models.dart';
 
 class CreateCharacterPage extends StatefulWidget{
+  final Key? keyCreateCharacterPage;
+  const CreateCharacterPage({this.keyCreateCharacterPage}) : super(key: keyCreateCharacterPage);
   @override
-  _CreateCharacterPage createState() => _CreateCharacterPage();
+  CreateCharacterPageState createState() => CreateCharacterPageState();
 }
 
-class _CreateCharacterPage extends State<CreateCharacterPage>{
+class CreateCharacterPageState extends State<CreateCharacterPage>{
 
   int _selectBoxIndex = 0;
   final List<String> _selectBoxTitleList = ['身體 & 耳朵','服裝','眼睛 & 嘴吧','髮型'];
@@ -34,7 +36,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               }
             });
           },
-          child: Container(
+          child: SizedBox(
             height: 0.0625*screenHeight,
             width: 0.125*screenWidth,
             child: Image.asset('assets/PrevButton.png',fit: BoxFit.cover,),
@@ -45,7 +47,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
           child: SizedBox(
             width: 0.27*screenWidth,
             child: Center(
-              child: Text(_selectBoxTitleList[_selectBoxIndex],style: TextStyle(fontSize: 20,color: Colors.white)),
+              child: Text(_selectBoxTitleList[_selectBoxIndex],style: const TextStyle(fontSize: 20,color: Colors.white)),
             )
           )
         ),
@@ -60,7 +62,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               }
             });
           },
-          child: Container(
+          child: SizedBox(
             height: 0.0625*screenHeight,
             width: 0.125*screenWidth,
             child: Image.asset('assets/NextButton.png',fit: BoxFit.cover,),
@@ -81,7 +83,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
                 player.bodyIndex =i;
               });
             },
-            child: Container(
+            child: SizedBox(
               height: 0.05 * screenHeight,
               width: 0.1 * screenWidth,
               child: Image.asset(
@@ -105,7 +107,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
                 player.earsColorIndex =i;
               });
             },
-            child: Container(
+            child: SizedBox(
               height: 0.05 * screenHeight,
               width: 0.1 * screenWidth,
               child: Image.asset(
@@ -131,7 +133,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
                     player.eyesColorIndex =i;
                   });
                 },
-                child: Container(
+                child: SizedBox(
                   height: 0.05 * screenHeight,
                   width: 0.1 * screenWidth,
                   child: Image.asset(
@@ -153,7 +155,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
                     player.eyesColorIndex =i+5;
                   });
                 },
-                child: Container(
+                child: SizedBox(
                   height: 0.05 * screenHeight,
                   width: 0.1 * screenWidth,
                   child: Image.asset(
@@ -181,7 +183,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
                     player.backHairColorIndex =i;
                   });
                 },
-                child: Container(
+                child: SizedBox(
                   height: 0.05 * screenHeight,
                   width: 0.1 * screenWidth,
                   child: Image.asset(
@@ -203,7 +205,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
                     player.backHairColorIndex =i+5;
                   });
                 },
-                child: Container(
+                child: SizedBox(
                   height: 0.05 * screenHeight,
                   width: 0.1 * screenWidth,
                   child: Image.asset(
@@ -231,7 +233,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
                     player.foreHairColorIndex =i;
                   });
                 },
-                child: Container(
+                child: SizedBox(
                   height: 0.05 * screenHeight,
                   width: 0.1 * screenWidth,
                   child: Image.asset(
@@ -253,7 +255,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
                     player.foreHairColorIndex =i+5;
                   });
                 },
-                child: Container(
+                child: SizedBox(
                   height: 0.05 * screenHeight,
                   width: 0.1 * screenWidth,
                   child: Image.asset(
@@ -297,7 +299,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
                     }
                   });
                 },
-                child: Container(
+                child: SizedBox(
                   height: 0.0625*screenHeight,
                   width: 0.125*screenWidth,
                   child: Image.asset('assets/PrevButton.png',fit: BoxFit.cover,),
@@ -315,7 +317,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
                     }
                   });
                 },
-                child: Container(
+                child: SizedBox(
                   height: 0.0625*screenHeight,
                   width: 0.125*screenWidth,
                   child: Image.asset('assets/NextButton.png',fit: BoxFit.cover,),
@@ -357,7 +359,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
                     }
                   });
                 },
-                child: Container(
+                child: SizedBox(
                   height: 0.0625*screenHeight,
                   width: 0.125*screenWidth,
                   child: Image.asset('assets/PrevButton.png',fit: BoxFit.cover,),
@@ -375,7 +377,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
                     }
                   });
                 },
-                child: Container(
+                child: SizedBox(
                   height: 0.0625*screenHeight,
                   width: 0.125*screenWidth,
                   child: Image.asset('assets/NextButton.png',fit: BoxFit.cover,),
@@ -398,7 +400,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
                     }
                   });
                 },
-                child: Container(
+                child: SizedBox(
                   height: 0.0625*screenHeight,
                   width: 0.125*screenWidth,
                   child: Image.asset('assets/PrevButton.png',fit: BoxFit.cover,),
@@ -416,7 +418,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
                     }
                   });
                 },
-                child: Container(
+                child: SizedBox(
                   height: 0.0625*screenHeight,
                   width: 0.125*screenWidth,
                   child: Image.asset('assets/NextButton.png',fit: BoxFit.cover,),
@@ -439,7 +441,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
                     }
                   });
                 },
-                child: Container(
+                child: SizedBox(
                   height: 0.0625*screenHeight,
                   width: 0.125*screenWidth,
                   child: Image.asset('assets/PrevButton.png',fit: BoxFit.cover,),
@@ -457,7 +459,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
                     }
                   });
                 },
-                child: Container(
+                child: SizedBox(
                   height: 0.0625*screenHeight,
                   width: 0.125*screenWidth,
                   child: Image.asset('assets/NextButton.png',fit: BoxFit.cover,),
@@ -497,7 +499,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
                     }
                   });
                 },
-                child: Container(
+                child: SizedBox(
                   height: 0.0625*screenHeight,
                   width: 0.125*screenWidth,
                   child: Image.asset('assets/PrevButton.png',fit: BoxFit.cover,),
@@ -515,7 +517,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
                     }
                   });
                 },
-                child: Container(
+                child: SizedBox(
                   height: 0.0625*screenHeight,
                   width: 0.125*screenWidth,
                   child: Image.asset('assets/NextButton.png',fit: BoxFit.cover,),
@@ -540,7 +542,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
                     }
                   });
                 },
-                child: Container(
+                child: SizedBox(
                   height: 0.0625*screenHeight,
                   width: 0.125*screenWidth,
                   child: Image.asset('assets/PrevButton.png',fit: BoxFit.cover,),
@@ -558,7 +560,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
                     }
                   });
                 },
-                child: Container(
+                child: SizedBox(
                   height: 0.0625*screenHeight,
                   width: 0.125*screenWidth,
                   child: Image.asset('assets/NextButton.png',fit: BoxFit.cover,),
@@ -599,7 +601,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
                     }
                   });
                 },
-                child: Container(
+                child: SizedBox(
                   height: 0.0625*screenHeight,
                   width: 0.125*screenWidth,
                   child: Image.asset('assets/PrevButton.png',fit: BoxFit.cover,),
@@ -620,7 +622,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
                     }
                   });
                 },
-                child: Container(
+                child: SizedBox(
                   height: 0.0625*screenHeight,
                   width: 0.125*screenWidth,
                   child: Image.asset('assets/NextButton.png',fit: BoxFit.cover,),
@@ -630,15 +632,13 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
           ),
           SizedBox(height: 0.005*screenHeight,),
           (player.backHairTypeIndex==2?
-              Container(
-                child: Column(
-                  children: [
-                    SizedBox(height: 0.03*screenHeight,),
-                    const SizedBox(
-                      child: Text('無後髮',style: TextStyle(fontSize: 30,color: Colors.white,)),
-                    ),
-                  ],
-                ),
+              Column(
+                children: [
+                  SizedBox(height: 0.03*screenHeight,),
+                  const SizedBox(
+                    child: Text('無後髮',style: TextStyle(fontSize: 30,color: Colors.white,)),
+                  ),
+                ],
               ):
               _buildBackHairSkinBlock(screenWidth, screenHeight)),
           (player.backHairTypeIndex == 2? SizedBox(height: 0.07*screenHeight) : SizedBox(height: 0.025*screenHeight)),
@@ -659,7 +659,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
                     }
                   });
                 },
-                child: Container(
+                child: SizedBox(
                   height: 0.0625*screenHeight,
                   width: 0.125*screenWidth,
                   child: Image.asset('assets/PrevButton.png',fit: BoxFit.cover,),
@@ -678,7 +678,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
                     }
                   });
                 },
-                child: Container(
+                child: SizedBox(
                   height: 0.0625*screenHeight,
                   width: 0.125*screenWidth,
                   child: Image.asset('assets/NextButton.png',fit: BoxFit.cover,),
@@ -688,15 +688,13 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
           ),
           SizedBox(height: 0.005*screenHeight,),
           (player.foreHairTypeIndex==0?
-          Container(
-            child: Column(
-              children: [
-                SizedBox(height: 0.03*screenHeight,),
-                SizedBox(
-                  child: Text('無前髮',style: TextStyle(fontSize: 30,color: Colors.white,)),
-                )
-              ],
-            ),
+          Column(
+            children: [
+              SizedBox(height: 0.03*screenHeight,),
+              const SizedBox(
+                child: Text('無前髮',style: TextStyle(fontSize: 30,color: Colors.white,)),
+              )
+            ],
           ):
           _buildForeHairSkinBlock(screenWidth, screenHeight)),
         ],
@@ -704,8 +702,8 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
     );
   }
 
-  Widget selectBox(double screenWidth, double screenHeight,int _selectBoxIndex){
-    switch(_selectBoxIndex){
+  Widget selectBox(double screenWidth, double screenHeight,int selectBoxIndex){
+    switch(selectBoxIndex){
       case 0: return selectBody(screenWidth,screenHeight);
       case 1: return selectEquipment(screenWidth,screenHeight);
       case 2: return selectFace(screenWidth,screenHeight);
@@ -724,15 +722,14 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
               onTap: (){
                 _name = nameController.text;
                 player.name = _name;
-                print(player.name);
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context)=>MainPage()
+                        builder: (context)=>const MainPage()
                     )
                 );
               },
-              child: Container(
+              child: SizedBox(
                 width: 0.4*screenWidth,
                 height: 0.05*screenHeight,
                 child: Image.asset('assets/OKButton.png',fit: BoxFit.cover,),
@@ -741,7 +738,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
         ),
         GestureDetector(
           onTap: (){},
-          child: Container(
+          child: SizedBox(
             width: 0.125*screenWidth,
             height: 0.05*screenHeight,
             child: Image.asset('assets/LogOutButton.png',fit: BoxFit.cover,),
@@ -782,7 +779,7 @@ class _CreateCharacterPage extends State<CreateCharacterPage>{
                         child: Column(
                           children: [
                             SizedBox(height: 0.015*screenHeight,),
-                            Container(
+                            SizedBox(
                               width: 0.5*screenWidth,
                               height: 0.025*screenHeight,
                               child: TextField(

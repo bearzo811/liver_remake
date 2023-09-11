@@ -3,16 +3,20 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:liver_remake/pages/shop_page.dart';
 import 'package:liver_remake/pages/train_page.dart';
 import 'package:liver_remake/pages/skill_page.dart';
-import 'package:liver_remake/widget/characterStatusBlock.dart';
+import 'package:liver_remake/Model/Models.dart';
 
 import 'log_page.dart';
 
 class MainPage extends StatefulWidget{
+
+  final Key? keyMainPage;
+  const MainPage({this.keyMainPage}):super(key:keyMainPage);
+
   @override
-  _MainPage createState() => _MainPage();
+  MainPageState createState() => MainPageState();
 }
 
-class _MainPage extends State<MainPage>{
+class MainPageState extends State<MainPage>{
   Player player = Player(
       bodyIndex: 2, earsTypeIndex: 0, earsColorIndex: 0, clothesIndex: 0, pantsIndex: 0, shoesIndex: 0,
       eyesTypeIndex: 0, eyesColorIndex: 0, mouthIndex: 0, backHairTypeIndex: 1, backHairColorIndex: 0,
@@ -21,18 +25,18 @@ class _MainPage extends State<MainPage>{
   int _battleSceneIndex = 0;
   double _monsterHpRatio = 0;
   String _monsterName = '';
-  TextEditingController _monsterNameTextFieldController = TextEditingController();
-  List<ImageProvider> _battleSceneFileName = [
-    AssetImage('assets/BattleScene_Background_1_R.png'),
-    AssetImage('assets/BattleScene_Background_2_B.png'),
-    AssetImage('assets/BattleScene_Background_3_G.png')
+  TextEditingController monsterNameTextFieldController = TextEditingController();
+  List<ImageProvider> battleSceneFileName = [
+    const AssetImage('assets/BattleScene_Background_1_R.png'),
+    const AssetImage('assets/BattleScene_Background_2_B.png'),
+    const AssetImage('assets/BattleScene_Background_3_G.png')
   ] ;
 
-  Widget BattleScene(double screenWidth, double screenHeight){
-    List<ImageProvider> _battleSceneFileName = [
-      AssetImage('assets/BattleScene_Background_1_R.png'),
-      AssetImage('assets/BattleScene_Background_2_B.png'),
-      AssetImage('assets/BattleScene_Background_3_G.png')
+  Widget battleScene(double screenWidth, double screenHeight){
+    List<ImageProvider> battleSceneFileName = [
+      const AssetImage('assets/BattleScene_Background_1_R.png'),
+      const AssetImage('assets/BattleScene_Background_2_B.png'),
+      const AssetImage('assets/BattleScene_Background_3_G.png')
     ] ;
 
     return Container(
@@ -40,14 +44,14 @@ class _MainPage extends State<MainPage>{
         height: screenHeight,
         decoration: BoxDecoration(
           image: DecorationImage(
-              image: _battleSceneFileName[_battleSceneIndex],
+              image: battleSceneFileName[_battleSceneIndex],
               fit: BoxFit.cover
           ),
         )
     );
   }
 
-  Widget HpBarBlock(double screenWidth, double screenHeight,double hpRatio){
+  Widget hpBarBlock(double screenWidth, double screenHeight,double hpRatio){
     return Container(
         width: 0.6*screenWidth,
         height: 0.05*screenHeight,
@@ -61,9 +65,9 @@ class _MainPage extends State<MainPage>{
           borderRadius: BorderRadius.circular(40.0),
           child: LinearProgressIndicator(
             value: hpRatio,
-            valueColor: AlwaysStoppedAnimation<Color>(Color.fromRGBO(
+            valueColor: const AlwaysStoppedAnimation<Color>(Color.fromRGBO(
                 232, 29, 29, 0.8),),
-            backgroundColor: Color.fromRGBO(0, 0, 0, 0),
+            backgroundColor: const Color.fromRGBO(0, 0, 0, 0),
           ),
 
         )
@@ -71,7 +75,7 @@ class _MainPage extends State<MainPage>{
   }
 
 
-  Widget MonsterNameAndHpBarBlock(double screenWidth, double screenHeight){
+  Widget monsterNameAndHpBarBlock(double screenWidth, double screenHeight){
     return Column(
       children: [
         Container(
@@ -92,18 +96,18 @@ class _MainPage extends State<MainPage>{
           ),
         ), //怪物名稱
         SizedBox(height: 0.0035*screenHeight,),
-        (_monsterHpRatio>0 ? HpBarBlock(screenWidth, screenHeight, _monsterHpRatio):
-        Container(width: 0.6*screenWidth,
+        (_monsterHpRatio>0 ? hpBarBlock(screenWidth, screenHeight, _monsterHpRatio):
+        SizedBox(width: 0.6*screenWidth,
           height: 0.05*screenHeight,))
       ],
     );
   }
 
-  Widget MonsterAndArrowBlock(double screenWidth, double screenHeight){
-    List<ImageProvider> _monsterList = [
-      AssetImage('assets/Monster_R_0.png'),
-      AssetImage('assets/Monster_B_0.png'),
-      AssetImage('assets/Monster_G_0.png'),
+  Widget monsterAndArrowBlock(double screenWidth, double screenHeight){
+    List<ImageProvider> monsterList = [
+      const AssetImage('assets/Monster_R_0.png'),
+      const AssetImage('assets/Monster_B_0.png'),
+      const AssetImage('assets/Monster_G_0.png'),
     ];
 
     Widget monsterImage(){
@@ -112,7 +116,7 @@ class _MainPage extends State<MainPage>{
         height: 0.4*screenHeight,
         decoration: BoxDecoration(
             image: DecorationImage(
-              image: _monsterList[_battleSceneIndex],
+              image: monsterList[_battleSceneIndex],
               fit: BoxFit.cover,
             )
         ),
@@ -127,15 +131,15 @@ class _MainPage extends State<MainPage>{
               barrierDismissible: true,
               builder: (BuildContext context){
                 return AlertDialog(
-                  backgroundColor: Color.fromRGBO(0, 0, 0, 0),
+                  backgroundColor: const Color.fromRGBO(0, 0, 0, 0),
                   content: SingleChildScrollView(
-                    child: CreateMonsterBlock(screenWidth, screenHeight),
+                    child: createMonsterBlock(screenWidth, screenHeight),
                   ),
                 );
               }
           );
         },
-        child: Container(
+        child: SizedBox(
           height: 0.0625*screenHeight,
           width: 0.125*screenWidth,
           child: Image.asset('assets/Train_Add_Button.png',fit: BoxFit.cover,),
@@ -161,7 +165,7 @@ class _MainPage extends State<MainPage>{
                     }
                   });
                 },
-                child: Container(
+                child: SizedBox(
                   height: 0.0625*screenHeight,
                   width: 0.125*screenWidth,
                   child: Image.asset('assets/Left_Arrow.png',fit: BoxFit.cover,),
@@ -182,7 +186,7 @@ class _MainPage extends State<MainPage>{
                     }
                   });
                 },
-                child: Container(
+                child: SizedBox(
                   height: 0.0625*screenHeight,
                   width: 0.125*screenWidth,
                   child: Image.asset('assets/Right_Arrow.png',fit: BoxFit.cover,),
@@ -209,7 +213,7 @@ class _MainPage extends State<MainPage>{
                 }
               });
             },
-            child: Container(
+            child: SizedBox(
               height: 0.0625*screenHeight,
               width: 0.125*screenWidth,
               child: Image.asset('assets/Left_Arrow.png',fit: BoxFit.cover,),
@@ -230,7 +234,7 @@ class _MainPage extends State<MainPage>{
                 }
               });
             },
-            child: Container(
+            child: SizedBox(
               height: 0.0625*screenHeight,
               width: 0.125*screenWidth,
               child: Image.asset('assets/Right_Arrow.png',fit: BoxFit.cover,),
@@ -243,7 +247,7 @@ class _MainPage extends State<MainPage>{
 
   }
 
-  Widget CreateMonsterBlock(double screenWidth, double screenHeight){
+  Widget createMonsterBlock(double screenWidth, double screenHeight){
     return Container(
       width: 0.9*screenWidth,
       height: 0.25*screenHeight,
@@ -256,18 +260,18 @@ class _MainPage extends State<MainPage>{
       child: Column(
         children: [
           SizedBox(height: 0.08*screenHeight,),
-          Container(
+          SizedBox(
             width: 0.6*screenWidth,
             child: Stack(
               children: [
                 const Image(image: AssetImage('assets/Train_Add_TextBox.png'),fit: BoxFit.cover,),
-                Container(
+                SizedBox(
                   height: 0.05*screenHeight,
                   width: 0.6*screenWidth,
                   child: TextField(
-                    controller: _monsterNameTextFieldController,
+                    controller: monsterNameTextFieldController,
                     textAlign: TextAlign.center,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: InputBorder.none,
                       hintText: '請輸入習慣名稱',
                     ),
@@ -283,13 +287,13 @@ class _MainPage extends State<MainPage>{
               GestureDetector(
                   onTap: (){
                     setState(() {
-                      _monsterName = _monsterNameTextFieldController.text;
+                      _monsterName = monsterNameTextFieldController.text;
                       _monsterHpRatio=1;
                     });
-                    _monsterNameTextFieldController.clear();
+                    monsterNameTextFieldController.clear();
                     Navigator.of(context).pop();
                   },
-                  child: Container(
+                  child: SizedBox(
                     width: 0.4*screenWidth,
                     height: 0.05*screenHeight,
                     child: Image.asset('assets/OKButton.png',fit: BoxFit.cover,),
@@ -330,7 +334,7 @@ class _MainPage extends State<MainPage>{
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context)=>TrainPage()
+                      builder: (context)=>const TrainPage()
                   )
               );
             },
@@ -345,7 +349,7 @@ class _MainPage extends State<MainPage>{
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context)=>SkillPage()
+                      builder: (context)=>const SkillPage()
                   )
               );
             },
@@ -360,7 +364,7 @@ class _MainPage extends State<MainPage>{
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context)=>ShopPage()
+                      builder: (context)=>const ShopPage()
                   )
               );
             },
@@ -375,7 +379,7 @@ class _MainPage extends State<MainPage>{
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context)=>LogPage()
+                      builder: (context)=>const LogPage()
                   )
               );
             },
@@ -387,7 +391,6 @@ class _MainPage extends State<MainPage>{
           ),
           GestureDetector(
             onTap: (){
-              print('Logout！');
             },
             child: SizedBox(
               width: 0.6*screenWidth,
@@ -408,7 +411,7 @@ class _MainPage extends State<MainPage>{
           padding: EdgeInsets.only(left:0.41*screenWidth,right: 0.22*screenWidth),
           child: GestureDetector(
               onTap: (){},
-              child: Container(
+              child: SizedBox(
                 width: 0.18*screenWidth,
                 height: 0.08*screenHeight,
                 child: Image.asset('assets/Attack_Button.png',fit: BoxFit.cover,),
@@ -422,13 +425,13 @@ class _MainPage extends State<MainPage>{
               barrierDismissible: true,
               builder: (BuildContext context){
                 return AlertDialog(
-                  backgroundColor: Color.fromRGBO(0, 0, 0, 0),
+                  backgroundColor: const Color.fromRGBO(0, 0, 0, 0),
                   content: menuBlock(screenWidth, screenHeight),
                 );
               }
             );
           },
-          child: Container(
+          child: SizedBox(
             width: 0.18*screenWidth,
             height: 0.08*screenHeight,
             child: Image.asset('assets/Menu_Button.png',fit: BoxFit.cover,),
@@ -447,14 +450,14 @@ class _MainPage extends State<MainPage>{
           child: SafeArea(
               child: Stack(
                 children: [
-                  BattleScene(screenWidth, screenHeight),
+                  battleScene(screenWidth, screenHeight),
                   Column(
                     children: [
                       characterStatusBlockWithInfoButton(screenWidth, screenHeight,player,context), //character status bar
                       SizedBox(height: 0.05*screenHeight,),
-                      MonsterNameAndHpBarBlock(screenWidth, screenHeight),
+                      monsterNameAndHpBarBlock(screenWidth, screenHeight),
                       SizedBox(height: 0.05*screenHeight,),
-                      MonsterAndArrowBlock(screenWidth, screenHeight),//怪物 & 左右箭頭
+                      monsterAndArrowBlock(screenWidth, screenHeight),//怪物 & 左右箭頭
                       SizedBox(height: 0.05*screenHeight,),
                       attackMenuBar(screenWidth, screenHeight),
                     ],

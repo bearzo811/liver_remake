@@ -2,6 +2,69 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:liver_remake/pages/info_page.dart';
 import 'package:liver_remake/pages/main_page.dart';
+import 'package:provider/provider.dart';
+
+class Achievement{
+  int type =0 ; // 0: star | 1: little int | 2: little vit | 3: little str | 4: big int | 5: big vit | 6: big str
+  String description='';
+  String date = '';
+  Achievement({
+    required this.type,
+    required this.description,
+    required this.date
+  });
+
+}
+
+class SkillModel{
+  int skillLV = 1;
+  bool canLearn = false; //是否可以學習
+  bool hasLearned = true; //是否已學習
+  bool canUse = true; //是否可使用
+  int useConsumeMp = 1;
+  int levelUpConsumeMp = 1;
+  SkillModel(this.skillLV,this.canLearn,this.hasLearned,this.canUse,this.useConsumeMp,this.levelUpConsumeMp);
+}
+
+class TrainItem{
+  int trainTypeIndex = 0;
+  int trainLevel = 0;
+  String trainName = '';
+  int addEXP = 0;
+
+  TrainItem(this.trainName,this.trainTypeIndex,this.trainLevel);
+
+  int getAddSTR(){
+    if(trainTypeIndex==0){
+      return (trainLevel~/5)+1;
+    }
+    else{
+      return 0;
+    }
+  }
+
+  int getAddINT(){
+    if(trainTypeIndex==1){
+      return (trainLevel~/5)+1;
+    }
+    else{
+      return 0;
+    }
+  }
+
+  int getAddVIT(){
+    if(trainTypeIndex==2){
+      return (trainLevel~/5)+1;
+    }
+    else{
+      return 0;
+    }
+  }
+
+  int getAddEXP(){
+    return (trainLevel~/10)+1;
+  }
+}
 
 class Item{
   int type = 0; // 0:weapon, 1:armors, 2: accessories, 3:body, 4:items

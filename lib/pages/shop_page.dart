@@ -3,16 +3,19 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:liver_remake/pages/main_page.dart';
 import 'package:liver_remake/pages/skill_page.dart';
 import 'package:liver_remake/pages/train_page.dart';
-import 'package:liver_remake/widget/characterStatusBlock.dart';
+import 'package:liver_remake/Model/Models.dart';
 
 import 'log_page.dart';
 
 class ShopPage extends StatefulWidget{
+  final Key? keyShopPage;
+  const ShopPage({this.keyShopPage}):super(key:keyShopPage);
+
   @override
-  _ShopPage createState() => _ShopPage();
+  ShopPageState createState() => ShopPageState();
 }
 
-class _ShopPage extends State<ShopPage>{
+class ShopPageState extends State<ShopPage>{
 
   int _shopUITypeIndex=0;
   int _nowItemIndex = 0;
@@ -211,7 +214,7 @@ class _ShopPage extends State<ShopPage>{
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => MainPage()
+                      builder: (context) => const MainPage()
                   )
               );
             },
@@ -226,7 +229,7 @@ class _ShopPage extends State<ShopPage>{
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => TrainPage()
+                      builder: (context) => const TrainPage()
                   )
               );
             },
@@ -241,7 +244,7 @@ class _ShopPage extends State<ShopPage>{
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => SkillPage()
+                      builder: (context) => const SkillPage()
                   )
               );
             },
@@ -266,7 +269,7 @@ class _ShopPage extends State<ShopPage>{
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context)=>LogPage()
+                      builder: (context)=>const LogPage()
                   )
               );
             },
@@ -278,7 +281,6 @@ class _ShopPage extends State<ShopPage>{
           ),
           GestureDetector(
             onTap: (){
-              print('Logout！');
             },
             child: SizedBox(
               width: 0.6*screenWidth,
@@ -378,7 +380,7 @@ class _ShopPage extends State<ShopPage>{
         height: 0.1*screenHeight,
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: (player.coin>=item.coin?AssetImage('assets/Shop/Shop_BuyButton.png'):AssetImage('assets/Shop/Shop_BuyButton_Unvailable.png')),
+                image: (player.coin>=item.coin?const AssetImage('assets/Shop/Shop_BuyButton.png'):const AssetImage('assets/Shop/Shop_BuyButton_Unvailable.png')),
                 fit: BoxFit.contain
             )
         ),

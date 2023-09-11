@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:liver_remake/pages/info_page.dart';
-import 'package:liver_remake/pages/main_page.dart';
-import 'package:liver_remake/pages/train_page.dart';
-import 'package:liver_remake/widget/characterStatusBlock.dart';
+import 'package:liver_remake/Model/Models.dart';
 
 class BagPage extends StatefulWidget{
+  final Key? keyBagPage;
+  const BagPage({this.keyBagPage}):super(key:keyBagPage);
   @override
-  _BagPage createState() => _BagPage();
+  BagPageState createState() => BagPageState();
 }
 
-class _BagPage extends State<BagPage>{
+class BagPageState extends State<BagPage>{
 
   int _bagUITypeIndex=0;
   int _nowItemIndex = 0;
@@ -332,7 +332,6 @@ class _BagPage extends State<BagPage>{
         result.add(bagItemList[i]);
       }
     }
-    print('bagItemList: ${result.length}');
     return result;
   }
 
@@ -411,11 +410,11 @@ class _BagPage extends State<BagPage>{
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context)=>InfoPage()
+                    builder: (context)=>const InfoPage()
                 )
             );
           },
-          child: Container(
+          child: SizedBox(
             width: 0.18*screenWidth,
             height: 0.08*screenHeight,
             child: Image.asset('assets/Info/Info_Button.png',fit: BoxFit.cover,),
@@ -435,7 +434,7 @@ class _BagPage extends State<BagPage>{
       }
     }
     else{
-      return Container(
+      return SizedBox(
         width: 0.3*screenWidth,
         height: 0.1*screenHeight,
       );
@@ -478,45 +477,39 @@ class _BagPage extends State<BagPage>{
   }
 
   Widget useButton(double screenWidth, double screenHeight,Item item,Player player){
-    if(item==null){
-      return Container();
-    }
-    else{
-      return GestureDetector(
-        onTap: (){
-          setState(() {
-            if(item.addMp>0){
-              if(player.mp<player.maxMp){
-                player.mp+=item.addMp;
-                if(player.mp>player.maxMp){
-                  player.mp=player.maxMp;
-                }
+    return GestureDetector(
+      onTap: (){
+        setState(() {
+          if(item.addMp>0){
+            if(player.mp<player.maxMp){
+              player.mp+=item.addMp;
+              if(player.mp>player.maxMp){
+                player.mp=player.maxMp;
               }
             }
-            else{
-              player.exp+=item.addExp;
-              if(player.exp>player.maxExp){
-                player.exp-=player.maxExp;
-                player.level++;
-              }
+          }
+          else{
+            player.exp+=item.addExp;
+            if(player.exp>player.maxExp){
+              player.exp-=player.maxExp;
+              player.level++;
             }
-            bagItemList[item.indexInList].status=0;
-            _nowItemIndex=0;
-          });
-        },
-        child: Container(
-          width: 0.3*screenWidth,
-          height: 0.1*screenHeight,
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image:AssetImage('assets/Info/Use_Button.png'),
-                  fit: BoxFit.contain
-              )
-          ),
+          }
+          bagItemList[item.indexInList].status=0;
+          _nowItemIndex=0;
+        });
+      },
+      child: Container(
+        width: 0.3*screenWidth,
+        height: 0.1*screenHeight,
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image:AssetImage('assets/Info/Use_Button.png'),
+                fit: BoxFit.contain
+            )
         ),
-      );
-    }
-
+      ),
+    );
   }
 
   Widget bagItem(double screenWidth, double screenHeight,Item item,int index){
@@ -690,7 +683,6 @@ class _BagPage extends State<BagPage>{
     for(int i=0;i<bagItemList.length;i++){
       bagItemList[i].getIndexInList(i);
     }
-    print(getBagListByType(4).length);
     return Scaffold(
       backgroundColor: const Color(0xFFE2C799),
       body: SafeArea(

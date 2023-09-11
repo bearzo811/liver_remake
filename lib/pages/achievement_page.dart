@@ -5,26 +5,17 @@ import 'package:liver_remake/pages/main_page.dart';
 import 'package:liver_remake/pages/shop_page.dart';
 import 'package:liver_remake/pages/skill_page.dart';
 import 'package:liver_remake/pages/train_page.dart';
-import 'package:liver_remake/widget/characterStatusBlock.dart';
+import 'package:liver_remake/Model/Models.dart';
 
-class Achievement{
-  int type =0 ; // 0: star | 1: little int | 2: little vit | 3: little str | 4: big int | 5: big vit | 6: big str
-  String description='';
-  String date = '';
-  Achievement({
-    required this.type,
-    required this.description,
-    required this.date
-  });
-
-}
 
 class AchievementPage extends StatefulWidget{
+  final Key? keyAchievementPage;
+  const AchievementPage({this.keyAchievementPage}):super(key:keyAchievementPage);
   @override
-  _AchievementPage createState() => _AchievementPage();
+  AchievementPageState createState() => AchievementPageState();
 }
 
-class _AchievementPage extends State<AchievementPage>{
+class AchievementPageState extends State<AchievementPage>{
 
   Player player = Player(
       bodyIndex: 2, earsTypeIndex: 0, earsColorIndex: 0, clothesIndex: 0, pantsIndex: 0, shoesIndex: 0,
@@ -50,7 +41,7 @@ class _AchievementPage extends State<AchievementPage>{
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => MainPage()
+                      builder: (context) => const MainPage()
                   )
               );
             },
@@ -62,7 +53,12 @@ class _AchievementPage extends State<AchievementPage>{
           ),
           GestureDetector(
             onTap: (){
-              Navigator.of(context).pop();
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const TrainPage()
+                  )
+              );
             },
             child: SizedBox(
               width: 0.6*screenWidth,
@@ -75,7 +71,7 @@ class _AchievementPage extends State<AchievementPage>{
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context)=>SkillPage()
+                      builder: (context)=>const SkillPage()
                   )
               );
             },
@@ -90,7 +86,7 @@ class _AchievementPage extends State<AchievementPage>{
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context)=>ShopPage()
+                      builder: (context)=>const ShopPage()
                   )
               );
             },
@@ -105,7 +101,7 @@ class _AchievementPage extends State<AchievementPage>{
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context)=>LogPage()
+                      builder: (context)=>const LogPage()
                   )
               );
             },
@@ -117,7 +113,6 @@ class _AchievementPage extends State<AchievementPage>{
           ),
           GestureDetector(
             onTap: (){
-              print('Logout！');
             },
             child: SizedBox(
               width: 0.6*screenWidth,
@@ -140,11 +135,11 @@ class _AchievementPage extends State<AchievementPage>{
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => LogPage()
+                        builder: (context) => const LogPage()
                     )
                 );
               },
-              child: Container(
+              child: SizedBox(
                 width: 0.18*screenWidth,
                 height: 0.08*screenHeight,
                 child: Image.asset('assets/Achievement/Achievement_Log_Button.png',fit: BoxFit.cover,),
@@ -158,13 +153,13 @@ class _AchievementPage extends State<AchievementPage>{
                 barrierDismissible: true,
                 builder: (BuildContext context){
                   return AlertDialog(
-                    backgroundColor: Color.fromRGBO(0, 0, 0, 0),
+                    backgroundColor: const Color.fromRGBO(0, 0, 0, 0),
                     content: menuBlock(screenWidth, screenHeight),
                   );
                 }
             );
           },
-          child: Container(
+          child: SizedBox(
             width: 0.18*screenWidth,
             height: 0.08*screenHeight,
             child: Image.asset('assets/Menu_Button.png',fit: BoxFit.cover,),
@@ -251,7 +246,6 @@ class _AchievementPage extends State<AchievementPage>{
           }
 
           List<Achievement> rowAchievement = allAchievementList.sublist(startIndex,endIndex);
-          print('now row type: $row');
           return Row(
             children: rowAchievement.map((achievement){
               return Expanded(

@@ -3,26 +3,18 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:liver_remake/pages/main_page.dart';
 import 'package:liver_remake/pages/shop_page.dart';
 import 'package:liver_remake/pages/train_page.dart';
-import 'package:liver_remake/widget/characterStatusBlock.dart';
-
+import 'package:liver_remake/Model/Models.dart';
 import 'log_page.dart';
 
-class SkillModel{
-  int _skillLV = 1;
-  bool _canLearn = false; //是否可以學習
-  bool _hasLearned = true; //是否已學習
-  bool _canUse = true; //是否可使用
-  int _useConsumeMp = 1;
-  int _levelUpConsumeMp = 1;
-  SkillModel(this._skillLV,this._canLearn,this._hasLearned,this._canUse,this._useConsumeMp,this._levelUpConsumeMp);
-}
 
 class SkillPage extends StatefulWidget{
+  final Key? keySkillPage;
+  const SkillPage({this.keySkillPage}):super(key: keySkillPage);
   @override
-  _SkillPage createState() => _SkillPage();
+  SkillPageState createState() => SkillPageState();
 }
 
-class _SkillPage extends State<SkillPage>{
+class SkillPageState extends State<SkillPage>{
 
   int _skillUITypeIndex = 0 ;
   int _sp = 99;
@@ -31,7 +23,7 @@ class _SkillPage extends State<SkillPage>{
       eyesTypeIndex: 0, eyesColorIndex: 0, mouthIndex: 0, backHairTypeIndex: 1, backHairColorIndex: 0,
       foreHairTypeIndex: 1, foreHairColorIndex: 0, backItemIndex: 0, eyeDecorationIndex: 0, heavyWeaponIndex: 0, lightWeaponIndex: 0,
       name: 'name', level: 99, STR:0,INT:0,VIT:0,hp:1,mp: 10, exp: 8, maxMp: 10, maxExp: 10, coin: 93);
-  List<List<SkillModel>> _skillModelList = [
+  List<List<SkillModel>> skillModelList = [
     [
       SkillModel(1,true, false, true,5,1),
       SkillModel(1,false, false, true,10,3),
@@ -67,7 +59,7 @@ class _SkillPage extends State<SkillPage>{
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => MainPage()
+                      builder: (context) => const MainPage()
                   )
               );
             },
@@ -82,7 +74,7 @@ class _SkillPage extends State<SkillPage>{
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => TrainPage()
+                      builder: (context) => const TrainPage()
                   )
               );
             },
@@ -107,7 +99,7 @@ class _SkillPage extends State<SkillPage>{
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context)=>ShopPage()
+                      builder: (context)=>const ShopPage()
                   )
               );
             },
@@ -122,7 +114,7 @@ class _SkillPage extends State<SkillPage>{
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context)=>LogPage()
+                      builder: (context)=>const LogPage()
                   )
               );
             },
@@ -134,7 +126,6 @@ class _SkillPage extends State<SkillPage>{
           ),
           GestureDetector(
             onTap: (){
-              print('Logout！');
             },
             child: SizedBox(
               width: 0.6*screenWidth,
@@ -157,7 +148,6 @@ class _SkillPage extends State<SkillPage>{
             children: [
               GestureDetector(
                   onTap: (){
-                    print('Left');
                     setState(() {
                       if(_skillUITypeIndex>0){
                         _skillUITypeIndex--;
@@ -167,7 +157,7 @@ class _SkillPage extends State<SkillPage>{
                       }
                     });
                   },
-                  child: Container(
+                  child: SizedBox(
                     width: 0.18*screenWidth,
                     height: 0.08*screenHeight,
                     child: Image.asset('assets/Left_Arrow.png',fit: BoxFit.cover,),
@@ -176,7 +166,6 @@ class _SkillPage extends State<SkillPage>{
               SizedBox(width: 0.1*screenWidth),
               GestureDetector(
                   onTap: (){
-                    print('Right');
                     setState(() {
                       if(_skillUITypeIndex<2){
                         _skillUITypeIndex++;
@@ -187,7 +176,7 @@ class _SkillPage extends State<SkillPage>{
                     });
 
                   },
-                  child: Container(
+                  child: SizedBox(
                     width: 0.18*screenWidth,
                     height: 0.08*screenHeight,
                     child: Image.asset('assets/Right_Arrow.png',fit: BoxFit.cover,),
@@ -203,13 +192,13 @@ class _SkillPage extends State<SkillPage>{
                 barrierDismissible: true,
                 builder: (BuildContext context){
                   return AlertDialog(
-                    backgroundColor: Color.fromRGBO(0, 0, 0, 0),
+                    backgroundColor: const Color.fromRGBO(0, 0, 0, 0),
                     content: menuBlock(screenWidth, screenHeight),
                   );
                 }
             );
           },
-          child: Container(
+          child: SizedBox(
             width: 0.18*screenWidth,
             height: 0.08*screenHeight,
             child: Image.asset('assets/Menu_Button.png',fit: BoxFit.cover,),
@@ -219,12 +208,12 @@ class _SkillPage extends State<SkillPage>{
     );
   }
   
-  Widget SkillUIScence(double screenWidth, double screenHeight){
+  Widget skillUIScene(double screenWidth, double screenHeight){
 
-    List<ImageProvider> _skillUIList = [
-      AssetImage('assets/Skill/Skill_UI_STR.png'),
-      AssetImage('assets/Skill/Skill_UI_INT.png'),
-      AssetImage('assets/Skill/Skill_UI_VIT.png'),
+    List<ImageProvider> skillUIList = [
+      const AssetImage('assets/Skill/Skill_UI_STR.png'),
+      const AssetImage('assets/Skill/Skill_UI_INT.png'),
+      const AssetImage('assets/Skill/Skill_UI_VIT.png'),
     ];
 
     return Container(
@@ -232,7 +221,7 @@ class _SkillPage extends State<SkillPage>{
       height: 0.62*screenHeight,
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: _skillUIList[_skillUITypeIndex],
+              image: skillUIList[_skillUITypeIndex],
               fit: BoxFit.contain
           )
       ),
@@ -253,7 +242,7 @@ class _SkillPage extends State<SkillPage>{
                 ),
                 child: AutoSizeText(
                   _sp.toString(),
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 34,
                     color: Color(0xFF924101),
                     fontWeight: FontWeight.bold
@@ -264,24 +253,23 @@ class _SkillPage extends State<SkillPage>{
             ],
           ),
           SizedBox(height: 0.0125*screenHeight,),
-          SkillItem(screenWidth, screenHeight,_skillUITypeIndex,0),
+          skillItem(screenWidth, screenHeight,_skillUITypeIndex,0),
           SizedBox(height: 0.0055*screenHeight,),
-          SkillItem(screenWidth, screenHeight,_skillUITypeIndex,1),
+          skillItem(screenWidth, screenHeight,_skillUITypeIndex,1),
           SizedBox(height: 0.0055*screenHeight,),
-          SkillItem(screenWidth, screenHeight,_skillUITypeIndex,2),
+          skillItem(screenWidth, screenHeight,_skillUITypeIndex,2),
         ],
       ),
     );
   }
   
-  Widget useOrGetButton(double screenWidth, double screenHeight,int _skillType,int _skillIndex){
-    if(_skillModelList[_skillType][_skillIndex]._hasLearned){
+  Widget useOrGetButton(double screenWidth, double screenHeight,int skillType,int skillIndex){
+    if(skillModelList[skillType][skillIndex].hasLearned){
       return GestureDetector(
         onTap: (){
-          print('get');
-          if(_skillModelList[_skillType][_skillIndex]._canUse){
+          if(skillModelList[skillType][skillIndex].canUse){
             setState(() {
-              _skillModelList[_skillType][_skillIndex]._canUse = false;
+              skillModelList[skillType][skillIndex].canUse = false;
             });
           }
         },
@@ -290,7 +278,7 @@ class _SkillPage extends State<SkillPage>{
           width: 0.15*screenWidth,
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: (_skillModelList[_skillType][_skillIndex]._canUse ? const AssetImage('assets/Skill/Skill_SkillUI_UseButton.png'):const AssetImage('assets/Skill/Skill_SkillUI_UseButton_inCD.png') ),
+                  image: (skillModelList[skillType][skillIndex].canUse ? const AssetImage('assets/Skill/Skill_SkillUI_UseButton.png'):const AssetImage('assets/Skill/Skill_SkillUI_UseButton_inCD.png') ),
                   fit: BoxFit.cover
               )
           ),
@@ -298,12 +286,11 @@ class _SkillPage extends State<SkillPage>{
       );
     }
     else{
-      if(_skillModelList[_skillType][_skillIndex]._canLearn){
+      if(skillModelList[skillType][skillIndex].canLearn){
         return GestureDetector(
           onTap: (){
-            print('Learned');
             setState(() {
-              _skillModelList[_skillType][_skillIndex]._hasLearned=true;
+              skillModelList[skillType][skillIndex].hasLearned=true;
             });
           },
           child: Container(
@@ -321,10 +308,9 @@ class _SkillPage extends State<SkillPage>{
       else{
         return GestureDetector(
           onTap: (){
-            print("You can't Learned");
-            if(_skillModelList[_skillType][_skillIndex]._canUse){
+            if(skillModelList[skillType][skillIndex].canUse){
               setState(() {
-                _skillModelList[_skillType][_skillIndex]._canUse = false;
+                skillModelList[skillType][skillIndex].canUse = false;
               });
             }
           },
@@ -344,8 +330,8 @@ class _SkillPage extends State<SkillPage>{
 
   }
 
-  Widget SkillItem(double screenWidth, double screenHeight,int _skillType,int _skillIndex){
-    List<List<ImageProvider>> _skillIconList = [
+  Widget skillItem(double screenWidth, double screenHeight,int skillType,int skillIndex){
+    List<List<ImageProvider>> skillIconList = [
       [
         const AssetImage('assets/Skill/Skill_Icon_STR_0_Primary.png'),
         const AssetImage('assets/Skill/Skill_Icon_STR_1_Intermediate.png'),
@@ -363,21 +349,21 @@ class _SkillPage extends State<SkillPage>{
       ]
     ];
 
-    List<List<String>> _skillDescription =[
+    List<List<String>> skillDescription =[
       [
-        '消耗${_skillModelList[_skillType][_skillIndex]._useConsumeMp.toString()}點 MP\n下次攻擊傷害+ ${(_skillModelList[_skillType][_skillIndex]._skillLV+1).toString()}%\n升級所需點數： ${_skillModelList[_skillType][_skillIndex]._levelUpConsumeMp.toString()} SP\n',
-        '消耗${_skillModelList[_skillType][_skillIndex]._useConsumeMp.toString()}點 MP\n下次攻擊以 ${(_skillModelList[_skillType][_skillIndex]._skillLV+1).toString()}% 機率獲得隨機武器\n升級所需點數： ${_skillModelList[_skillType][_skillIndex]._levelUpConsumeMp.toString()} SP\n',
-        '消耗${_skillModelList[_skillType][_skillIndex]._useConsumeMp.toString()}點 MP\n\n格檔一次魔物的傷害\n',
+        '消耗${skillModelList[skillType][skillIndex].useConsumeMp.toString()}點 MP\n下次攻擊傷害+ ${(skillModelList[skillType][skillIndex].skillLV+1).toString()}%\n升級所需點數： ${skillModelList[skillType][skillIndex].levelUpConsumeMp.toString()} SP\n',
+        '消耗${skillModelList[skillType][skillIndex].useConsumeMp.toString()}點 MP\n下次攻擊以 ${(skillModelList[skillType][skillIndex].skillLV+1).toString()}% 機率獲得隨機武器\n升級所需點數： ${skillModelList[skillType][skillIndex].levelUpConsumeMp.toString()} SP\n',
+        '消耗${skillModelList[skillType][skillIndex].useConsumeMp.toString()}點 MP\n\n格檔一次魔物的傷害\n',
       ],
       [
-        '消耗${_skillModelList[_skillType][_skillIndex]._useConsumeMp.toString()}點 MP\n下次獲得經驗值+ ${(_skillModelList[_skillType][_skillIndex]._skillLV+1).toString()}%\n升級所需點數： ${_skillModelList[_skillType][_skillIndex]._levelUpConsumeMp.toString()} SP\n',
-        '消耗${_skillModelList[_skillType][_skillIndex]._useConsumeMp.toString()}點 MP\n下次攻擊以 ${(_skillModelList[_skillType][_skillIndex]._skillLV+1).toString()}% 機率獲得隨機道具\n升級所需點數： ${_skillModelList[_skillType][_skillIndex]._levelUpConsumeMp.toString()} SP\n',
-        '消耗${_skillModelList[_skillType][_skillIndex]._useConsumeMp.toString()}點 MP\n\n下次死亡不會受到懲罰\n',
+        '消耗${skillModelList[skillType][skillIndex].useConsumeMp.toString()}點 MP\n下次獲得經驗值+ ${(skillModelList[skillType][skillIndex].skillLV+1).toString()}%\n升級所需點數： ${skillModelList[skillType][skillIndex].levelUpConsumeMp.toString()} SP\n',
+        '消耗${skillModelList[skillType][skillIndex].useConsumeMp.toString()}點 MP\n下次攻擊以 ${(skillModelList[skillType][skillIndex].skillLV+1).toString()}% 機率獲得隨機道具\n升級所需點數： ${skillModelList[skillType][skillIndex].levelUpConsumeMp.toString()} SP\n',
+        '消耗${skillModelList[skillType][skillIndex].useConsumeMp.toString()}點 MP\n\n下次死亡不會受到懲罰\n',
       ],
       [
-        '消耗${_skillModelList[_skillType][_skillIndex]._useConsumeMp.toString()}點 MP\n下次獲得金幣+ ${(_skillModelList[_skillType][_skillIndex]._skillLV+1).toString()}%\n升級所需點數： ${_skillModelList[_skillType][_skillIndex]._levelUpConsumeMp.toString()} SP\n',
-        '消耗${_skillModelList[_skillType][_skillIndex]._useConsumeMp.toString()}點 MP\n下次攻擊以 ${(_skillModelList[_skillType][_skillIndex]._skillLV+1).toString()}% 機率獲得隨機飾品\n升級所需點數： ${_skillModelList[_skillType][_skillIndex]._levelUpConsumeMp.toString()} SP\n',
-        '消耗${_skillModelList[_skillType][_skillIndex]._useConsumeMp.toString()}點 MP\n\n獲得一次額外攻擊機會\n',
+        '消耗${skillModelList[skillType][skillIndex].useConsumeMp.toString()}點 MP\n下次獲得金幣+ ${(skillModelList[skillType][skillIndex].skillLV+1).toString()}%\n升級所需點數： ${skillModelList[skillType][skillIndex].levelUpConsumeMp.toString()} SP\n',
+        '消耗${skillModelList[skillType][skillIndex].useConsumeMp.toString()}點 MP\n下次攻擊以 ${(skillModelList[skillType][skillIndex].skillLV+1).toString()}% 機率獲得隨機飾品\n升級所需點數： ${skillModelList[skillType][skillIndex].levelUpConsumeMp.toString()} SP\n',
+        '消耗${skillModelList[skillType][skillIndex].useConsumeMp.toString()}點 MP\n\n獲得一次額外攻擊機會\n',
       ]
     ];
 
@@ -398,7 +384,7 @@ class _SkillPage extends State<SkillPage>{
             height: 0.09*screenHeight,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: _skillIconList[_skillType][_skillIndex],
+                image: skillIconList[skillType][skillIndex],
                 fit: BoxFit.fill
               )
             ),
@@ -407,12 +393,12 @@ class _SkillPage extends State<SkillPage>{
           Column(
             children: [
               SizedBox(height: 0.015*screenHeight,),
-              Container(
+              SizedBox(
                 width: 0.5*screenWidth,
                 height: 0.06*screenHeight,
                 child: AutoSizeText(
-                  _skillDescription[_skillType][_skillIndex],
-                  style: TextStyle(
+                  skillDescription[skillType][skillIndex],
+                  style: const TextStyle(
                     fontSize: 16,
                     color: Colors.white,
                     fontWeight: FontWeight.bold
@@ -420,10 +406,10 @@ class _SkillPage extends State<SkillPage>{
                 ),
               ),
               SizedBox(height: 0.0125*screenHeight,),
-              Container(
+              SizedBox(
                 height: 0.035*screenHeight,
                 width: 0.5*screenWidth,
-                child: (_skillModelList[_skillType][_skillIndex]._hasLearned? Row(
+                child: (skillModelList[skillType][skillIndex].hasLearned? Row(
                   children: [
                     Container(
                       height: 0.035*screenHeight,
@@ -446,7 +432,7 @@ class _SkillPage extends State<SkillPage>{
                           )
                       ),
                       child: AutoSizeText(
-                        _skillModelList[_skillType][_skillIndex]._skillLV.toString(),
+                        skillModelList[skillType][skillIndex].skillLV.toString(),
                         style: const TextStyle(
                             fontSize: 34,
                             color: Color(0xFF924101),
@@ -458,11 +444,10 @@ class _SkillPage extends State<SkillPage>{
                     SizedBox(width: 0.02*screenWidth,),
                     GestureDetector(
                       onTap: (){
-                        print('level Up');
-                        if(_skillModelList[_skillType][_skillIndex]._skillLV<99 && _sp >= _skillModelList[_skillType][_skillIndex]._levelUpConsumeMp){
+                        if(skillModelList[skillType][skillIndex].skillLV<99 && _sp >= skillModelList[skillType][skillIndex].levelUpConsumeMp){
                           setState(() {
-                            _sp -= _skillModelList[_skillType][_skillIndex]._levelUpConsumeMp;
-                            _skillModelList[_skillType][_skillIndex]._skillLV++;
+                            _sp -= skillModelList[skillType][skillIndex].levelUpConsumeMp;
+                            skillModelList[skillType][skillIndex].skillLV++;
                           });
                         }
                       },
@@ -471,19 +456,19 @@ class _SkillPage extends State<SkillPage>{
                         width: 0.08*screenWidth,
                         decoration: BoxDecoration(
                             image: DecorationImage(
-                                image: (_skillModelList[_skillType][_skillIndex]._skillLV<99 ? const AssetImage('assets/Skill/Skill_SkillUI_LVUpButton.png'): const AssetImage('assets/Skill/Skill_SkillUI_LVUpButton_Unavailable.png') ),
+                                image: (skillModelList[skillType][skillIndex].skillLV<99 ? const AssetImage('assets/Skill/Skill_SkillUI_LVUpButton.png'): const AssetImage('assets/Skill/Skill_SkillUI_LVUpButton_Unavailable.png') ),
                                 fit: BoxFit.contain
                             )
                         ),
                       ),
                     ),
                     SizedBox(width: 0.02*screenWidth,),
-                    useOrGetButton(screenWidth, screenHeight,_skillType,_skillIndex)
+                    useOrGetButton(screenWidth, screenHeight,skillType,skillIndex)
                   ],
                 ): Row(
                   children: [
                     SizedBox(width: 0.34*screenWidth,),
-                    useOrGetButton(screenWidth, screenHeight,_skillType,_skillIndex)
+                    useOrGetButton(screenWidth, screenHeight,skillType,skillIndex)
                   ],
                 ))
               )
@@ -505,7 +490,7 @@ class _SkillPage extends State<SkillPage>{
           children: [
             characterStatusBlockWithInfoButton(screenWidth, screenHeight,player,context),
             SizedBox(height: 0.03*screenHeight,),
-            SkillUIScence(screenWidth, screenHeight),
+            skillUIScene(screenWidth, screenHeight),
             arrowAndMenuBar(screenWidth, screenHeight),
           ],
         ),

@@ -5,7 +5,7 @@ import 'package:liver_remake/pages/main_page.dart';
 import 'package:liver_remake/pages/shop_page.dart';
 import 'package:liver_remake/pages/skill_page.dart';
 import 'package:liver_remake/pages/train_page.dart';
-import 'package:liver_remake/widget/characterStatusBlock.dart';
+import 'package:liver_remake/Model/Models.dart';
 
 class Log{
   int logType = 0; //0:attack 1:interest 2:dead 3:date
@@ -44,11 +44,13 @@ class Log{
 }
 
 class LogPage extends StatefulWidget{
+  final Key? keyLogPage;
+  const LogPage({this.keyLogPage}):super(key:keyLogPage);
   @override
-  _LogPage createState() => _LogPage();
+  LogPageState createState() => LogPageState();
 }
 
-class _LogPage extends State<LogPage>{
+class LogPageState extends State<LogPage>{
 
   Player player = Player(
       bodyIndex: 2, earsTypeIndex: 0, earsColorIndex: 0, clothesIndex: 0, pantsIndex: 0, shoesIndex: 0,
@@ -122,7 +124,7 @@ class _LogPage extends State<LogPage>{
                 width: 0.65*screenWidth,
                 //height: 0.1*screenHeight,
                 child: AutoSizeText(
-                  '$playerName 完成了 ${trainName} LV${trainLevel}',
+                  '$playerName 完成了 $trainName LV$trainLevel',
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
@@ -257,7 +259,7 @@ class _LogPage extends State<LogPage>{
       child: Column(
         children: [
           SizedBox(height: 0.12*screenHeight,),
-          Container(
+          SizedBox(
             height: 0.41*screenHeight,
             width: 0.8*screenWidth,
             child: ListView.builder(
@@ -290,7 +292,7 @@ class _LogPage extends State<LogPage>{
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => MainPage()
+                      builder: (context) => const MainPage()
                   )
               );
             },
@@ -305,7 +307,7 @@ class _LogPage extends State<LogPage>{
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => TrainPage()
+                      builder: (context) => const TrainPage()
                   )
               );
             },
@@ -320,7 +322,7 @@ class _LogPage extends State<LogPage>{
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => SkillPage()
+                      builder: (context) => const SkillPage()
                   )
               );
             },
@@ -335,7 +337,7 @@ class _LogPage extends State<LogPage>{
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => ShopPage()
+                      builder: (context) => const ShopPage()
                   )
               );
             },
@@ -357,7 +359,6 @@ class _LogPage extends State<LogPage>{
           ),
           GestureDetector(
             onTap: (){
-              print('Logout！');
             },
             child: SizedBox(
               width: 0.6*screenWidth,
@@ -379,10 +380,10 @@ class _LogPage extends State<LogPage>{
               onTap: () {
                 Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context)=>AchievementPage())
+                    MaterialPageRoute(builder: (context)=>const AchievementPage())
                 );
               },
-              child: Container(
+              child: SizedBox(
                 width: 0.18*screenWidth,
                 height: 0.08*screenHeight,
                 child: Image.asset('assets/Log/Log_Achievement_Button.png',fit: BoxFit.cover,),
@@ -396,13 +397,13 @@ class _LogPage extends State<LogPage>{
                 barrierDismissible: true,
                 builder: (BuildContext context){
                   return AlertDialog(
-                    backgroundColor: Color.fromRGBO(0, 0, 0, 0),
+                    backgroundColor: const Color.fromRGBO(0, 0, 0, 0),
                     content: menuBlock(screenWidth, screenHeight),
                   );
                 }
             );
           },
-          child: Container(
+          child: SizedBox(
             width: 0.18*screenWidth,
             height: 0.08*screenHeight,
             child: Image.asset('assets/Menu_Button.png',fit: BoxFit.cover,),

@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:liver_remake/pages/create_character_page.dart';
 
 class IndexPage extends StatelessWidget{
+  final Key? keyIndexPage;
+  const IndexPage({this.keyIndexPage}):super(key:keyIndexPage);
   @override
   Widget build(BuildContext context){
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Color.fromRGBO(102, 214, 255, 100),
+      backgroundColor: const Color.fromRGBO(102, 214, 255, 100),
       body: SafeArea(
         child: Container(
           decoration: const BoxDecoration(
@@ -26,11 +28,11 @@ class IndexPage extends StatelessWidget{
                     onTap: (){
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => CreateCharacterPage(),
+                          builder: (context) => const CreateCharacterPage(),
                         )
                       );
                     },
-                    child: Container(
+                    child: SizedBox(
                       width: 0.4*screenWidth,
                       height: 0.05*screenHeight,
                       child: Image.asset('assets/LoginButton.png',fit: BoxFit.cover,),

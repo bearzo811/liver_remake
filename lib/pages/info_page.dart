@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:liver_remake/pages/bag_page.dart';
-import 'package:liver_remake/widget/characterStatusBlock.dart';
+import 'package:liver_remake/Model/Models.dart';
 
 class InfoPage extends StatefulWidget{
+  final Key? keyInfoPage;
+  const InfoPage({this.keyInfoPage}):super(key:keyInfoPage);
   @override
-  _InfoPage createState() => _InfoPage();
+  InfoPageState createState() => InfoPageState();
 }
 
-class _InfoPage extends State<InfoPage>{
+class InfoPageState extends State<InfoPage>{
 
   Player player = Player(
       bodyIndex: 2, earsTypeIndex: 0, earsColorIndex: 0, clothesIndex: 0, pantsIndex: 0, shoesIndex: 0,
@@ -28,7 +30,7 @@ class _InfoPage extends State<InfoPage>{
       ),
       child: Row(
         children: [
-          Container(
+          SizedBox(
             width: 0.5*screenWidth,
             height: 0.55*screenHeight,
             child: Column(
@@ -220,7 +222,7 @@ class _InfoPage extends State<InfoPage>{
               ],
             ),
           ),
-          Container(
+          SizedBox(
             width: 0.4*screenWidth,
             height: 0.55*screenHeight,
             child: Column(
@@ -233,7 +235,7 @@ class _InfoPage extends State<InfoPage>{
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context)=>BagPage()
+                            builder: (context)=>const BagPage()
                         )
                     );
                   },

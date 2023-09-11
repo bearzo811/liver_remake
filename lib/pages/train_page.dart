@@ -3,56 +3,18 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:liver_remake/pages/main_page.dart';
 import 'package:liver_remake/pages/shop_page.dart';
 import 'package:liver_remake/pages/skill_page.dart';
-import 'package:liver_remake/widget/characterStatusBlock.dart';
-
+import 'package:liver_remake/Model/Models.dart';
 import 'log_page.dart';
 
-class TrainItem{
-  int trainTypeIndex = 0;
-  int trainLevel = 0;
-  String trainName = '';
-  int addEXP = 0;
-
-  TrainItem(this.trainName,this.trainTypeIndex,this.trainLevel);
-
-  int getAddSTR(){
-    if(trainTypeIndex==0){
-      return (trainLevel~/5)+1;
-    }
-    else{
-      return 0;
-    }
-  }
-
-  int getAddINT(){
-    if(trainTypeIndex==1){
-      return (trainLevel~/5)+1;
-    }
-    else{
-      return 0;
-    }
-  }
-
-  int getAddVIT(){
-    if(trainTypeIndex==2){
-      return (trainLevel~/5)+1;
-    }
-    else{
-      return 0;
-    }
-  }
-
-  int getAddEXP(){
-    return (trainLevel~/10)+1;
-  }
-}
-
 class TrainPage extends StatefulWidget{
+  final Key? keyTrainPage;
+  const TrainPage({this.keyTrainPage}):super(key:keyTrainPage);
+
   @override
-  _TrainPage createState() => _TrainPage();
+  TrainPageState createState() => TrainPageState();
 }
 
-class _TrainPage extends State<TrainPage>{
+class TrainPageState extends State<TrainPage>{
 
   Player player = Player(
       bodyIndex: 2, earsTypeIndex: 0, earsColorIndex: 0, clothesIndex: 0, pantsIndex: 0, shoesIndex: 0,
@@ -60,7 +22,7 @@ class _TrainPage extends State<TrainPage>{
       foreHairTypeIndex: 1, foreHairColorIndex: 0, backItemIndex: 0, eyeDecorationIndex: 0, heavyWeaponIndex: 0, lightWeaponIndex: 0,
       name: 'name', level: 99, STR:0,INT:0,VIT:0,hp:1,mp: 10, exp: 8, maxMp: 10, maxExp: 10, coin: 93);
   TrainItem _trainItem = TrainItem('',0,0);
-  List<TrainItem> _trainItemList = [];
+  List<TrainItem> trainItemList = [];
 
   Widget menuBlock(double screenWidth, double screenHeight){
     return Container(
@@ -80,7 +42,7 @@ class _TrainPage extends State<TrainPage>{
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => MainPage()
+                      builder: (context) => const MainPage()
                   )
               );
             },
@@ -105,7 +67,7 @@ class _TrainPage extends State<TrainPage>{
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context)=>SkillPage()
+                      builder: (context)=>const SkillPage()
                   )
               );
             },
@@ -120,7 +82,7 @@ class _TrainPage extends State<TrainPage>{
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context)=>ShopPage()
+                      builder: (context)=>const ShopPage()
                   )
               );
             },
@@ -135,7 +97,7 @@ class _TrainPage extends State<TrainPage>{
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context)=>LogPage()
+                      builder: (context)=>const LogPage()
                   )
               );
             },
@@ -147,7 +109,7 @@ class _TrainPage extends State<TrainPage>{
           ),
           GestureDetector(
             onTap: (){
-              print('Logout！');
+              
             },
             child: SizedBox(
               width: 0.6*screenWidth,
@@ -171,7 +133,7 @@ class _TrainPage extends State<TrainPage>{
                     context: context,
                     barrierDismissible: true,
                     builder: (BuildContext context){
-                      return AlertDialog(
+                      return const AlertDialog(
                         backgroundColor: Color.fromRGBO(0, 0, 0, 0),
                         content: SingleChildScrollView(
                           child: CreateTrainBlock(),
@@ -179,9 +141,9 @@ class _TrainPage extends State<TrainPage>{
                       );
                     }
                 );
-                _trainItemList.add(_trainItem);
+                trainItemList.add(_trainItem);
               },
-              child: Container(
+              child: SizedBox(
                 width: 0.18*screenWidth,
                 height: 0.08*screenHeight,
                 child: Image.asset('assets/Train_Add_Button.png',fit: BoxFit.cover,),
@@ -195,13 +157,13 @@ class _TrainPage extends State<TrainPage>{
                 barrierDismissible: true,
                 builder: (BuildContext context){
                   return AlertDialog(
-                    backgroundColor: Color.fromRGBO(0, 0, 0, 0),
+                    backgroundColor: const Color.fromRGBO(0, 0, 0, 0),
                     content: menuBlock(screenWidth, screenHeight),
                   );
                 }
             );
           },
-          child: Container(
+          child: SizedBox(
             width: 0.18*screenWidth,
             height: 0.08*screenHeight,
             child: Image.asset('assets/Menu_Button.png',fit: BoxFit.cover,),
@@ -211,9 +173,9 @@ class _TrainPage extends State<TrainPage>{
     );
   }
 
-  Widget TrainItemBar(double screenWidth, double screenHeight,int trainItemType,int trainLevel,String trainName,int index){
+  Widget trainItemBar(double screenWidth, double screenHeight,int trainItemType,int trainLevel,String trainName,int index){
     
-    List<ImageProvider> _trainItemTypeList = [
+    List<ImageProvider> trainItemTypeList = [
       const AssetImage('assets/Train/Train_Item_S.png'),
       const AssetImage('assets/Train/Train_Item_I.png'),
       const AssetImage('assets/Train/Train_Item_V.png'),
@@ -221,10 +183,9 @@ class _TrainPage extends State<TrainPage>{
     
     return GestureDetector(
       onTap: (){
-        print('${_trainItemList[index].trainName} / ${_trainItemList[index].trainLevel}');
-        if(_trainItemList[index].trainLevel<99){
+        if(trainItemList[index].trainLevel<99){
           setState(() {
-            _trainItemList[index].trainLevel++;
+            trainItemList[index].trainLevel++;
           });
         }
       },
@@ -232,7 +193,7 @@ class _TrainPage extends State<TrainPage>{
         height: 0.1*screenHeight,
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: _trainItemTypeList[trainItemType],
+                image: trainItemTypeList[trainItemType],
                 fit: BoxFit.contain
             )
         ),
@@ -241,11 +202,11 @@ class _TrainPage extends State<TrainPage>{
             SizedBox(
               width: 0.04*screenWidth,
             ),
-            Container(
+            SizedBox(
               width: 0.4*screenWidth,
               child: AutoSizeText(
                 trainName,
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 25,
                     color: Color(0xFFFFB170),
                     fontWeight: FontWeight.bold
@@ -257,10 +218,10 @@ class _TrainPage extends State<TrainPage>{
             SizedBox(
               width: 0.175*screenWidth,
             ),
-            Container(
+            SizedBox(
               width: 0.1*screenWidth,
               child: AutoSizeText(
-                _trainItemList[index].trainLevel.toString(),
+                trainItemList[index].trainLevel.toString(),
                 style: const TextStyle(
                     fontSize: 25,
                     color: Color(0xFF924101),
@@ -275,12 +236,11 @@ class _TrainPage extends State<TrainPage>{
             ),
             GestureDetector(
                 onTap: (){
-                  print('delete');
                   setState(() {
-                    _trainItemList.removeAt(index);
+                    trainItemList.removeAt(index);
                   });
                 },
-                child: Container(
+                child: SizedBox(
                   width: 0.11*screenWidth,
                   height: 0.05*screenHeight,
                   child: Image.asset('assets/Train/Train_Delete_Button.png',fit: BoxFit.fill,),
@@ -317,14 +277,14 @@ class _TrainPage extends State<TrainPage>{
                   characterStatusBlockWithInfoButton(screenWidth, screenHeight,player,context),
                   SizedBox(height: 0.14*screenHeight,),
                   Center(
-                    child: Container(
+                    child: SizedBox(
                       width: 0.95*screenWidth,
                       height: 0.43*screenHeight,
                       child: ListView.builder(
-                        itemCount: _trainItemList.length,
+                        itemCount: trainItemList.length,
                         itemBuilder: (BuildContext context,int index){
                           return ListTile(
-                            title: TrainItemBar(screenWidth, screenHeight,_trainItemList[index].trainTypeIndex,1,_trainItemList[index].trainName,index),
+                            title: trainItemBar(screenWidth, screenHeight,trainItemList[index].trainTypeIndex,1,trainItemList[index].trainName,index),
                           );
                         },
                       ),
@@ -343,16 +303,19 @@ class _TrainPage extends State<TrainPage>{
 }
 
 class CreateTrainBlock extends StatefulWidget {
+  
+  final Key? keyCreateTrainClock;
+  const CreateTrainBlock({this.keyCreateTrainClock}):super(key:keyCreateTrainClock);
   @override
-  _CreateTrainBlockState createState() => _CreateTrainBlockState();
+  CreateTrainBlockState createState() => CreateTrainBlockState();
 }
 
-class _CreateTrainBlockState extends State<CreateTrainBlock>{
-  double _STRopacity = 0.0;
-  double _INTopacity = 0.0;
-  double _VITopacity = 0.0;
-  TrainItem _trainItem = TrainItem('每天訓練', 1,0);
-  TextEditingController _trainNameTextController = TextEditingController();
+class CreateTrainBlockState extends State<CreateTrainBlock>{
+  double sTROpacity = 0.0;
+  double iNTOpacity = 0.0;
+  double vITOpacity = 0.0;
+  TrainItem trainItem = TrainItem('每天訓練', 1,0);
+  TextEditingController trainNameTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context){
@@ -370,13 +333,13 @@ class _CreateTrainBlockState extends State<CreateTrainBlock>{
       child: Column(
         children: [
           SizedBox(height: 0.065*screenHeight,),
-          Container(
+          SizedBox(
             height: 0.05*screenHeight,
             width: 0.6*screenWidth,
             child: TextField(
-              controller: _trainNameTextController,
+              controller: trainNameTextController,
               textAlign: TextAlign.center,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: InputBorder.none,
                 hintText: '請輸入訓練名稱',
               ),
@@ -391,16 +354,16 @@ class _CreateTrainBlockState extends State<CreateTrainBlock>{
                   GestureDetector(
                     onTap: (){
                       setState(() {
-                        (_STRopacity == 0 ? _STRopacity = 1.0 : _STRopacity = 0.0);
-                        _INTopacity = 0.0;
-                        _VITopacity = 0.0;
+                        (sTROpacity == 0 ? sTROpacity = 1.0 : sTROpacity = 0.0);
+                        iNTOpacity = 0.0;
+                        vITOpacity = 0.0;
                       });
                     },
                     child: Container(
                       width: 0.4*screenWidth,
                       height: 0.03*screenHeight,
-                      color: Color.fromRGBO(255, 255, 255, _STRopacity),
-                      child: Image(
+                      color: Color.fromRGBO(255, 255, 255, sTROpacity),
+                      child: const Image(
                         image: AssetImage('assets/Train/Train_Add_Option_Exercise.png'),
                         fit: BoxFit.cover,
                       ),
@@ -410,16 +373,16 @@ class _CreateTrainBlockState extends State<CreateTrainBlock>{
                   GestureDetector(
                     onTap: (){
                       setState(() {
-                        (_INTopacity == 0 ? _INTopacity = 1.0 : _INTopacity = 0.0);
-                        _STRopacity = 0.0;
-                        _VITopacity = 0.0;
+                        (iNTOpacity == 0 ? iNTOpacity = 1.0 : iNTOpacity = 0.0);
+                        sTROpacity = 0.0;
+                        vITOpacity = 0.0;
                       });
                     },
                     child: Container(
                       width: 0.4*screenWidth,
                       height: 0.03*screenHeight,
-                      color: Color.fromRGBO(255, 255, 255, _INTopacity),
-                      child: Image(
+                      color: Color.fromRGBO(255, 255, 255, iNTOpacity),
+                      child: const Image(
                         image: AssetImage('assets/Train/Train_Add_Option_Learning.png'),
                         fit: BoxFit.cover,
                       ),
@@ -429,16 +392,16 @@ class _CreateTrainBlockState extends State<CreateTrainBlock>{
                   GestureDetector(
                     onTap: (){
                       setState(() {
-                        (_VITopacity == 0 ? _VITopacity = 1.0 : _VITopacity = 0.0);
-                        _STRopacity = 0.0;
-                        _INTopacity = 0.0;
+                        (vITOpacity == 0 ? vITOpacity = 1.0 : vITOpacity = 0.0);
+                        sTROpacity = 0.0;
+                        iNTOpacity = 0.0;
                       });
                     },
                     child: Container(
                       width: 0.4*screenWidth,
                       height: 0.03*screenHeight,
-                      color: Color.fromRGBO(255, 255, 255, _VITopacity),
-                      child: Image(
+                      color: Color.fromRGBO(255, 255, 255, vITOpacity),
+                      child: const Image(
                         image: AssetImage('assets/Train/Train_Add_Option_Life.png'),
                         fit: BoxFit.cover,
                       ),
@@ -452,20 +415,20 @@ class _CreateTrainBlockState extends State<CreateTrainBlock>{
                   SizedBox(height: 0.075*screenHeight,),
                   GestureDetector(
                       onTap: (){
-                        _trainItem.trainName = _trainNameTextController.text;
-                        _trainNameTextController.clear();
-                        if(_STRopacity==1.0){
-                          _trainItem.trainTypeIndex=0;
+                        trainItem.trainName = trainNameTextController.text;
+                        trainNameTextController.clear();
+                        if(sTROpacity==1.0){
+                          trainItem.trainTypeIndex=0;
                         }
-                        else if(_INTopacity==1.0){
-                          _trainItem.trainTypeIndex=1;
+                        else if(iNTOpacity==1.0){
+                          trainItem.trainTypeIndex=1;
                         }
-                        else if(_VITopacity==1.0){
-                          _trainItem.trainTypeIndex=2;
+                        else if(vITOpacity==1.0){
+                          trainItem.trainTypeIndex=2;
                         }
-                        Navigator.of(context).pop(_trainItem);
+                        Navigator.of(context).pop(trainItem);
                       },
-                      child: Container(
+                      child: SizedBox(
                         width: 0.25*screenWidth,
                         height: 0.035*screenHeight,
                         child: Image.asset('assets/OKButton.png',fit: BoxFit.fill,),
