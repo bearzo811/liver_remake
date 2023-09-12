@@ -197,41 +197,48 @@ class SkillPageState extends State<SkillPage>{
 
     return Container(
       width: 0.9*screenWidth,
-      height: 0.62*screenHeight,
+      height: 0.5*screenHeight,
       decoration: BoxDecoration(
           image: DecorationImage(
               image: skillUIList[_skillUITypeIndex],
               fit: BoxFit.contain
           )
       ),
-      child: Column(
+     child: Column(
         children: [
-          SizedBox(height: 0.06*screenHeight,),
-          Row(
-            children: [
-              SizedBox(height: 0.045*screenHeight,width: 0.75*screenWidth,),
-              Container(
-                height: 0.045*screenHeight,
-                width: 0.12*screenWidth,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/Skill/Skill_SP_TextBox.png'),
-                    fit: BoxFit.fill
-                  )
-                ),
-                child: AutoSizeText(
-                  player.sp.toString(),
-                  style: const TextStyle(
-                    fontSize: 34,
-                    color: Color(0xFF924101),
-                    fontWeight: FontWeight.bold
+          SizedBox(
+            height: 0.06*screenHeight,
+            child: Row(
+              children: [
+                SizedBox(height: 0.045*screenHeight,width: 0.735*screenWidth,),
+                Container(
+                  height: 0.045*screenHeight,
+                  width: 0.1*screenWidth,
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage('assets/Skill/Skill_SP_TextBox.png'),
+                          fit: BoxFit.fill
+                      )
                   ),
-                  textAlign: TextAlign.center,
+                  child: Column(
+                    children: [
+                      SizedBox(height: 0.0055*screenHeight,),
+                      AutoSizeText(
+                        player.sp.toString(),
+                        style: const TextStyle(
+                            fontSize: 26,
+                            color: Color(0xFF924101),
+                            fontWeight: FontWeight.bold
+                        ),
+                        textAlign: TextAlign.center,
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-          SizedBox(height: 0.0125*screenHeight,),
+          SizedBox(height: 0.001*screenHeight,),
           skillItem(screenWidth, screenHeight,_skillUITypeIndex,0),
           SizedBox(height: 0.0055*screenHeight,),
           skillItem(screenWidth, screenHeight,_skillUITypeIndex,1),
@@ -439,7 +446,9 @@ class SkillPageState extends State<SkillPage>{
                         width: 0.08*screenWidth,
                         decoration: BoxDecoration(
                             image: DecorationImage(
-                                image: (skillModelList[skillType][skillIndex].skillLV<99 ? const AssetImage('assets/Skill/Skill_SkillUI_LVUpButton.png'): const AssetImage('assets/Skill/Skill_SkillUI_LVUpButton_Unavailable.png') ),
+                                image: ((skillModelList[skillType][skillIndex].skillLV<99 && skillModelList[skillType][skillIndex].levelUpConsumeMp<=playerData.player.sp) ?
+                                const AssetImage('assets/Skill/Skill_SkillUI_LVUpButton.png'):
+                                const AssetImage('assets/Skill/Skill_SkillUI_LVUpButton_Unavailable.png') ),
                                 fit: BoxFit.contain
                             )
                         ),
@@ -473,8 +482,9 @@ class SkillPageState extends State<SkillPage>{
         child: Column(
           children: [
             characterStatusBlockWithInfoButton(screenWidth, screenHeight,player,context),
-            SizedBox(height: 0.03*screenHeight,),
+            SizedBox(height: 0.08*screenHeight,),
             skillUIScene(screenWidth, screenHeight),
+            SizedBox(height: 0.07*screenHeight,),
             arrowAndMenuBar(screenWidth, screenHeight),
           ],
         ),

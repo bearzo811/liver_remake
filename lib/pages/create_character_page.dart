@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:liver_remake/PlayerData/playerData.dart';
-import 'package:liver_remake/pages/log_page.dart';
 import 'package:liver_remake/pages/main_page.dart';
 import 'package:liver_remake/Model/Models.dart';
 import 'package:provider/provider.dart';
@@ -784,9 +783,11 @@ class CreateCharacterPageState extends State<CreateCharacterPage>{
     final playerData = Provider.of<PlayerData>(context);
     return Scaffold(
       backgroundColor: const Color.fromRGBO(146, 65, 1, 100),
-      body: SingleChildScrollView(
-        child: SafeArea(
+      body: SafeArea(
+        child: SingleChildScrollView(
             child: Container(
+                height: screenHeight,
+                width: screenWidth,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/SelectBG.png'),
@@ -796,43 +797,60 @@ class CreateCharacterPageState extends State<CreateCharacterPage>{
                 child: Center(
                   child: Column(
                     children: [
-                      SizedBox(height: 0.02*screenHeight,),
                       Container(
-                        height: 0.04*screenHeight,
+                        height: 0.25*screenHeight,
                         width: 0.5*screenWidth,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage('assets/Name_TextBar.png'),
-                            fit: BoxFit.contain
-                          )
-                        ),
-                        child: Column(
+                        child: Stack(
                           children: [
-                            SizedBox(height: 0.015*screenHeight,),
                             SizedBox(
-                              width: 0.5*screenWidth,
-                              height: 0.025*screenHeight,
-                              child: TextField(
-                                controller: nameController,
-                                textAlign: TextAlign.center,
-                                decoration: const InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: '請輸入您的名稱',
+                                height: 0.25*screenHeight,
+                                width: 0.5*screenWidth,
+                                child: Column(
+                                  children: [
+                                    SizedBox(height: 0.033*screenHeight,),
+                                    Row(
+                                      children: [
+                                        SizedBox(width: 0.05*screenWidth,),
+                                        character(screenWidth, screenHeight,player),
+                                      ],
+                                    )
+                                  ],
+                                )
+                            ),
+                            Column(
+                              children: [
+                                SizedBox(height: 0.02*screenHeight,),
+                                Container(
+                                  height: 0.04*screenHeight,
+                                  width: 0.5*screenWidth,
+                                  decoration: const BoxDecoration(
+                                      image: DecorationImage(
+                                          image: AssetImage('assets/Name_TextBar.png'),
+                                          fit: BoxFit.contain
+                                      )
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      SizedBox(height: 0.015*screenHeight,),
+                                      SizedBox(
+                                        width: 0.5*screenWidth,
+                                        height: 0.025*screenHeight,
+                                        child: TextField(
+                                          controller: nameController,
+                                          textAlign: TextAlign.center,
+                                          decoration: const InputDecoration(
+                                            border: InputBorder.none,
+                                            hintText: '請輸入您的名稱',
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              ),
+                              ],
                             )
                           ],
                         ),
-                      ),
-                      Container(
-                        width: 0.5*screenWidth,
-                        height: 0.43*screenWidth,
-                        child: Row(
-                          children: [
-                            SizedBox(width: 0.05*screenWidth,),
-                            character(screenWidth, screenHeight,player),
-                          ],
-                        )
                       ),
                       arrowBar(screenWidth, screenHeight),
                       SizedBox(height: 0.01*screenHeight,),

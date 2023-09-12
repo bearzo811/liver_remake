@@ -31,7 +31,7 @@ class InfoPageState extends State<InfoPage>{
             height: 0.55*screenHeight,
             child: Column(
               children: [
-                SizedBox(height: 0.105*screenHeight,),
+                SizedBox(height: 0.1*screenHeight,),
                 SizedBox(
                   width: 0.5*screenWidth,
                   height: 0.05*screenHeight,
@@ -158,7 +158,7 @@ class InfoPageState extends State<InfoPage>{
                     )
                   ],
                 ),
-                SizedBox(height: 0.005*screenHeight,),
+                SizedBox(height: 0.006*screenHeight,),
                 Row(
                   children: [
                     SizedBox(width: 0.35*screenWidth,),
@@ -177,7 +177,7 @@ class InfoPageState extends State<InfoPage>{
                     )
                   ],
                 ),
-                SizedBox(height: 0.005*screenHeight,),
+                SizedBox(height: 0.007*screenHeight,),
                 Row(
                   children: [
                     SizedBox(width: 0.35*screenWidth,),
@@ -196,7 +196,7 @@ class InfoPageState extends State<InfoPage>{
                     )
                   ],
                 ),
-                SizedBox(height: 0.005*screenHeight,),
+                SizedBox(height: 0.007*screenHeight,),
                 Row(
                   children: [
                     SizedBox(width: 0.35*screenWidth,),

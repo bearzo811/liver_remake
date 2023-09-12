@@ -412,7 +412,7 @@ class CreateTrainBlockState extends State<CreateTrainBlock>{
                   ),
                 ],
               ),
-              SizedBox(width: 0.0005*screenWidth,),
+              //SizedBox(width: 0.0001*screenWidth,),
               Column(
                 children: [
                   SizedBox(height: 0.075*screenHeight,),
@@ -431,8 +431,8 @@ class CreateTrainBlockState extends State<CreateTrainBlock>{
                         }
                         Navigator.of(context).pop(trainItem);
                       },
-                      child: SizedBox(
-                        width: 0.25*screenWidth,
+                      child: Container(
+                        width: 0.22*screenWidth,
                         height: 0.035*screenHeight,
                         child: Image.asset('assets/OKButton.png',fit: BoxFit.fill,),
                       )

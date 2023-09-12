@@ -662,7 +662,7 @@ class BagPageState extends State<BagPage>{
                   children: [
                     SizedBox(height: 0.08*screenHeight,),
                     character(screenWidth, screenHeight, player),
-                    SizedBox(height: 0.025*screenHeight,),
+                    SizedBox(height: 0.015*screenHeight,),
                     (getBagListByType(_bagUITypeIndex).isNotEmpty?useOrEquipButton(screenWidth, screenHeight, getBagListByType(_bagUITypeIndex)[_nowItemIndex], player):Container())
                   ],
                 ),

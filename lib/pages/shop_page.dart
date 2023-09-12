@@ -555,7 +555,7 @@ class ShopPageState extends State<ShopPage>{
                   children: [
                     SizedBox(height: 0.08*screenHeight,),
                     character(screenWidth, screenHeight, player),
-                    SizedBox(height: 0.025*screenHeight,),
+                    SizedBox(height: 0.015*screenHeight,),
                     buyButton(screenWidth, screenHeight, getListByTypeAndStatus(_shopUITypeIndex,0)[_nowItemIndex], player)
                   ],
                 ),
