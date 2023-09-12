@@ -251,12 +251,14 @@ class SkillPageState extends State<SkillPage>{
   
   Widget useOrGetButton(double screenWidth, double screenHeight,int skillType,int skillIndex){
     final List<List<SkillModel>> skillModelList = Provider.of<PlayerData>(context).skillModelList;
+    final playerData = Provider.of<PlayerData>(context);
     if(skillModelList[skillType][skillIndex].hasLearned){
       return GestureDetector(
         onTap: (){
-          if(skillModelList[skillType][skillIndex].canUse){
+          if(!skillModelList[skillType][skillIndex].hasUsed && playerData.player.mp>=skillModelList[skillType][skillIndex].useConsumeMp){
             setState(() {
-              skillModelList[skillType][skillIndex].canUse = false;
+              playerData.consumeMp(skillModelList[skillType][skillIndex].useConsumeMp);
+              skillModelList[skillType][skillIndex].hasUsed = true;
             });
           }
         },
@@ -265,7 +267,7 @@ class SkillPageState extends State<SkillPage>{
           width: 0.15*screenWidth,
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: (skillModelList[skillType][skillIndex].canUse ? const AssetImage('assets/Skill/Skill_SkillUI_UseButton.png'):const AssetImage('assets/Skill/Skill_SkillUI_UseButton_inCD.png') ),
+                  image: ((!skillModelList[skillType][skillIndex].hasUsed && playerData.player.mp>=skillModelList[skillType][skillIndex].useConsumeMp) ? const AssetImage('assets/Skill/Skill_SkillUI_UseButton.png'):const AssetImage('assets/Skill/Skill_SkillUI_UseButton_inCD.png') ),
                   fit: BoxFit.cover
               )
           ),

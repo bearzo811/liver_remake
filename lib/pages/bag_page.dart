@@ -17,334 +17,6 @@ class BagPageState extends State<BagPage>{
   int _bagUITypeIndex=0;
   int _nowItemIndex = 0;
 
-  List<Item> allItemsList= [
-    //0: weapon
-    Item(0, 50, 10, 0, 0, 0, 'HeavyWeapon', '0','',0,0,),
-    Item(0, 60, 15, 0, 0, 0, 'HeavyWeapon', '1','',0,0,),
-    Item(0, 20, 5, 0, 0, 0, 'LightWeapon', '0','',0,0,),
-    Item(0, 20, 5, 0, 0, 0, 'LightWeapon', '1','',0,0,),
-    Item(0, 20, 5, 0, 0, 0, 'LightWeapon', '2','',0,0,),
-    Item(0, 25, 8, 0, 0, 0, 'LightWeapon', '3','',0,0,),
-    Item(0, 20, 13, 0, 0, 0, 'LightWeapon', '4','',0,0,),
-    //1:armors
-    Item(1, 100, 0, 0, 0, 0, 'Clothes', '0','',0,0,),
-    Item(1, 100, 0, 0, 0, 0, 'Clothes', '1','',0,0,),
-    Item(1, 100, 0, 0, 0, 0, 'Clothes', '2','',0,0,),
-    Item(1, 100, 0, 0, 0, 0, 'Clothes', '3','',0,0,),
-    Item(1, 100, 0, 0, 0, 0, 'Clothes', '4','',0,0,),
-    Item(1, 100, 0, 0, 0, 0, 'Clothes', '5','',0,0,),
-    Item(1, 100, 0, 0, 0, 0, 'Clothes', '6','',0,0,),
-    Item(1, 100, 0, 0, 0, 0, 'Clothes', '7','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '0','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '1','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '2','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '3','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '4','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '5','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '6','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '7','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '8','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '9','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '10','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '11','',0,0,),
-    Item(1, 80, 0, 0, 0, 0, 'Shoes', '0','',0,0,),
-    Item(1, 80, 0, 0, 0, 0, 'Shoes', '1','',0,0,),
-    Item(1, 80, 0, 0, 0, 0, 'Shoes', '2','',0,0,),
-    Item(1, 80, 0, 0, 0, 0, 'Shoes', '3','',0,0,),
-    Item(1, 80, 0, 0, 0, 0, 'Shoes', '4','',0,0,),
-    Item(1, 80, 0, 0, 0, 0, 'Shoes', '5','',0,0,),
-    //2:accessories
-    Item(2, 200, 0, 50, 0, 0, 'BackItem', '0','',0,0,),
-    Item(2, 200, 0, 0, 10, 0, 'EyeDecoration', '0','',0,0,),
-    Item(2, 200, 0, 0, 20, 0, 'EyeDecoration', '1','',0,0,),
-    //3:body
-    Item(3, 80, 0, 0, 0, 0, 'Head_Body', '0','',0,0,),
-    Item(3, 80, 0, 0, 0, 0, 'Head_Body', '1','',0,0,),
-    Item(3, 80, 0, 0, 0, 0, 'Head_Body', '2','',0,0,),
-    Item(3, 80, 0, 0, 0, 0, 'Head_Body', '3','',0,0,),
-    Item(3, 80, 0, 0, 0, 0, 'Head_Body', '4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '0-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '0-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '0-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '0-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '0-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '1-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '1-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '1-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '1-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '1-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-9','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-9','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-9','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-9','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Mouth', '0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Mouth', '1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Mouth', '2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Mouth', '3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Mouth', '4','',0,0,),
-    //4:items
-    Item(4, 10, 0, 0, 0, 0, 'Potions', '0','EXP + 10',10,0,),
-    Item(4, 10, 0, 0, 0, 0, 'Potions', '1','MP + 10',0,10,),
-  ];
-  List<Item> bagItemList= [
-    //0: weapon
-    Item(0, 50, 10, 0, 0, 1, 'HeavyWeapon', '0','',0,0,),
-    Item(0, 60, 15, 0, 0, 1, 'HeavyWeapon', '1','',0,0,),
-    Item(0, 20, 5, 0, 0, 1, 'LightWeapon', '0','',0,0,),
-    Item(0, 20, 5, 0, 0, 1, 'LightWeapon', '2','',0,0,),
-    Item(0, 25, 8, 0, 0, 1, 'LightWeapon', '3','',0,0,),
-    Item(0, 20, 13, 0, 0, 1, 'LightWeapon', '4','',0,0,),
-    //1:armors
-    Item(1, 100, 0, 0, 0, 1, 'Clothes', '0','',0,0,),
-    Item(1, 100, 0, 0, 0, 1, 'Clothes', '1','',0,0,),
-    Item(1, 100, 0, 0, 0, 1, 'Clothes', '2','',0,0,),
-    Item(1, 100, 0, 0, 0, 1, 'Clothes', '3','',0,0,),
-    Item(1, 100, 0, 0, 0, 1, 'Clothes', '4','',0,0,),
-    Item(1, 100, 0, 0, 0, 1, 'Clothes', '5','',0,0,),
-    Item(1, 100, 0, 0, 0, 1, 'Clothes', '6','',0,0,),
-    Item(1, 100, 0, 0, 0, 1, 'Clothes', '7','',0,0,),
-    Item(1, 90, 0, 0, 0, 1, 'Pants', '0','',0,0,),
-    Item(1, 90, 0, 0, 0, 1, 'Pants', '1','',0,0,),
-    Item(1, 90, 0, 0, 0, 1, 'Pants', '2','',0,0,),
-    Item(1, 90, 0, 0, 0, 1, 'Pants', '3','',0,0,),
-    Item(1, 90, 0, 0, 0, 1, 'Pants', '4','',0,0,),
-    Item(1, 90, 0, 0, 0, 1, 'Pants', '5','',0,0,),
-    Item(1, 90, 0, 0, 0, 1, 'Pants', '6','',0,0,),
-    Item(1, 90, 0, 0, 0, 1, 'Pants', '7','',0,0,),
-    Item(1, 90, 0, 0, 0, 1, 'Pants', '8','',0,0,),
-    Item(1, 90, 0, 0, 0, 1, 'Pants', '9','',0,0,),
-    Item(1, 90, 0, 0, 0, 1, 'Pants', '10','',0,0,),
-    Item(1, 90, 0, 0, 0, 1, 'Pants', '11','',0,0,),
-    Item(1, 80, 0, 0, 0, 1, 'Shoes', '0','',0,0,),
-    Item(1, 80, 0, 0, 0, 1, 'Shoes', '1','',0,0,),
-    Item(1, 80, 0, 0, 0, 1, 'Shoes', '2','',0,0,),
-    Item(1, 80, 0, 0, 0, 1, 'Shoes', '3','',0,0,),
-    Item(1, 80, 0, 0, 0, 1, 'Shoes', '4','',0,0,),
-    Item(1, 80, 0, 0, 0, 1, 'Shoes', '5','',0,0,),
-    //2:accessories
-    Item(2, 200, 0, 50, 0, 1, 'BackItem', '0','',0,0,),
-    Item(2, 200, 0, 0, 10, 1, 'EyeDecoration', '0','',0,0,),
-    Item(2, 200, 0, 0, 20, 1, 'EyeDecoration', '1','',0,0,),
-    //3:body
-    Item(3, 80, 0, 0, 0, 1, 'Head_Body', '0','',0,0,),
-    Item(3, 80, 0, 0, 0, 1, 'Head_Body', '1','',0,0,),
-    Item(3, 80, 0, 0, 0, 1, 'Head_Body', '2','',0,0,),
-    Item(3, 80, 0, 0, 0, 1, 'Head_Body', '3','',0,0,),
-    Item(3, 80, 0, 0, 0, 1, 'Head_Body', '4','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'BackHair', '0-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'BackHair', '0-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'BackHair', '0-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'BackHair', '0-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'BackHair', '0-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'BackHair', '0-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'BackHair', '0-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'BackHair', '0-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'BackHair', '0-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'BackHair', '1-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'BackHair', '1-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'BackHair', '1-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'BackHair', '1-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'BackHair', '1-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'BackHair', '1-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'BackHair', '1-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'BackHair', '1-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'BackHair', '1-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'BackHair', '2','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'ForeHair', '0','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'ForeHair', '1-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'ForeHair', '1-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'ForeHair', '1-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'ForeHair', '1-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'ForeHair', '1-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'ForeHair', '1-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'ForeHair', '1-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'ForeHair', '1-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'ForeHair', '1-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'ForeHair', '2-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'ForeHair', '2-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'ForeHair', '2-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'ForeHair', '2-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'ForeHair', '2-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'ForeHair', '2-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'ForeHair', '2-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'ForeHair', '2-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'ForeHair', '2-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'ForeHair', '3-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'ForeHair', '3-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'ForeHair', '3-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'ForeHair', '3-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'ForeHair', '3-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'ForeHair', '3-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'ForeHair', '3-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'ForeHair', '3-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'ForeHair', '3-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Ears', '0-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Ears', '0-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Ears', '0-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Ears', '0-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Ears', '0-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Ears', '1-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Ears', '1-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Ears', '1-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Ears', '1-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Ears', '1-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '0-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '0-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '0-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '0-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '0-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '0-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '0-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '0-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '0-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '0-9','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '1-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '1-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '1-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '1-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '1-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '1-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '1-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '1-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '1-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '1-9','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '2-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '2-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '2-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '2-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '2-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '2-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '2-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '2-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '2-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '2-9','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '3-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '3-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '3-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '3-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '3-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '3-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '3-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '3-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '3-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Eyes', '3-9','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Mouth', '0','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Mouth', '1','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Mouth', '2','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Mouth', '3','',0,0,),
-    Item(3, 20, 0, 0, 0, 1, 'Mouth', '4','',0,0,),
-    //4:items
-    Item(4, 10, 0, 0, 0, 1, 'Potions', '0','EXP + 10',1,0,),
-    Item(4, 10, 0, 0, 0, 1, 'Potions', '1','MP + 10',0,1,),
-  ];
-
-  List<Item> getBagListByType(int type){
-    List<Item> result = [];
-    result.clear();
-    for(int i=0;i<bagItemList.length;i++){
-      if(bagItemList[i].type==type && bagItemList[i].status!=0){
-        result.add(bagItemList[i]);
-      }
-    }
-    return result;
-  }
-
-  void unloadTypeItem(String whatItem,Player player){
-    for(int i=0;i<bagItemList.length;i++){
-      if(bagItemList[i].whatItem==whatItem){
-        if(bagItemList[i].status==2){
-          player.STR-=bagItemList[i].addSTR;
-          player.INT-=bagItemList[i].addINT;
-          player.VIT-=bagItemList[i].addVIT;
-        }
-        bagItemList[i].status=1;
-      }
-    }
-  }
-
   int getItemType(String itemIndex){
     return int.parse(itemIndex.split("-")[0]);
   }
@@ -422,7 +94,8 @@ class BagPageState extends State<BagPage>{
   }
 
   Widget useOrEquipButton(double screenWidth, double screenHeight,Item item,Player player){
-    if(getBagListByType(_bagUITypeIndex).isNotEmpty){
+    final playerData = Provider.of<PlayerData>(context);
+    if(playerData.getBagListByType(_bagUITypeIndex).isNotEmpty){
       if(_bagUITypeIndex==4){
         return useButton(screenWidth, screenHeight, item, player);
       }
@@ -439,6 +112,7 @@ class BagPageState extends State<BagPage>{
   }
 
   Widget equipButton(double screenWidth, double screenHeight,Item item,Player player){
+    final playerData = Provider.of<PlayerData>(context);
     return GestureDetector(
       onTap: (){
         if(item.status!=2){
@@ -446,8 +120,8 @@ class BagPageState extends State<BagPage>{
             player.STR += item.addSTR;
             player.INT += item.addINT;
             player.VIT += item.addVIT;
-            unloadTypeItem(item.whatItem,player);
-            bagItemList[item.indexInList].status=2;
+            playerData.unloadTypeItem(item.whatItem,player);
+            playerData.bagItemsList[item.indexInList].status=2;
           });
         }
         else{
@@ -455,8 +129,8 @@ class BagPageState extends State<BagPage>{
             player.STR -= item.addSTR;
             player.INT -= item.addINT;
             player.VIT -= item.addVIT;
-            unloadTypeItem(item.whatItem,player);
-            bagItemList[item.indexInList].status=1;
+            playerData.unloadTypeItem(item.whatItem,player);
+            playerData.bagItemsList[item.indexInList].status=1;
           });
         }
       },
@@ -474,6 +148,7 @@ class BagPageState extends State<BagPage>{
   }
 
   Widget useButton(double screenWidth, double screenHeight,Item item,Player player){
+    final playerData = Provider.of<PlayerData>(context);
     return GestureDetector(
       onTap: (){
         setState(() {
@@ -492,7 +167,7 @@ class BagPageState extends State<BagPage>{
               player.level++;
             }
           }
-          bagItemList[item.indexInList].status=0;
+          playerData.bagItemsList[item.indexInList].status=0;
           _nowItemIndex=0;
         });
       },
@@ -618,7 +293,7 @@ class BagPageState extends State<BagPage>{
   }
 
   Widget bagUIScene(double screenWidth, double screenHeight,Player player){
-
+    final playerData = Provider.of<PlayerData>(context);
     List<ImageProvider> shopUIList = [
       const AssetImage('assets/Shop/Shop_UI_Weapons.png'),
       const AssetImage('assets/Shop/Shop_UI_Armors.png'),
@@ -646,10 +321,10 @@ class BagPageState extends State<BagPage>{
                 width: 0.5*screenWidth,
                 height: 0.375*screenHeight,
                 child: ListView.builder(
-                  itemCount: getBagListByType(_bagUITypeIndex).length,
+                  itemCount: playerData.getBagListByType(_bagUITypeIndex).length,
                   itemBuilder: (BuildContext context,int index){
                     return ListTile(
-                      title: bagItem(screenWidth, screenHeight, getBagListByType(_bagUITypeIndex)[index],index),
+                      title: bagItem(screenWidth, screenHeight, playerData.getBagListByType(_bagUITypeIndex)[index],index),
                     );
                   },
                 ),
@@ -663,7 +338,7 @@ class BagPageState extends State<BagPage>{
                     SizedBox(height: 0.08*screenHeight,),
                     character(screenWidth, screenHeight, player),
                     SizedBox(height: 0.015*screenHeight,),
-                    (getBagListByType(_bagUITypeIndex).isNotEmpty?useOrEquipButton(screenWidth, screenHeight, getBagListByType(_bagUITypeIndex)[_nowItemIndex], player):Container())
+                    (playerData.getBagListByType(_bagUITypeIndex).isNotEmpty?useOrEquipButton(screenWidth, screenHeight, playerData.getBagListByType(_bagUITypeIndex)[_nowItemIndex], player):Container())
                   ],
                 ),
               ),
@@ -678,9 +353,10 @@ class BagPageState extends State<BagPage>{
   Widget build(BuildContext context){
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    final playerData = Provider.of<PlayerData>(context);
     final player = Provider.of<PlayerData>(context).player;
-    for(int i=0;i<bagItemList.length;i++){
-      bagItemList[i].getIndexInList(i);
+    for(int i=0;i<playerData.bagItemsList.length;i++){
+      playerData.bagItemsList[i].getIndexInList(i);
     }
     return Scaffold(
       backgroundColor: const Color(0xFFE2C799),

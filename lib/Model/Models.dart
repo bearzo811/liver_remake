@@ -21,9 +21,10 @@ class SkillModel{
   bool canLearn = false; //是否可以學習
   bool hasLearned = true; //是否已學習
   bool canUse = true; //是否可使用
+  bool hasUsed = false;
   int useConsumeMp = 1;
   int levelUpConsumeMp = 1;
-  SkillModel(this.skillLV,this.canLearn,this.hasLearned,this.canUse,this.useConsumeMp,this.levelUpConsumeMp);
+  SkillModel(this.skillLV,this.canLearn,this.hasLearned,this.canUse,this.hasUsed,this.useConsumeMp,this.levelUpConsumeMp);
 }
 
 class TrainItem{

@@ -21,168 +21,37 @@ class ShopPageState extends State<ShopPage>{
   int _shopUITypeIndex=0;
   int _nowItemIndex = 0;
 
-  List<Item> allItemsList= [
-    //0: weapon
-    Item(0, 50, 10, 0, 0, 0, 'HeavyWeapon', '0','',0,0,),
-    Item(0, 60, 15, 0, 0, 0, 'HeavyWeapon', '1','',0,0,),
-    Item(0, 20, 5, 0, 0, 0, 'LightWeapon', '0','',0,0,),
-    Item(0, 20, 5, 0, 0, 0, 'LightWeapon', '1','',0,0,),
-    Item(0, 20, 5, 0, 0, 0, 'LightWeapon', '2','',0,0,),
-    Item(0, 25, 8, 0, 0, 0, 'LightWeapon', '3','',0,0,),
-    Item(0, 20, 13, 0, 0, 0, 'LightWeapon', '4','',0,0,),
-    //1:armors
-    Item(1, 100, 0, 0, 0, 0, 'Clothes', '0','',0,0,),
-    Item(1, 100, 0, 0, 0, 0, 'Clothes', '1','',0,0,),
-    Item(1, 100, 0, 0, 0, 0, 'Clothes', '2','',0,0,),
-    Item(1, 100, 0, 0, 0, 0, 'Clothes', '3','',0,0,),
-    Item(1, 100, 0, 0, 0, 0, 'Clothes', '4','',0,0,),
-    Item(1, 100, 0, 0, 0, 0, 'Clothes', '5','',0,0,),
-    Item(1, 100, 0, 0, 0, 0, 'Clothes', '6','',0,0,),
-    Item(1, 100, 0, 0, 0, 0, 'Clothes', '7','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '0','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '1','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '2','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '3','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '4','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '5','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '6','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '7','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '8','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '9','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '10','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '11','',0,0,),
-    Item(1, 80, 0, 0, 0, 0, 'Shoes', '0','',0,0,),
-    Item(1, 80, 0, 0, 0, 0, 'Shoes', '1','',0,0,),
-    Item(1, 80, 0, 0, 0, 0, 'Shoes', '2','',0,0,),
-    Item(1, 80, 0, 0, 0, 0, 'Shoes', '3','',0,0,),
-    Item(1, 80, 0, 0, 0, 0, 'Shoes', '4','',0,0,),
-    Item(1, 80, 0, 0, 0, 0, 'Shoes', '5','',0,0,),
-    //2:accessories
-    Item(2, 200, 0, 50, 0, 0, 'BackItem', '0','',0,0,),
-    Item(2, 200, 0, 0, 10, 0, 'EyeDecoration', '0','',0,0,),
-    Item(2, 200, 0, 0, 20, 0, 'EyeDecoration', '1','',0,0,),
-    //3:body
-    Item(3, 80, 0, 0, 0, 0, 'Head_Body', '0','',0,0,),
-    Item(3, 80, 0, 0, 0, 0, 'Head_Body', '1','',0,0,),
-    Item(3, 80, 0, 0, 0, 0, 'Head_Body', '2','',0,0,),
-    Item(3, 80, 0, 0, 0, 0, 'Head_Body', '3','',0,0,),
-    Item(3, 80, 0, 0, 0, 0, 'Head_Body', '4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '0-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '0-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '0-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '0-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '0-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '1-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '1-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '1-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '1-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '1-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-9','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-9','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-9','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-9','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Mouth', '0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Mouth', '1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Mouth', '2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Mouth', '3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Mouth', '4','',0,0,),
-    //4:items
-    Item(4, 10, 0, 0, 0, 0, 'Potions', '0','EXP + 10',10,0,),
-    Item(4, 10, 0, 0, 0, 0, 'Potions', '1','MP + 10',0,10,),
-  ];
-
-  List<Item> getListByTypeAndStatus(int type,int status){
-    List<Item> result = [];
-    for(int i=0;i<allItemsList.length;i++){
-      if(allItemsList[i].type==type && allItemsList[i].status==status){
-        result.add(allItemsList[i]);
-      }
-    }
-    return result;
-  }
+  Player playerTemp = Player(
+      bodyIndex: 2,
+      earsTypeIndex: 1,
+      earsColorIndex: 2,
+      clothesIndex: 5,
+      pantsIndex: 5,
+      shoesIndex: 5,
+      eyesTypeIndex: 2,
+      eyesColorIndex: 1,
+      mouthIndex: 1,
+      backHairTypeIndex: 1,
+      backHairColorIndex: 1,
+      foreHairTypeIndex: 3,
+      foreHairColorIndex: 1,
+      backItemIndex: -1,
+      eyeDecorationIndex: -1,
+      heavyWeaponIndex: -1,
+      lightWeaponIndex: -1,
+      name: '測試玩家',
+      level: 1,
+      STR: 1,
+      INT: 1,
+      VIT: 1,
+      hp: 1,
+      mp: 10,
+      exp: 0,
+      maxMp: 10,
+      maxExp: 10,
+      coin: 20,
+      sp: 0
+  );
 
   int getItemType(String itemIndex){
     return int.parse(itemIndex.split("-")[0]);
@@ -362,13 +231,25 @@ class ShopPageState extends State<ShopPage>{
   }
 
   Widget buyButton(double screenWidth, double screenHeight,Item item,Player player){
+    final shopItemsList = Provider.of<PlayerData>(context).shopItemsList;
+    final playerData = Provider.of<PlayerData>(context);
+    print('shop List Length: ${shopItemsList.length}');
+    print('indexInList: ${item.indexInList}');
     return GestureDetector(
       onTap: (){
         if(player.coin>=item.coin){
-          setState(() {
-            player.coin-=item.coin;
-            allItemsList[item.indexInList].status=1;
-          });
+          if(item.whatItem=='Potions'){
+            setState(() {
+              playerData.buyPotions(item.indexInList, item.coin);
+            });
+          }
+          else{
+            print('buy');
+            setState(() {
+              playerData.buyItem(item.indexInList, item.coin);
+              _nowItemIndex=0;
+            });
+          }
         }
       },
       child: Container(
@@ -384,55 +265,54 @@ class ShopPageState extends State<ShopPage>{
     );
   }
 
-  Widget shopItem(double screenWidth, double screenHeight,Item item,int index){
-    final player = Provider.of<PlayerData>(context).player;
+  Widget shopItem(double screenWidth, double screenHeight,Item item,int index,Player player){
     return GestureDetector(
       onTap: (){
         setState(() {
           _nowItemIndex = index;
           //BackHair,BackItem,Clothes,Ears,EyeDecoration,Eyes,ForeHair,Head_Body,HeavyWeapon,LightWeapon,Mouth,Pants,Shoes
           if(item.whatItem == 'BackHair'){
-            player.backHairTypeIndex = getItemType(item.itemIndex);
-            player.backHairColorIndex = getItemIndex(item.itemIndex);
+            playerTemp.backHairTypeIndex = getItemType(item.itemIndex);
+            playerTemp.backHairColorIndex = getItemIndex(item.itemIndex);
           }
           else if(item.whatItem == 'BackItem'){
-            player.backItemIndex = int.parse(item.itemIndex);
+            playerTemp.backItemIndex = int.parse(item.itemIndex);
           }
           else if(item.whatItem == 'Clothes'){
-            player.clothesIndex = int.parse(item.itemIndex);
+            playerTemp.clothesIndex = int.parse(item.itemIndex);
           }
           else if(item.whatItem == 'Ears'){
-            player.earsTypeIndex = getItemType(item.itemIndex);
-            player.earsColorIndex = getItemIndex(item.itemIndex);
+            playerTemp.earsTypeIndex = getItemType(item.itemIndex);
+            playerTemp.earsColorIndex = getItemIndex(item.itemIndex);
           }
           else if(item.whatItem == 'EyeDecoration'){
-            player.eyeDecorationIndex = int.parse(item.itemIndex);
+            playerTemp.eyeDecorationIndex = int.parse(item.itemIndex);
           }
           else if(item.whatItem == 'Eyes'){
-            player.eyesTypeIndex = getItemType(item.itemIndex);
-            player.eyesColorIndex = getItemIndex(item.itemIndex);
+            playerTemp.eyesTypeIndex = getItemType(item.itemIndex);
+            playerTemp.eyesColorIndex = getItemIndex(item.itemIndex);
           }
           else if(item.whatItem == 'ForeHair'){
-            player.foreHairTypeIndex = getItemType(item.itemIndex);
-            player.foreHairColorIndex = getItemIndex(item.itemIndex);
+            playerTemp.foreHairTypeIndex = getItemType(item.itemIndex);
+            playerTemp.foreHairColorIndex = getItemIndex(item.itemIndex);
           }
           else if(item.whatItem == 'Head_Body'){
-            player.bodyIndex = int.parse(item.itemIndex);
+            playerTemp.bodyIndex = int.parse(item.itemIndex);
           }
           else if(item.whatItem == 'HeavyWeapon'){
-            player.heavyWeaponIndex = int.parse(item.itemIndex);
+            playerTemp.heavyWeaponIndex = int.parse(item.itemIndex);
           }
           else if(item.whatItem == 'LightWeapon'){
-            player.lightWeaponIndex = int.parse(item.itemIndex);
+            playerTemp.lightWeaponIndex = int.parse(item.itemIndex);
           }
           else if(item.whatItem == 'Mouth'){
-            player.mouthIndex = int.parse(item.itemIndex);
+            playerTemp.mouthIndex = int.parse(item.itemIndex);
           }
           else if(item.whatItem == 'Pants'){
-            player.pantsIndex = int.parse(item.itemIndex);
+            playerTemp.pantsIndex = int.parse(item.itemIndex);
           }
           else if(item.whatItem == 'Shoes'){
-            player.shoesIndex = int.parse(item.itemIndex);
+            playerTemp.shoesIndex = int.parse(item.itemIndex);
           }
         });
       },
@@ -510,8 +390,8 @@ class ShopPageState extends State<ShopPage>{
     );
   }
 
-  Widget shopUIScene(double screenWidth, double screenHeight,Player player){
-
+  Widget shopUIScene(double screenWidth, double screenHeight,Player playerTemp){
+    final playerData = Provider.of<PlayerData>(context);
     List<ImageProvider> shopUIList = [
       const AssetImage('assets/Shop/Shop_UI_Weapons.png'),
       const AssetImage('assets/Shop/Shop_UI_Armors.png'),
@@ -519,7 +399,7 @@ class ShopPageState extends State<ShopPage>{
       const AssetImage('assets/Shop/Shop_UI_Body.png'),
       const AssetImage('assets/Shop/Shop_UI_Items.png'),
     ];
-
+    //print('*** ${playerData.getListByTypeAndStatus(_shopUITypeIndex, 0).length}');
     return Container(
       width: 0.9*screenWidth,
       height: 0.62*screenHeight,
@@ -539,10 +419,10 @@ class ShopPageState extends State<ShopPage>{
                 width: 0.5*screenWidth,
                 height: 0.375*screenHeight,
                 child: ListView.builder(
-                  itemCount: getListByTypeAndStatus(_shopUITypeIndex, 0).length,
+                  itemCount: playerData.getListByTypeAndStatus(_shopUITypeIndex, 0).length,
                   itemBuilder: (BuildContext context,int index){
                     return ListTile(
-                      title: shopItem(screenWidth, screenHeight, getListByTypeAndStatus(_shopUITypeIndex,0)[index],index),
+                      title: shopItem(screenWidth, screenHeight, playerData.getListByTypeAndStatus(_shopUITypeIndex,0)[index],index,playerTemp),
                     );
                   },
                 ),
@@ -554,9 +434,9 @@ class ShopPageState extends State<ShopPage>{
                 child: Column(
                   children: [
                     SizedBox(height: 0.08*screenHeight,),
-                    character(screenWidth, screenHeight, player),
+                    character(screenWidth, screenHeight, playerTemp),
                     SizedBox(height: 0.015*screenHeight,),
-                    buyButton(screenWidth, screenHeight, getListByTypeAndStatus(_shopUITypeIndex,0)[_nowItemIndex], player)
+                    (playerData.getListByTypeAndStatus(_shopUITypeIndex,0).isNotEmpty?buyButton(screenWidth, screenHeight, playerData.getListByTypeAndStatus(_shopUITypeIndex,0)[_nowItemIndex], playerData.player):Container())
                   ],
                 ),
               ),
@@ -567,22 +447,61 @@ class ShopPageState extends State<ShopPage>{
     );
   }
 
+  Player copyPlayer(Player player){
+    Player playerTemp = Player(
+        bodyIndex: player.bodyIndex,
+        earsTypeIndex: player.earsTypeIndex,
+        earsColorIndex: player.earsColorIndex,
+        clothesIndex: player.clothesIndex,
+        pantsIndex: player.pantsIndex,
+        shoesIndex: player.shoesIndex,
+        eyesTypeIndex: player.eyesTypeIndex,
+        eyesColorIndex: player.eyesColorIndex,
+        mouthIndex: player.mouthIndex,
+        backHairTypeIndex: player.backHairTypeIndex,
+        backHairColorIndex: player.backHairColorIndex,
+        foreHairTypeIndex: player.foreHairTypeIndex,
+        foreHairColorIndex: player.foreHairColorIndex,
+        backItemIndex: player.backItemIndex,
+        eyeDecorationIndex: player.eyeDecorationIndex,
+        heavyWeaponIndex: player.heavyWeaponIndex,
+        lightWeaponIndex: player.lightWeaponIndex,
+        name: player.name,
+        level: player.level,
+        STR: player.STR,
+        INT: player.INT,
+        VIT: player.VIT,
+        hp: player.hp,
+        mp: player.mp,
+        exp: player.exp,
+        maxMp: player.maxMp,
+        maxExp: player.maxExp,
+        coin: player.coin,
+        sp: player.sp
+    );
+    return playerTemp;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final playerData = Provider.of<PlayerData>(context);
+    playerTemp = copyPlayer(playerData.player);
+  }
+
   @override
   Widget build(BuildContext context){
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    final player = Provider.of<PlayerData>(context).player;
-    for(int i=0;i<allItemsList.length;i++){
-      allItemsList[i].getIndexInList(i);
-    }
+    final playerData = Provider.of<PlayerData>(context);
     return Scaffold(
       backgroundColor: const Color(0xFFE2C799),
       body: SafeArea(
         child: Column(
           children: [
-            characterStatusBlockWithInfoButton(screenWidth, screenHeight,player,context),
+            characterStatusBlockWithInfoButton(screenWidth, screenHeight,playerData.player,context),
             SizedBox(height: 0.03*screenHeight,),
-            shopUIScene(screenWidth, screenHeight,player),
+            shopUIScene(screenWidth, screenHeight,playerTemp),
             arrowAndMenuBar(screenWidth, screenHeight),
           ],
         ),

@@ -48,7 +48,6 @@ class MainPageState extends State<MainPage>{
   Widget monsterNameAndHpBarBlock(double screenWidth, double screenHeight,Monster monster){
     double monsterHpRatio = monster.monsterHp/monster.monsterMaxHp;
     String monsterName = monster.monsterName;
-    print('${monster.monsterHp} | ${monster.monsterMaxHp} | $monsterName');
     if(monsterHpRatio>0){
       return Column(
         children: [
@@ -249,7 +248,7 @@ class MainPageState extends State<MainPage>{
               )
             ],
           ),
-          SizedBox(height: 0.17*screenHeight,),
+          SizedBox(height: 0.16*screenHeight,),
         ],
       );
     }
@@ -412,49 +411,163 @@ class MainPageState extends State<MainPage>{
 
   Widget attackMenuBar(double screenWidth, double screenHeight,Monster monster){
     final playerData = Provider.of<PlayerData>(context);
-    return Row(
-      children: [
-        Padding(
-          padding: EdgeInsets.only(left:0.41*screenWidth,right: 0.22*screenWidth),
-          child: GestureDetector(
-              onTap: (){
-                if(!monster.hasBeAttacked){
-                  playerData.attackMonster(_battleSceneIndex);
-                }
-              },
-              child: SizedBox(
-                width: 0.18*screenWidth,
-                height: 0.08*screenHeight,
-                child: ((monster.hasBeAttacked || monster.monsterHp<=0) ? Image.asset('assets/Attack_Button_Unvailable.png',fit: BoxFit.cover,) : Image.asset('assets/Attack_Button.png',fit: BoxFit.cover,)),
-              )
+    return SizedBox(
+      height: 0.18*screenHeight,
+      child: Row(
+        children: [
+          SizedBox(
+            width: 0.35*screenWidth,
+            height: 0.17*screenHeight,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                        child: Visibility(
+                            visible: playerData.skillModelList[0][0].hasUsed,
+                            child: const Image(
+                              image:AssetImage('assets/Skill_Icon_STR_0_Primary_Circle.png'),
+                              fit: BoxFit.cover,
+                            )
+                        )
+                    ),
+                    Expanded(
+                        child: Visibility(
+                            visible: playerData.skillModelList[0][1].hasUsed,
+                            child: const Image(
+                              image:AssetImage('assets/Skill_Icon_STR_1_Intermediate_Circle.png'),
+                              fit: BoxFit.cover,
+                            )
+                        )
+                    ),
+                    Expanded(
+                        child: Visibility(
+                            visible: playerData.skillModelList[0][2].hasUsed,
+                            child: const Image(
+                              image:AssetImage('assets/Skill_Icon_STR_2_Advance_Circle.png'),
+                              fit: BoxFit.cover,
+                            )
+                        )
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                        child: Visibility(
+                            visible: playerData.skillModelList[1][0].hasUsed,
+                            child: const Image(
+                              image:AssetImage('assets/Skill_Icon_INT_0_Primary_Circle.png'),
+                              fit: BoxFit.cover,
+                            )
+                        )
+                    ),
+                    Expanded(
+                        child: Visibility(
+                            visible: playerData.skillModelList[1][1].hasUsed,
+                            child: const Image(
+                              image:AssetImage('assets/Skill_Icon_INT_1_Intermediate_Circle.png'),
+                              fit: BoxFit.cover,
+                            )
+                        )
+                    ),
+                    Expanded(
+                        child: Visibility(
+                            visible: playerData.skillModelList[1][2].hasUsed,
+                            child: const Image(
+                              image:AssetImage('assets/Skill_Icon_INT_2_Advance_Circle.png'),
+                              fit: BoxFit.cover,
+                            )
+                        )
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                        child: Visibility(
+                            visible: playerData.skillModelList[2][0].hasUsed,
+                            child: const Image(
+                              image:AssetImage('assets/Skill_Icon_VIT_0_Primary_Circle.png'),
+                              fit: BoxFit.cover,
+                            )
+                        )
+                    ),
+                    Expanded(
+                        child: Visibility(
+                            visible: playerData.skillModelList[2][1].hasUsed,
+                            child: const Image(
+                              image:AssetImage('assets/Skill_Icon_VIT_1_Intermediate_Circle.png'),
+                              fit: BoxFit.cover,
+                            )
+                        )
+                    ),
+                    Expanded(
+                        child: Visibility(
+                            visible: playerData.skillModelList[2][2].hasUsed,
+                            child: const Image(
+                              image:AssetImage('assets/Skill_Icon_VIT_2_Advance_Circle.png'),
+                              fit: BoxFit.cover,
+                            )
+                        )
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-        ),
-        GestureDetector(
-          onTap: (){
-            showDialog(
-              context: context,
-              barrierDismissible: true,
-              builder: (BuildContext context){
-                return AlertDialog(
-                  backgroundColor: const Color.fromRGBO(0, 0, 0, 0),
-                  content: menuBlock(screenWidth, screenHeight),
-                );
-              }
-            );
-          },
-          child: SizedBox(
-            width: 0.18*screenWidth,
-            height: 0.08*screenHeight,
-            child: Image.asset('assets/Menu_Button.png',fit: BoxFit.cover,),
+          SizedBox(width: 0.07*screenWidth,),
+          Column(
+            children: [
+              SizedBox(height: 0.088*screenHeight,),
+              GestureDetector(
+                  onTap: (){
+                    if(!monster.hasBeAttacked && monster.monsterHp>0){
+                      playerData.attackMonster(_battleSceneIndex);
+                    }
+                  },
+                  child: SizedBox(
+                    width: 0.18*screenWidth,
+                    height: 0.08*screenHeight,
+                    child: ((monster.hasBeAttacked || monster.monsterHp<=0) ? Image.asset('assets/Attack_Button_Unvailable.png',fit: BoxFit.cover,) : Image.asset('assets/Attack_Button.png',fit: BoxFit.cover,)),
+                  )
+              ),
+            ],
           ),
-        ),
-      ],
+          SizedBox(width: 0.2*screenWidth,),
+          Column(
+            children: [
+              SizedBox(height: 0.088*screenHeight,),
+              GestureDetector(
+                onTap: (){
+                  showDialog(
+                      context: context,
+                      barrierDismissible: true,
+                      builder: (BuildContext context){
+                        return AlertDialog(
+                          backgroundColor: const Color.fromRGBO(0, 0, 0, 0),
+                          content: menuBlock(screenWidth, screenHeight),
+                        );
+                      }
+                  );
+                },
+                child: SizedBox(
+                  width: 0.18*screenWidth,
+                  height: 0.08*screenHeight,
+                  child: Image.asset('assets/Menu_Button.png',fit: BoxFit.cover,),
+                ),
+              ),
+            ],
+          )
+
+        ],
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context){
-    print('${DateTime.now().year} / ${DateTime.now().month} / ${DateTime.now().day}');
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     final player = Provider.of<PlayerData>(context).player;
@@ -468,11 +581,10 @@ class MainPageState extends State<MainPage>{
                   Column(
                     children: [
                       characterStatusBlockWithInfoButton(screenWidth, screenHeight,player,context), //character status bar
-                      SizedBox(height: 0.05*screenHeight,),
+                      SizedBox(height: 0.02*screenHeight,),
                       monsterNameAndHpBarBlock(screenWidth, screenHeight,monsterList[_battleSceneIndex]),
-                      SizedBox(height: 0.05*screenHeight,),
+                      SizedBox(height: 0.04*screenHeight,),
                       monsterAndArrowBlock(screenWidth, screenHeight,monsterList[_battleSceneIndex]),//怪物 & 左右箭頭
-                      SizedBox(height: 0.05*screenHeight,),
                       attackMenuBar(screenWidth, screenHeight,monsterList[_battleSceneIndex]),
                     ],
                   )

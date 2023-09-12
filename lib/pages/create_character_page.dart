@@ -35,16 +35,16 @@ class CreateCharacterPageState extends State<CreateCharacterPage>{
       lightWeaponIndex: -1,
       name: '測試玩家',
       level: 1,
-      STR: 1,
-      INT: 1,
-      VIT: 1,
+      STR: 999,
+      INT: 999,
+      VIT: 999,
       hp: 1,
       mp: 10,
       exp: 0,
       maxMp: 10,
       maxExp: 10,
-      coin: 20,
-      sp:0
+      coin: 10000,
+      sp:99
   );
   TextEditingController nameController = TextEditingController();
   String _name = '';
@@ -866,6 +866,7 @@ class CreateCharacterPageState extends State<CreateCharacterPage>{
                                   _name = nameController.text;
                                   player.name = _name;
                                   playerData.updatePlayer(player);
+                                  playerData.initShopItemList();
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
