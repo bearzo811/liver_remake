@@ -575,6 +575,7 @@ class MainPageState extends State<MainPage>{
     Provider.of<PlayerData>(context).checkMonsterAttacked();
     return Scaffold(
         body: SingleChildScrollView(
+          physics: const NeverScrollableScrollPhysics(),
           child: SafeArea(
               child: Stack(
                 children: [

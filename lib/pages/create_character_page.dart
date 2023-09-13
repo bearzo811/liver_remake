@@ -749,6 +749,7 @@ class CreateCharacterPageState extends State<CreateCharacterPage>{
       backgroundColor: const Color.fromRGBO(146, 65, 1, 100),
       body: SafeArea(
         child: SingleChildScrollView(
+            physics: const NeverScrollableScrollPhysics(),
             child: Container(
                 height: screenHeight,
                 width: screenWidth,

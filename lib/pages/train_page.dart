@@ -263,6 +263,7 @@ class TrainPageState extends State<TrainPage>{
     return Scaffold(
       backgroundColor: const Color(0xFFE2C799),
       body: SingleChildScrollView(
+          physics: const NeverScrollableScrollPhysics(),
         child: SafeArea(
           child:Stack(
             children: [
