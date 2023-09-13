@@ -16,6 +16,37 @@ class BagPageState extends State<BagPage>{
 
   int _bagUITypeIndex=0;
   int _nowItemIndex = 0;
+  Player playerTemp = Player(
+      bodyIndex: 2,
+      earsTypeIndex: 1,
+      earsColorIndex: 2,
+      clothesIndex: 5,
+      pantsIndex: 5,
+      shoesIndex: 5,
+      eyesTypeIndex: 2,
+      eyesColorIndex: 1,
+      mouthIndex: 1,
+      backHairTypeIndex: 1,
+      backHairColorIndex: 1,
+      foreHairTypeIndex: 3,
+      foreHairColorIndex: 1,
+      backItemIndex: -1,
+      eyeDecorationIndex: -1,
+      heavyWeaponIndex: -1,
+      lightWeaponIndex: -1,
+      name: '測試玩家',
+      level: 1,
+      ogSTR: 1,
+      ogINT: 1,
+      ogVIT: 1,
+      hp: 1,
+      mp: 10,
+      exp: 0,
+      maxMp: 10,
+      maxExp: 10,
+      coin: 20,
+      sp: 0
+  );
 
   int getItemType(String itemIndex){
     return int.parse(itemIndex.split("-")[0]);
@@ -100,7 +131,7 @@ class BagPageState extends State<BagPage>{
         return useButton(screenWidth, screenHeight, item, player);
       }
       else{
-        return equipButton(screenWidth, screenHeight, item, player);
+        return equipButton(screenWidth, screenHeight, item);
       }
     }
     else{
@@ -111,26 +142,23 @@ class BagPageState extends State<BagPage>{
     }
   }
 
-  Widget equipButton(double screenWidth, double screenHeight,Item item,Player player){
+  Widget equipButton(double screenWidth, double screenHeight,Item item){
     final playerData = Provider.of<PlayerData>(context);
+    final player = Provider.of<PlayerData>(context).player;
     return GestureDetector(
       onTap: (){
         if(item.status!=2){
           setState(() {
-            player.STR += item.addSTR;
-            player.INT += item.addINT;
-            player.VIT += item.addVIT;
             playerData.unloadTypeItem(item.whatItem,player);
             playerData.bagItemsList[item.indexInList].status=2;
+            playerData.reFreshItemOnBodyWithStatus2();
           });
         }
         else{
           setState(() {
-            player.STR -= item.addSTR;
-            player.INT -= item.addINT;
-            player.VIT -= item.addVIT;
             playerData.unloadTypeItem(item.whatItem,player);
             playerData.bagItemsList[item.indexInList].status=1;
+            playerData.reFreshItemOnBodyWithStatus2();
           });
         }
       },
@@ -149,23 +177,15 @@ class BagPageState extends State<BagPage>{
 
   Widget useButton(double screenWidth, double screenHeight,Item item,Player player){
     final playerData = Provider.of<PlayerData>(context);
+    final player = Provider.of<PlayerData>(context).player;
     return GestureDetector(
       onTap: (){
         setState(() {
           if(item.addMp>0){
-            if(player.mp<player.maxMp){
-              player.mp+=item.addMp;
-              if(player.mp>player.maxMp){
-                player.mp=player.maxMp;
-              }
-            }
+            playerData.getMP(item.addMp);
           }
           else{
-            player.exp+=item.addExp;
-            if(player.exp>player.maxExp){
-              player.exp-=player.maxExp;
-              player.level++;
-            }
+            playerData.getEXP(item.addExp);
           }
           playerData.bagItemsList[item.indexInList].status=0;
           _nowItemIndex=0;
@@ -174,9 +194,9 @@ class BagPageState extends State<BagPage>{
       child: Container(
         width: 0.3*screenWidth,
         height: 0.1*screenHeight,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
             image: DecorationImage(
-                image:AssetImage('assets/Info/Use_Button.png'),
+                image:(((item.addMp>0 && player.mp<player.maxMp) || (item.addExp>0)) ?AssetImage('assets/Info/Use_Button.png'):AssetImage('')),
                 fit: BoxFit.contain
             )
         ),
@@ -192,47 +212,47 @@ class BagPageState extends State<BagPage>{
           _nowItemIndex = index;
           //BackHair,BackItem,Clothes,Ears,EyeDecoration,Eyes,ForeHair,Head_Body,HeavyWeapon,LightWeapon,Mouth,Pants,Shoes
           if(item.whatItem == 'BackHair'){
-            player.backHairTypeIndex = getItemType(item.itemIndex);
-            player.backHairColorIndex = getItemIndex(item.itemIndex);
+            playerTemp.backHairTypeIndex = getItemType(item.itemIndex);
+            playerTemp.backHairColorIndex = getItemIndex(item.itemIndex);
           }
           else if(item.whatItem == 'BackItem'){
-            player.backItemIndex = int.parse(item.itemIndex);
+            playerTemp.backItemIndex = int.parse(item.itemIndex);
           }
           else if(item.whatItem == 'Clothes'){
-            player.clothesIndex = int.parse(item.itemIndex);
+            playerTemp.clothesIndex = int.parse(item.itemIndex);
           }
           else if(item.whatItem == 'Ears'){
-            player.earsTypeIndex = getItemType(item.itemIndex);
-            player.earsColorIndex = getItemIndex(item.itemIndex);
+            playerTemp.earsTypeIndex = getItemType(item.itemIndex);
+            playerTemp.earsColorIndex = getItemIndex(item.itemIndex);
           }
           else if(item.whatItem == 'EyeDecoration'){
-            player.eyeDecorationIndex = int.parse(item.itemIndex);
+            playerTemp.eyeDecorationIndex = int.parse(item.itemIndex);
           }
           else if(item.whatItem == 'Eyes'){
-            player.eyesTypeIndex = getItemType(item.itemIndex);
-            player.eyesColorIndex = getItemIndex(item.itemIndex);
+            playerTemp.eyesTypeIndex = getItemType(item.itemIndex);
+            playerTemp.eyesColorIndex = getItemIndex(item.itemIndex);
           }
           else if(item.whatItem == 'ForeHair'){
-            player.foreHairTypeIndex = getItemType(item.itemIndex);
-            player.foreHairColorIndex = getItemIndex(item.itemIndex);
+            playerTemp.foreHairTypeIndex = getItemType(item.itemIndex);
+            playerTemp.foreHairColorIndex = getItemIndex(item.itemIndex);
           }
           else if(item.whatItem == 'Head_Body'){
-            player.bodyIndex = int.parse(item.itemIndex);
+            playerTemp.bodyIndex = int.parse(item.itemIndex);
           }
           else if(item.whatItem == 'HeavyWeapon'){
-            player.heavyWeaponIndex = int.parse(item.itemIndex);
+            playerTemp.heavyWeaponIndex = int.parse(item.itemIndex);
           }
           else if(item.whatItem == 'LightWeapon'){
-            player.lightWeaponIndex = int.parse(item.itemIndex);
+            playerTemp.lightWeaponIndex = int.parse(item.itemIndex);
           }
           else if(item.whatItem == 'Mouth'){
-            player.mouthIndex = int.parse(item.itemIndex);
+            playerTemp.mouthIndex = int.parse(item.itemIndex);
           }
           else if(item.whatItem == 'Pants'){
-            player.pantsIndex = int.parse(item.itemIndex);
+            playerTemp.pantsIndex = int.parse(item.itemIndex);
           }
           else if(item.whatItem == 'Shoes'){
-            player.shoesIndex = int.parse(item.itemIndex);
+            playerTemp.shoesIndex = int.parse(item.itemIndex);
           }
         });
       },
@@ -349,6 +369,48 @@ class BagPageState extends State<BagPage>{
     );
   }
 
+  Player copyPlayer(Player player){
+    Player playerTemp = Player(
+        bodyIndex: player.bodyIndex,
+        earsTypeIndex: player.earsTypeIndex,
+        earsColorIndex: player.earsColorIndex,
+        clothesIndex: player.clothesIndex,
+        pantsIndex: player.pantsIndex,
+        shoesIndex: player.shoesIndex,
+        eyesTypeIndex: player.eyesTypeIndex,
+        eyesColorIndex: player.eyesColorIndex,
+        mouthIndex: player.mouthIndex,
+        backHairTypeIndex: player.backHairTypeIndex,
+        backHairColorIndex: player.backHairColorIndex,
+        foreHairTypeIndex: player.foreHairTypeIndex,
+        foreHairColorIndex: player.foreHairColorIndex,
+        backItemIndex: player.backItemIndex,
+        eyeDecorationIndex: player.eyeDecorationIndex,
+        heavyWeaponIndex: player.heavyWeaponIndex,
+        lightWeaponIndex: player.lightWeaponIndex,
+        name: player.name,
+        level: player.level,
+        ogSTR: player.STR,
+        ogINT: player.INT,
+        ogVIT: player.VIT,
+        hp: player.hp,
+        mp: player.mp,
+        exp: player.exp,
+        maxMp: player.maxMp,
+        maxExp: player.maxExp,
+        coin: player.coin,
+        sp: player.sp
+    );
+    return playerTemp;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final playerData = Provider.of<PlayerData>(context);
+    playerTemp = copyPlayer(playerData.player);
+  }
+
   @override
   Widget build(BuildContext context){
     final screenWidth = MediaQuery.of(context).size.width;
@@ -365,7 +427,7 @@ class BagPageState extends State<BagPage>{
           children: [
             characterStatusBlockWithHomeButton(screenWidth, screenHeight,player,context),
             SizedBox(height: 0.03*screenHeight,),
-            bagUIScene(screenWidth, screenHeight,player),
+            bagUIScene(screenWidth, screenHeight,playerTemp),
             arrowAndMenuBar(screenWidth, screenHeight),
           ],
         ),

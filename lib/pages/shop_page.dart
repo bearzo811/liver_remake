@@ -41,9 +41,9 @@ class ShopPageState extends State<ShopPage>{
       lightWeaponIndex: -1,
       name: '測試玩家',
       level: 1,
-      STR: 1,
-      INT: 1,
-      VIT: 1,
+      ogSTR: 1,
+      ogINT: 1,
+      ogVIT: 1,
       hp: 1,
       mp: 10,
       exp: 0,
@@ -233,8 +233,6 @@ class ShopPageState extends State<ShopPage>{
   Widget buyButton(double screenWidth, double screenHeight,Item item,Player player){
     final shopItemsList = Provider.of<PlayerData>(context).shopItemsList;
     final playerData = Provider.of<PlayerData>(context);
-    print('shop List Length: ${shopItemsList.length}');
-    print('indexInList: ${item.indexInList}');
     return GestureDetector(
       onTap: (){
         if(player.coin>=item.coin){
@@ -244,7 +242,6 @@ class ShopPageState extends State<ShopPage>{
             });
           }
           else{
-            print('buy');
             setState(() {
               playerData.buyItem(item.indexInList, item.coin);
               _nowItemIndex=0;
@@ -468,9 +465,9 @@ class ShopPageState extends State<ShopPage>{
         lightWeaponIndex: player.lightWeaponIndex,
         name: player.name,
         level: player.level,
-        STR: player.STR,
-        INT: player.INT,
-        VIT: player.VIT,
+        ogSTR: player.STR,
+        ogINT: player.INT,
+        ogVIT: player.VIT,
         hp: player.hp,
         mp: player.mp,
         exp: player.exp,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 
 class PlayerData extends ChangeNotifier{
+
   Player player = Player(
       bodyIndex: 2,
       earsTypeIndex: 1,
@@ -23,9 +24,9 @@ class PlayerData extends ChangeNotifier{
       lightWeaponIndex: -1,
       name: '測試玩家',
       level: 1,
-      STR: 1,
-      INT: 1,
-      VIT: 1,
+      ogSTR: 1,
+      ogINT: 1,
+      ogVIT: 1,
       hp: 1,
       mp: 10,
       exp: 0,
@@ -34,6 +35,21 @@ class PlayerData extends ChangeNotifier{
       coin: 20,
       sp: 0
   );
+
+  void setSTR(int STR){
+    player.STR = STR;
+    notifyListeners();
+  }
+
+  void setINT(int INT){
+    player.INT = INT;
+    notifyListeners();
+  }
+
+  void setVIT(int VIT){
+    player.VIT = VIT;
+    notifyListeners();
+  }
 
   int strMonsterLevel = 1;
   int intMonsterLevel = 1;
@@ -265,6 +281,16 @@ class PlayerData extends ChangeNotifier{
     }
   }
 
+  void getMP(int getMP){
+    if(player.mp<player.maxMp){
+      player.mp+=getMP;
+      if(player.mp>player.maxMp){
+        player.mp=player.maxMp;
+      }
+    }
+    notifyListeners();
+  }
+
   void consumeMp(int consumeMp){
     player.mp-=consumeMp;
     notifyListeners();
@@ -277,8 +303,8 @@ class PlayerData extends ChangeNotifier{
     Item(0, 50, 10, 0, 0, 0, 'HeavyWeapon', '0','',0,0,),
     Item(0, 60, 15, 0, 0, 0, 'HeavyWeapon', '1','',0,0,),
     Item(0, 20, 5, 0, 0, 0, 'LightWeapon', '0','',0,0,),
-    Item(0, 20, 5, 0, 0, 0, 'LightWeapon', '1','',0,0,),
-    Item(0, 20, 5, 0, 0, 0, 'LightWeapon', '2','',0,0,),
+    Item(0, 20, 0, 5, 0, 0, 'LightWeapon', '1','',0,0,),
+    Item(0, 20, 0, 0, 5, 0, 'LightWeapon', '2','',0,0,),
     Item(0, 25, 8, 0, 0, 0, 'LightWeapon', '3','',0,0,),
     Item(0, 20, 13, 0, 0, 0, 'LightWeapon', '4','',0,0,),
     //1:armors
@@ -421,163 +447,11 @@ class PlayerData extends ChangeNotifier{
     Item(3, 20, 0, 0, 0, 0, 'Mouth', '3','',0,0,),
     Item(3, 20, 0, 0, 0, 0, 'Mouth', '4','',0,0,),
     //4:items
-    Item(4, 10, 0, 0, 0, 0, 'Potions', '0','EXP + 10',10,0,),
-    Item(4, 10, 0, 0, 0, 0, 'Potions', '1','MP + 10',0,10,),
+    Item(4, 10, 0, 0, 0, 0, 'Potions', '0','EXP + 5',5,0,),
+    Item(4, 10, 0, 0, 0, 0, 'Potions', '1','MP + 5',0,5,),
   ];
 
   List<Item> bagItemsList= [
-    //Item(type,coin,addSTR,addINT,addVIT,status,whatItem,itemIndex,description,addExp,addMp)
-    // status 0:in shop, 1:in bag, 2:on body
-    //0: weapon
-    Item(0, 50, 10, 0, 0, 0, 'HeavyWeapon', '0','',0,0,),
-    Item(0, 60, 15, 0, 0, 0, 'HeavyWeapon', '1','',0,0,),
-    Item(0, 20, 5, 0, 0, 0, 'LightWeapon', '0','',0,0,),
-    Item(0, 20, 5, 0, 0, 0, 'LightWeapon', '1','',0,0,),
-    Item(0, 20, 5, 0, 0, 0, 'LightWeapon', '2','',0,0,),
-    Item(0, 25, 8, 0, 0, 0, 'LightWeapon', '3','',0,0,),
-    Item(0, 20, 13, 0, 0, 0, 'LightWeapon', '4','',0,0,),
-    //1:armors
-    Item(1, 100, 0, 0, 0, 0, 'Clothes', '0','',0,0,),
-    Item(1, 100, 0, 0, 0, 0, 'Clothes', '1','',0,0,),
-    Item(1, 100, 0, 0, 0, 0, 'Clothes', '2','',0,0,),
-    Item(1, 100, 0, 0, 0, 0, 'Clothes', '3','',0,0,),
-    Item(1, 100, 0, 0, 0, 0, 'Clothes', '4','',0,0,),
-    Item(1, 100, 0, 0, 0, 0, 'Clothes', '5','',0,0,),
-    Item(1, 100, 0, 0, 0, 0, 'Clothes', '6','',0,0,),
-    Item(1, 100, 0, 0, 0, 0, 'Clothes', '7','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '0','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '1','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '2','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '3','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '4','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '5','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '6','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '7','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '8','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '9','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '10','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '11','',0,0,),
-    Item(1, 80, 0, 0, 0, 0, 'Shoes', '0','',0,0,),
-    Item(1, 80, 0, 0, 0, 0, 'Shoes', '1','',0,0,),
-    Item(1, 80, 0, 0, 0, 0, 'Shoes', '2','',0,0,),
-    Item(1, 80, 0, 0, 0, 0, 'Shoes', '3','',0,0,),
-    Item(1, 80, 0, 0, 0, 0, 'Shoes', '4','',0,0,),
-    Item(1, 80, 0, 0, 0, 0, 'Shoes', '5','',0,0,),
-    //2:accessories
-    Item(2, 200, 0, 50, 0, 0, 'BackItem', '0','',0,0,),
-    Item(2, 200, 0, 0, 10, 0, 'EyeDecoration', '0','',0,0,),
-    Item(2, 200, 0, 0, 20, 0, 'EyeDecoration', '1','',0,0,),
-    //3:body
-    Item(3, 80, 0, 0, 0, 0, 'Head_Body', '0','',0,0,),
-    Item(3, 80, 0, 0, 0, 0, 'Head_Body', '1','',0,0,),
-    Item(3, 80, 0, 0, 0, 0, 'Head_Body', '2','',0,0,),
-    Item(3, 80, 0, 0, 0, 0, 'Head_Body', '3','',0,0,),
-    Item(3, 80, 0, 0, 0, 0, 'Head_Body', '4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '0-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '0-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '0-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '0-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '0-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '1-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '1-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '1-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '1-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '1-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-9','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-9','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-9','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-9','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Mouth', '0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Mouth', '1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Mouth', '2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Mouth', '3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Mouth', '4','',0,0,),
-    //4:items
-    Item(4, 10, 0, 0, 0, 0, 'Potions', '0','EXP + 10',10,0,),
-    Item(4, 10, 0, 0, 0, 0, 'Potions', '1','MP + 10',0,10,),
   ];
 
   List<Item> getBagListByType(int type){
@@ -594,35 +468,25 @@ class PlayerData extends ChangeNotifier{
   void unloadTypeItem(String whatItem,Player player){
     for(int i=0;i<bagItemsList.length;i++){
       if(bagItemsList[i].whatItem==whatItem){
-        if(bagItemsList[i].status==2){
-          player.STR-=bagItemsList[i].addSTR;
-          player.INT-=bagItemsList[i].addINT;
-          player.VIT-=bagItemsList[i].addVIT;
-        }
         bagItemsList[i].status=1;
       }
     }
   }
 
   void buyItem(int indexInList,int costCoin){
-    print(shopItemsList[indexInList].whatItem);
     player.coin-=costCoin;
     shopItemsList[indexInList].status=1;
-    for(int i=0;i<bagItemsList.length;i++){
-      if(bagItemsList[i].whatItem == shopItemsList[indexInList].whatItem && bagItemsList[i].itemIndex == shopItemsList[indexInList].itemIndex){
-        bagItemsList[i].status=1;
-      }
-    }
+    bagItemsList.add(shopItemsList[indexInList]);
     notifyListeners();
   }
 
   void buyPotions(int indexInList,int costCoin){
     player.coin-=costCoin;
     if(shopItemsList[indexInList].itemIndex=='0'){
-      bagItemsList.add(Item(4, 10, 0, 0, 0, 1, 'Potions', '0','EXP + 10',10,0,),);
+      bagItemsList.add(Item(4, 10, 0, 0, 0, 1, 'Potions', '0','EXP + 5',5,0,),);
     }
     else{
-      bagItemsList.add(Item(4, 10, 0, 0, 0, 1, 'Potions', '1','MP + 10',0,10,),);
+      bagItemsList.add(Item(4, 10, 0, 0, 0, 1, 'Potions', '1','MP + 5',0,5,),);
     }
 
     notifyListeners();
@@ -634,31 +498,40 @@ class PlayerData extends ChangeNotifier{
     }
     for(int i=0;i<shopItemsList.length;i++){
       if(shopItemsList[i].whatItem=='Head_Body' && shopItemsList[i].itemIndex==player.bodyIndex.toString()){
-        shopItemsList[i].status=1;
+        shopItemsList[i].status=2;
+        bagItemsList.add(shopItemsList[i]);
       }
       if(shopItemsList[i].whatItem=='Ears' && shopItemsList[i].itemIndex=='${player.earsTypeIndex}-${player.earsColorIndex}'){
-        shopItemsList[i].status=1;
+        shopItemsList[i].status=2;
+        bagItemsList.add(shopItemsList[i]);
       }
       if(shopItemsList[i].whatItem=='Eyes' && shopItemsList[i].itemIndex=='${player.eyesTypeIndex}-${player.eyesColorIndex}'){
-        shopItemsList[i].status=1;
+        shopItemsList[i].status=2;
+        bagItemsList.add(shopItemsList[i]);
       }
       if(shopItemsList[i].whatItem=='Clothes' && shopItemsList[i].itemIndex==player.clothesIndex.toString()){
-        shopItemsList[i].status=1;
+        shopItemsList[i].status=2;
+        bagItemsList.add(shopItemsList[i]);
       }
       if(shopItemsList[i].whatItem=='Pants' && shopItemsList[i].itemIndex==player.pantsIndex.toString()){
-        shopItemsList[i].status=1;
+        shopItemsList[i].status=2;
+        bagItemsList.add(shopItemsList[i]);
       }
       if(shopItemsList[i].whatItem=='Shoes' && shopItemsList[i].itemIndex==player.shoesIndex.toString()){
-        shopItemsList[i].status=1;
+        shopItemsList[i].status=2;
+        bagItemsList.add(shopItemsList[i]);
       }
       if(shopItemsList[i].whatItem=='Mouth' && shopItemsList[i].itemIndex==player.mouthIndex.toString()){
-        shopItemsList[i].status=1;
+        shopItemsList[i].status=2;
+        bagItemsList.add(shopItemsList[i]);
       }
       if(shopItemsList[i].whatItem=='ForeHair' && shopItemsList[i].itemIndex=='${player.foreHairTypeIndex}-${player.foreHairColorIndex}'){
-        shopItemsList[i].status=1;
+        shopItemsList[i].status=2;
+        bagItemsList.add(shopItemsList[i]);
       }
       if(shopItemsList[i].whatItem=='BackHair' && shopItemsList[i].itemIndex=='${player.backHairTypeIndex}-${player.backHairColorIndex}'){
-        shopItemsList[i].status=1;
+        shopItemsList[i].status=2;
+        bagItemsList.add(shopItemsList[i]);
       }
       notifyListeners();
     }
@@ -672,5 +545,94 @@ class PlayerData extends ChangeNotifier{
       }
     }
     return result;
+  }
+
+  void reFreshItemOnBodyWithStatus2(){
+    int addSTR = 0;
+    int addINT = 0;
+    int addVIT = 0;
+    int getTypeByItemIndex(String index){
+      List<String> parts = index.split('-');
+      String firstNumber = parts.first;
+      int parsedNumber = int.parse(firstNumber);
+      return parsedNumber;
+    }
+
+    int getColorByItemIndex(String index){
+      List<String> parts = index.split('-');
+      String firstNumber = parts.last;
+      int parsedNumber = int.parse(firstNumber);
+      return parsedNumber;
+    }
+
+    setSTR(player.ogSTR);
+    setINT(player.ogINT);
+    setVIT(player.ogVIT);
+
+    for(int i=0;i<bagItemsList.length;i++){
+      if(bagItemsList[i].status==2){
+        if(bagItemsList[i].whatItem=='Head_Body'){
+          player.bodyIndex = int.parse(bagItemsList[i].itemIndex);
+        }
+        if(bagItemsList[i].whatItem=='Ears'){
+          player.earsTypeIndex = getTypeByItemIndex(bagItemsList[i].itemIndex);
+          player.earsColorIndex = getColorByItemIndex(bagItemsList[i].itemIndex);
+        }
+        if(bagItemsList[i].whatItem=='Eyes'){
+          player.eyesTypeIndex = getTypeByItemIndex(bagItemsList[i].itemIndex);
+          player.eyesColorIndex = getColorByItemIndex(bagItemsList[i].itemIndex);
+        }
+        if(bagItemsList[i].whatItem=='Clothes'){
+          player.clothesIndex = int.parse(bagItemsList[i].itemIndex);
+        }
+        if(bagItemsList[i].whatItem=='Pants'){
+          player.pantsIndex = int.parse(bagItemsList[i].itemIndex);
+        }
+        if(bagItemsList[i].whatItem=='Shoes'){
+          player.shoesIndex = int.parse(bagItemsList[i].itemIndex);
+        }
+        if(bagItemsList[i].whatItem=='Mouth'){
+          player.mouthIndex = int.parse(bagItemsList[i].itemIndex);
+        }
+        if(bagItemsList[i].whatItem=='ForeHair'){
+          player.foreHairTypeIndex = getTypeByItemIndex(bagItemsList[i].itemIndex);
+          player.foreHairColorIndex = getColorByItemIndex(bagItemsList[i].itemIndex);
+        }
+        if(bagItemsList[i].whatItem=='BackHair'){
+          player.backHairTypeIndex = getTypeByItemIndex(bagItemsList[i].itemIndex);
+          player.backHairColorIndex = getColorByItemIndex(bagItemsList[i].itemIndex);
+        }
+        if(bagItemsList[i].whatItem=='HeavyWeapon'){
+          player.heavyWeaponIndex = int.parse(bagItemsList[i].itemIndex);
+          addSTR += bagItemsList[i].addSTR;
+          addINT += bagItemsList[i].addINT;
+          addVIT += bagItemsList[i].addVIT;
+        }
+        if(bagItemsList[i].whatItem=='LightWeapon'){
+          player.lightWeaponIndex = int.parse(bagItemsList[i].itemIndex);
+          addSTR += bagItemsList[i].addSTR;
+          addINT += bagItemsList[i].addINT;
+          addVIT += bagItemsList[i].addVIT;
+        }
+        if(bagItemsList[i].whatItem=='BackItem'){
+          player.backItemIndex = int.parse(bagItemsList[i].itemIndex);
+          addSTR += bagItemsList[i].addSTR;
+          addINT += bagItemsList[i].addINT;
+          addVIT += bagItemsList[i].addVIT;
+        }
+        if(bagItemsList[i].whatItem=='EyeDecoration'){
+          player.eyeDecorationIndex = int.parse(bagItemsList[i].itemIndex);
+          addSTR += bagItemsList[i].addSTR;
+          addINT += bagItemsList[i].addINT;
+          addVIT += bagItemsList[i].addVIT;
+        }
+      }
+    }
+
+    setSTR(player.ogSTR+addSTR);
+    setINT(player.ogINT+addINT);
+    setVIT(player.ogVIT+addVIT);
+
+    notifyListeners();
   }
 }

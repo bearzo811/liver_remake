@@ -35,9 +35,9 @@ class CreateCharacterPageState extends State<CreateCharacterPage>{
       lightWeaponIndex: -1,
       name: '測試玩家',
       level: 1,
-      STR: 999,
-      INT: 999,
-      VIT: 999,
+      ogSTR: 1,
+      ogINT: 1,
+      ogVIT: 1,
       hp: 1,
       mp: 10,
       exp: 0,
@@ -740,42 +740,6 @@ class CreateCharacterPageState extends State<CreateCharacterPage>{
     }
   }
 
-  Widget okLogoutBar(double screenWidth, double screenHeight){
-    return Row(
-      //mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Padding(
-          padding: EdgeInsets.only(left:0.3*screenWidth,right: 0.13*screenWidth),
-          child: GestureDetector(
-              onTap: (){
-                _name = nameController.text;
-                player.name = _name;
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context)=>const MainPage()
-                    )
-                );
-              },
-              child: SizedBox(
-                width: 0.4*screenWidth,
-                height: 0.05*screenHeight,
-                child: Image.asset('assets/OKButton.png',fit: BoxFit.cover,),
-              )
-          ),
-        ),
-        GestureDetector(
-          onTap: (){},
-          child: SizedBox(
-            width: 0.125*screenWidth,
-            height: 0.05*screenHeight,
-            child: Image.asset('assets/LogOutButton.png',fit: BoxFit.cover,),
-          ),
-        ),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context){
     final screenWidth = MediaQuery.of(context).size.width;
@@ -866,6 +830,9 @@ class CreateCharacterPageState extends State<CreateCharacterPage>{
                                   _name = nameController.text;
                                   player.name = _name;
                                   playerData.updatePlayer(player);
+                                  playerData.setSTR(player.ogSTR);
+                                  playerData.setINT(player.ogINT);
+                                  playerData.setVIT(player.ogVIT);
                                   playerData.initShopItemList();
                                   Navigator.push(
                                       context,

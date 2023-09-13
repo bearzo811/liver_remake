@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:liver_remake/PlayerData/playerData.dart';
 import 'pages/index_page.dart';
 
-void main(){
+void main()  {
   runApp(
       ChangeNotifierProvider(
         create: (context)=>PlayerData(),

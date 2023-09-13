@@ -134,6 +134,9 @@ class Player{
   int lightWeaponIndex = 0;
   String name = '';
   int level = 1;
+  int ogSTR = 0;
+  int ogINT = 0;
+  int ogVIT = 0;
   int STR = 0;
   int INT = 0;
   int VIT = 0;
@@ -166,9 +169,9 @@ class Player{
     required this.lightWeaponIndex,
     required this.name,
     required this.level,
-    required this.STR,
-    required this.INT,
-    required this.VIT,
+    required this.ogSTR,
+    required this.ogINT,
+    required this.ogVIT,
     required this.hp,
     required this.mp,
     required this.exp,
