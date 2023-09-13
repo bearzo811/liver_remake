@@ -259,6 +259,7 @@ class TrainPageState extends State<TrainPage>{
     final screenHeight = MediaQuery.of(context).size.height;
     final player = Provider.of<PlayerData>(context).player;
     final trainItemList = Provider.of<PlayerData>(context).trainItemList;
+    Provider.of<PlayerData>(context).checkMonsterAttacked();
     return Scaffold(
       backgroundColor: const Color(0xFFE2C799),
       body: SingleChildScrollView(

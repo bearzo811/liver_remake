@@ -116,6 +116,7 @@ class LogPageState extends State<LogPage>{
   }
 
   Widget deadLogBar(double screenWidth,double screenHeight,String playerName,int deadLoseSTR,int deadLoseINT,int deadLoseVIT,int deadLoseEXP,String monsterName){
+    final player = Provider.of<PlayerData>(context).player;
     return Container(
       height: 0.1*screenHeight,
       decoration: const BoxDecoration(
@@ -147,8 +148,106 @@ class LogPageState extends State<LogPage>{
               SizedBox(
                 width: 0.65*screenWidth,
                 child: AutoSizeText(
-                  '損失了 $deadLoseSTR點STR、$deadLoseINT點INT、$deadLoseVIT點VIT、$deadLoseEXP點EXP',
+                  '損失了 STR:$deadLoseSTR、INT:$deadLoseINT、VIT:$deadLoseVIT、EXP:$deadLoseEXP、Coin:${player.coin~/2}',
                   style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: Color(0xFF924101),
+                  ),
+                  maxLines: 1,
+                ),
+              )
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget defenseLogBar(double screenWidth,double screenHeight,String playerName,int deadLoseSTR,int deadLoseINT,int deadLoseVIT,int deadLoseEXP,String monsterName){
+    final player = Provider.of<PlayerData>(context).player;
+    return Container(
+      height: 0.1*screenHeight,
+      decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/Log/Log_DeadLog.png'),
+              fit: BoxFit.contain
+          )
+      ),
+      child: Row(
+        children: [
+          SizedBox(width: 0.15*screenWidth,height: 0.1*screenHeight,),
+          Column(
+            children: [
+              SizedBox(height: 0.02*screenHeight,),
+              SizedBox(
+                width: 0.65*screenWidth,
+                //height: 0.1*screenHeight,
+                child: AutoSizeText(
+                  '$playerName 被 $monsterName 攻擊',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: Color(0xFF924101),
+                  ),
+                  maxLines: 1,
+                ),
+              ),
+              SizedBox(height: 0.008*screenHeight,),
+              SizedBox(
+                width: 0.65*screenWidth,
+                child: const AutoSizeText(
+                  '使用《STR 終級技能》 成功格檔一次！',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: Color(0xFF924101),
+                  ),
+                  maxLines: 1,
+                ),
+              )
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget passLogBar(double screenWidth,double screenHeight,String playerName,int deadLoseSTR,int deadLoseINT,int deadLoseVIT,int deadLoseEXP,String monsterName){
+    final player = Provider.of<PlayerData>(context).player;
+    return Container(
+      height: 0.1*screenHeight,
+      decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/Log/Log_DeadLog.png'),
+              fit: BoxFit.contain
+          )
+      ),
+      child: Row(
+        children: [
+          SizedBox(width: 0.15*screenWidth,height: 0.1*screenHeight,),
+          Column(
+            children: [
+              SizedBox(height: 0.02*screenHeight,),
+              SizedBox(
+                width: 0.65*screenWidth,
+                //height: 0.1*screenHeight,
+                child: AutoSizeText(
+                  '$playerName 被 $monsterName 攻擊',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: Color(0xFF924101),
+                  ),
+                  maxLines: 1,
+                ),
+              ),
+              SizedBox(height: 0.008*screenHeight,),
+              SizedBox(
+                width: 0.65*screenWidth,
+                child: const AutoSizeText(
+                  '使用《INT 終極技能》 成功抵免死亡懲罰一次！',
+                  style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
                     color: Color(0xFF924101),
@@ -192,9 +291,12 @@ class LogPageState extends State<LogPage>{
       case 1: return interestLogBar(screenWidth, screenHeight, log.playerName, log.trainName, log.trainLevel, log.trainAddSTR, log.trainAddINT, log.trainAddVIT, log.trainAddEXP);
       case 2: return deadLogBar(screenWidth, screenHeight, log.playerName, log.deadLoseSTR, log.deadLoseINT, log.deadLoseVIT, log.deadLoseEXP, log.monsterName);
       case 3: return dateLogBar(screenWidth, screenHeight, log.date);
+      case 4: return defenseLogBar(screenWidth, screenHeight, log.playerName, log.deadLoseSTR, log.deadLoseINT, log.deadLoseVIT, log.deadLoseEXP, log.monsterName);
+      case 5: return passLogBar(screenWidth, screenHeight, log.playerName, log.deadLoseSTR, log.deadLoseINT, log.deadLoseVIT, log.deadLoseEXP, log.monsterName);
       default: return Container();
     }
   }
+
 
   Widget logScene(double screenWidth,double screenHeight){
     List<Log> allLogList = Provider.of<PlayerData>(context).allLogList;
@@ -369,6 +471,7 @@ class LogPageState extends State<LogPage>{
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     final player = Provider.of<PlayerData>(context).player;
+    Provider.of<PlayerData>(context).checkMonsterAttacked();
     return Scaffold(
       backgroundColor: const Color(0xFFE2C799),
       body: SafeArea(

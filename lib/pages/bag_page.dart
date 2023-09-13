@@ -417,6 +417,7 @@ class BagPageState extends State<BagPage>{
     final screenHeight = MediaQuery.of(context).size.height;
     final playerData = Provider.of<PlayerData>(context);
     final player = Provider.of<PlayerData>(context).player;
+    Provider.of<PlayerData>(context).checkMonsterAttacked();
     for(int i=0;i<playerData.bagItemsList.length;i++){
       playerData.bagItemsList[i].getIndexInList(i);
     }

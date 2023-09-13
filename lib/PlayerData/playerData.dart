@@ -89,18 +89,18 @@ class PlayerData extends ChangeNotifier{
   List<List<SkillModel>> skillModelList = [
     [
       SkillModel(1,true, false, true,true,5,1),
-      SkillModel(1,false, false, true,false,10,3),
-      SkillModel(1,false, false, false,false,200,10),
+      SkillModel(1,false, false, true,true,10,3),
+      SkillModel(1,false, false, false,true,200,10),
     ],
     [
-      SkillModel(1,true, false, true,false,5,1),
-      SkillModel(1,false, false, true,false,10,3),
-      SkillModel(1,false, false, false,false,200,10),
+      SkillModel(1,true, false, true,true,5,1),
+      SkillModel(1,false, false, true,true,10,3),
+      SkillModel(1,false, false, false,true,200,10),
     ],
     [
-      SkillModel(1,true, false, true,false,5,1),
-      SkillModel(1,false, false, true,false,10,3),
-      SkillModel(1,false, false, false,false,200,10),
+      SkillModel(1,true, false, true,true,5,1),
+      SkillModel(1,false, false, true,true,10,3),
+      SkillModel(1,false, false, false,true,200,10),
     ]
   ];
 
@@ -163,8 +163,56 @@ class PlayerData extends ChangeNotifier{
     notifyListeners();
   }
 
+  void playerDead(String monsterName){
+    if(skillModelList[1][2].hasUsed){
+      print(allLogList.length);
+      addLogList(Log(logType: 5, playerName: player.name, monsterName: monsterName, attackPoint: 99999, trainName: '', trainLevel: 0, trainAddSTR: 0, trainAddINT: 0, trainAddVIT: 0, trainAddEXP: 0, deadLoseSTR: 0, deadLoseINT: 0, deadLoseVIT: 0, deadLoseEXP: 0, date: '${DateTime.now().year} / ${DateTime.now().month} / ${DateTime.now().day}'));
+      print(allLogList.length);
+      skillModelList[1][2].hasUsed=false;
+    }
+    else{
+      addLogList(Log(logType: 2, playerName: player.name, monsterName: monsterName, attackPoint: 99999, trainName: '', trainLevel: 0, trainAddSTR: 0, trainAddINT: 0, trainAddVIT: 0, trainAddEXP: 0, deadLoseSTR: player.deadLoseSTR(), deadLoseINT: player.deadLoseINT(), deadLoseVIT: player.deadLoseVIT(), deadLoseEXP: player.deadLoseExp(), date: '${DateTime.now().year} / ${DateTime.now().month} / ${DateTime.now().day}'));
+      player.ogSTR -= player.deadLoseSTR();
+      player.ogINT -= player.deadLoseINT();
+      player.ogVIT -= player.deadLoseVIT();
+      player.exp =0;
+      player.mp=0;
+      player.coin = player.coin~/2;
+    }
+    notifyListeners();
+  }
+
+  void checkMonsterAttacked(){
+    DateTime now = DateTime.now();
+    Duration difference ;
+    for(int i=0;i<3;i++){
+      if(allMonsterList[i].monsterHp>0){
+        difference = now.difference(allMonsterList[i].lastBeAttackedTime);
+        if(difference>=const Duration(seconds: 30) && difference<const Duration(seconds: 60)){
+          for(int i=0;i<3;i++){
+            if(allMonsterList[i].monsterHp>0 && allMonsterList[i].hasBeAttacked){
+              allMonsterList[i].hasBeAttacked=false;
+            }
+          }
+        }
+        if(difference>=const Duration(seconds: 60)){
+          allMonsterList[i].lastBeAttackedTime = DateTime.now();
+          if(skillModelList[0][2].hasUsed){
+            addLogList(Log(logType: 4, playerName: player.name, monsterName: allMonsterList[i].monsterName, attackPoint: 99999, trainName: '', trainLevel: 0, trainAddSTR: 0, trainAddINT: 0, trainAddVIT: 0, trainAddEXP: 0, deadLoseSTR: player.deadLoseSTR(), deadLoseINT: 0, deadLoseVIT: 0, deadLoseEXP: 0, date: '${DateTime.now().year} / ${DateTime.now().month} / ${DateTime.now().day}'));
+            skillModelList[0][2].hasUsed=false;
+          }
+          else{
+            playerDead(allMonsterList[i].monsterName);
+          }
+        }
+      }
+    }
+    notifyListeners();
+  }
+
   void attackMonster(int type){
     allMonsterList[type].hasBeAttacked= true;
+    allMonsterList[type].lastBeAttackedTime = DateTime.now();
     int attackPoint = 0;
     int getExp = 0;
     int getCoin = 0;
@@ -207,7 +255,7 @@ class PlayerData extends ChangeNotifier{
     }
     if(skillModelList[2][2].hasUsed){
       allMonsterList[type].hasBeAttacked= false;
-      skillModelList[2][1].hasUsed=false;
+      skillModelList[2][2].hasUsed=false;
     }
     //
     allMonsterList[type].monsterHp-=attackPoint;

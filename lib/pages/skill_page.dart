@@ -478,6 +478,7 @@ class SkillPageState extends State<SkillPage>{
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     final player = Provider.of<PlayerData>(context).player;
+    Provider.of<PlayerData>(context).checkMonsterAttacked();
     return Scaffold(
       backgroundColor: const Color(0xFFE2C799),
       body: SafeArea(

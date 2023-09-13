@@ -248,7 +248,7 @@ class MainPageState extends State<MainPage>{
               )
             ],
           ),
-          SizedBox(height: 0.16*screenHeight,),
+          SizedBox(height: 0.17*screenHeight,),
         ],
       );
     }
@@ -572,6 +572,7 @@ class MainPageState extends State<MainPage>{
     final screenHeight = MediaQuery.of(context).size.height;
     final player = Provider.of<PlayerData>(context).player;
     final monsterList = Provider.of<PlayerData>(context).allMonsterList;
+    Provider.of<PlayerData>(context).checkMonsterAttacked();
     return Scaffold(
         body: SingleChildScrollView(
           child: SafeArea(

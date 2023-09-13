@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:liver_remake/pages/info_page.dart';
 import 'package:liver_remake/pages/main_page.dart';
-import 'package:provider/provider.dart';
+import 'dart:core';
 
 class Achievement{
   int type =0 ; // 0: star | 1: little int | 2: little vit | 3: little str | 4: big int | 5: big vit | 6: big str
@@ -182,15 +182,15 @@ class Player{
   });
 
   int deadLoseSTR(){
-    return STR~/2;
+    return ogSTR~/2;
   }
 
   int deadLoseINT(){
-    return INT~/2;
+    return ogINT~/2;
   }
 
   int deadLoseVIT(){
-    return VIT~/2;
+    return ogVIT~/2;
   }
 
   int deadLoseExp(){
@@ -210,6 +210,7 @@ class Monster{
   int getCoin = 0;
   int type = 0; //0:STR | 1:INT | 2:VIT
   bool hasBeAttacked = false;
+  DateTime lastBeAttackedTime = DateTime.now();
   Monster({
     required this.monsterName,
     required this.type,
@@ -225,6 +226,7 @@ class Monster{
     getEXP = monsterLevel*10;
     getCoin = monsterLevel*10;
     hasBeAttacked = false;
+    lastBeAttackedTime = DateTime.now();
   }
 }
 

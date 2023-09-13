@@ -40,7 +40,7 @@ class CreateCharacterPageState extends State<CreateCharacterPage>{
       ogVIT: 1,
       hp: 1,
       mp: 10,
-      exp: 0,
+      exp: 5,
       maxMp: 10,
       maxExp: 10,
       coin: 10000,
