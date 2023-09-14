@@ -1,5 +1,6 @@
 import 'package:liver_remake/Model/Models.dart';
 import 'package:flutter/material.dart';
+import 'package:liver_remake/firebase/firebase_controller.dart';
 import 'dart:math';
 
 class PlayerData extends ChangeNotifier{
@@ -36,7 +37,7 @@ class PlayerData extends ChangeNotifier{
       sp: 0
   );
 
-  int strMonsterLevel = 1;
+  int strMonsterLevel= 1;
   int intMonsterLevel = 1;
   int vitMonsterLevel = 1;
 
@@ -230,6 +231,181 @@ class PlayerData extends ChangeNotifier{
   ];
 
   List<Item> bagItemsList= [];
+
+  List<Map<String,dynamic>> monsterListMapList(){
+    print('*****************');
+    List<Map<String,dynamic>> result = [
+      allMonsterList[0].toMap(),
+      allMonsterList[1].toMap(),
+      allMonsterList[2].toMap(),
+    ];
+    print(result[0]);
+    return result;
+  }
+
+  List<Map<String,dynamic>> achievementListMapList(){
+    List<Map<String,dynamic>> result = [];
+    result.clear();
+    for(int i=0;i<allAchievementList.length;i++){
+      result.add(allAchievementList[i].toMap());
+    }
+    return result;
+  }
+
+  List<Map<String,dynamic>> logListMapList(){
+    List<Map<String,dynamic>> result = [];
+    result.clear();
+    for(int i=0;i<allLogList.length;i++){
+      result.add(allLogList[i].toMap());
+    }
+    return result;
+  }
+
+  List<Map<String,dynamic>> trainItemListMapList(){
+    List<Map<String,dynamic>> result = [];
+    result.clear();
+    for(int i=0;i<trainItemList.length;i++){
+      result.add(trainItemList[i].toMap());
+    }
+    return result;
+  }
+
+  List<Map<String,dynamic>> strSkillMapList(){
+    List<Map<String,dynamic>> result = [
+      skillModelList[0][0].toMap(),
+      skillModelList[0][1].toMap(),
+      skillModelList[0][2].toMap(),
+    ];
+    return result;
+  }
+
+  List<Map<String,dynamic>> intSkillMapList(){
+    List<Map<String,dynamic>> result = [
+      skillModelList[1][0].toMap(),
+      skillModelList[1][1].toMap(),
+      skillModelList[1][2].toMap(),
+    ];
+    return result;
+  }
+
+  List<Map<String,dynamic>> vitSkillMapList(){
+    List<Map<String,dynamic>> result = [
+      skillModelList[2][0].toMap(),
+      skillModelList[2][1].toMap(),
+      skillModelList[2][2].toMap(),
+    ];
+    return result;
+  }
+
+  List<Map<String,dynamic>> shopItemListMapList(){
+    List<Map<String,dynamic>> result = [];
+    result.clear();
+    for(int i=0;i<shopItemsList.length;i++){
+      result.add(shopItemsList[i].toMap());
+    }
+    return result;
+  }
+
+  List<Map<String,dynamic>> bagItemListMapList(){
+    List<Map<String,dynamic>> result = [];
+    result.clear();
+    for(int i=0;i<bagItemsList.length;i++){
+      result.add(bagItemsList[i].toMap());
+    }
+    return result;
+  }
+
+  Map<String,dynamic> monsterLevelToMap(){
+    return {
+      'strMonsterLevel':strMonsterLevel,
+      'intMonsterLevel':intMonsterLevel,
+      'vitMonsterLevel':vitMonsterLevel,
+    };
+  }
+
+  void getDataFromFirebase(Map<String,dynamic> data){
+    print(data);
+    player.bodyIndex= data['bodyIndex'];
+    player.earsTypeIndex= data['earsTypeIndex'];
+    player.earsColorIndex= data['earsColorIndex'];
+    player.clothesIndex= data['clothesIndex'];
+    player.pantsIndex= data['pantsIndex'];
+    player.shoesIndex= data['shoesIndex'];
+    player.eyesTypeIndex= data['eyesTypeIndex'];
+    player.eyesColorIndex= data['eyesColorIndex'];
+    player.mouthIndex= data['mouthIndex'];
+    player.backHairTypeIndex= data['backHairTypeIndex'];
+    player.backHairColorIndex= data['backHairColorIndex'];
+    player.foreHairTypeIndex= data['foreHairTypeIndex'];
+    player.foreHairColorIndex= data['foreHairColorIndex'];
+    player.backItemIndex= data['backItemIndex'];
+    player.eyeDecorationIndex= data['eyeDecorationIndex'];
+    player.heavyWeaponIndex= data['heavyWeaponIndex'];
+    player.lightWeaponIndex= data['lightWeaponIndex'];
+    player.name= data['name'];
+    player.level= data['level'];
+    player.ogSTR= data['ogSTR'];
+    player.ogINT= data['ogINT'];
+    player.ogVIT= data['ogVIT'];
+    player.hp= data['hp'];
+    player.mp= data['mp'];
+    player.exp= data['exp'];
+    player.maxMp= data['maxMp'];
+    player.maxExp= data['maxExp'];
+    player.coin= data['coin'];
+    player.sp= data['sp'];
+    strMonsterLevel= data['strMonsterLevel'];
+    intMonsterLevel = data['intMonsterLevel'];
+    vitMonsterLevel = data['vitMonsterLevel'];
+    allMonsterList[0].fetch(data['monsterList'][0]);
+    allMonsterList[1].fetch(data['monsterList'][1]);
+    allMonsterList[2].fetch(data['monsterList'][2]);
+    for(int i=0;i<data['achievementList'].lenth;i++){
+      allAchievementList.clear();
+      Achievement achievement = Achievement(type: 0, description: 'description', date: '');
+      achievement.fetch(data['achievementList'][i]);
+      allAchievementList.add(achievement);
+    }
+    for(int i=0;i<data['logListMapList'].lenth;i++){
+      allLogList.clear();
+      Log log = Log(logType: 0, playerName: 'playerName', monsterName: 'monsterName', attackPoint: 0, trainName: 'trainName', trainLevel: 0, trainAddSTR: 0, trainAddINT: 0, trainAddVIT: 0, trainAddEXP: 0, deadLoseSTR: 0, deadLoseINT: 0, deadLoseVIT: 0, deadLoseEXP: 0, date: 'date');
+      log.fetch(data['logListMapList'][i]);
+      allLogList.add(log);
+    }
+    for(int i=0;i<data['trainItemListMapList'].lenth;i++){
+      allLogList.clear();
+      TrainItem trainItem = TrainItem('trainName', 0, 0);
+      trainItem.fetch(data['trainItemListMapList'][i]);
+      trainItemList.add(trainItem);
+    }
+    for(int i=0;i<3;i++){
+      for(int j=0;j<3;j++){
+        if(i==0){
+          skillModelList[0][j].fetch(data['strSkillMapList'][j]);
+        }
+        else if(i==1){
+          skillModelList[1][j].fetch(data['intSkillMapList'][j]);
+        }
+        else{
+          skillModelList[2][j].fetch(data['vitSkillMapList'][j]);
+        }
+      }
+    }
+    for(int i=0;i<data['shopItemListMapList'].lenth;i++){
+      shopItemsList.clear();
+      Item shopItem = Item(0, 0, 0, 0, 0, 0, 'whatItem', 'itemIndex', 'description', 0, 0);
+      shopItem.fetch(data['shopItemListMapList'][i]);
+      shopItemsList.add(shopItem);
+    }
+    for(int i=0;i<data['bagItemListMapList'].lenth;i++){
+      bagItemsList.clear();
+      Item bagItem = Item(0, 0, 0, 0, 0, 0, 'whatItem', 'itemIndex', 'description', 0, 0);
+      bagItem.fetch(data['bagItemListMapList'][i]);
+      print('bag: ${bagItem.whatItem} / ${bagItem.itemIndex}');
+      bagItemsList.add(bagItem);
+    }
+    notifyListeners();
+  }
 
   void setSTR(int STR){
     player.STR = STR;

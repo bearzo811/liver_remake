@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:liver_remake/PlayerData/playerData.dart';
@@ -7,6 +8,9 @@ import 'package:liver_remake/pages/skill_page.dart';
 import 'package:liver_remake/pages/log_page.dart';
 import 'package:liver_remake/Model/Models.dart';
 import 'package:provider/provider.dart';
+import 'package:liver_remake/firebase/firebase_controller.dart';
+
+import 'index_page.dart';
 
 class MainPage extends StatefulWidget{
 
@@ -294,7 +298,7 @@ class MainPageState extends State<MainPage>{
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               GestureDetector(
-                  onTap: (){
+                  onTap: ()  {
                     playerData.createMonster(_battleSceneIndex, monsterNameTextFieldController.text);
                     monsterNameTextFieldController.clear();
                     Navigator.of(context).pop();
@@ -396,7 +400,15 @@ class MainPageState extends State<MainPage>{
             ),
           ),
           GestureDetector(
-            onTap: (){
+            onTap: ()async{
+              logOutGoogleAccount();
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context)=>IndexPage()
+                  ),
+                    (route) => false,
+              );
             },
             child: SizedBox(
               width: 0.6*screenWidth,
@@ -567,7 +579,7 @@ class MainPageState extends State<MainPage>{
   }
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     final player = Provider.of<PlayerData>(context).player;

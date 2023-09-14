@@ -13,7 +13,20 @@ class Achievement{
     required this.description,
     required this.date
   });
+  
+  Map<String,dynamic> toMap(){
+    return {
+      'type':type,
+      'description':description,
+      'date':date,
+    };
+  }
 
+  void fetch(Map<String,dynamic> data){
+    type = data['type'];
+    description = data['description'];
+    date = data['date'];
+  }
 }
 
 class SkillModel{
@@ -25,6 +38,28 @@ class SkillModel{
   int useConsumeMp = 1;
   int levelUpConsumeMp = 1;
   SkillModel(this.skillLV,this.canLearn,this.hasLearned,this.canUse,this.hasUsed,this.useConsumeMp,this.levelUpConsumeMp);
+  
+  Map<String,dynamic> toMap(){
+    return {
+      'skillLV':skillLV,
+      'canLearn':canLearn,
+      'hasLearned':hasLearned,
+      'canUse':canUse,
+      'hasUsed':hasUsed,
+      'useConsumeMp':useConsumeMp,
+      'levelUpConsumeMp':levelUpConsumeMp
+    };
+  }
+
+  void fetch(Map<String,dynamic> data){
+    skillLV = data['skillLV'];
+    canLearn = data['canLearn'];
+    hasLearned = data['hasLearned'];
+    canUse = data['canUse'];
+    hasUsed = data['hasUsed'];
+    useConsumeMp = data['useConsumeMp'];
+    levelUpConsumeMp = data['levelUpConsumeMp'];
+  }
 }
 
 class TrainItem{
@@ -65,6 +100,25 @@ class TrainItem{
   int getAddEXP(){
     return (trainLevel~/10)+1;
   }
+
+  Map<String,dynamic> toMap(){
+    return {
+      'trainTypeIndex':trainTypeIndex,
+      'trainLevel':trainLevel,
+      'trainName':trainName,
+      'getAddSTR':getAddSTR,
+      'getAddINT':getAddINT,
+      'getAddVIT':getAddVIT,
+      'getAddEXP':getAddEXP,
+    };
+  }
+
+  void fetch(Map<String,dynamic> data){
+    trainTypeIndex = data['trainTypeIndex'];
+    trainLevel = data['trainLevel'];
+    trainName = data['trainName'];
+  }
+
 }
 
 class Item{
@@ -111,6 +165,38 @@ class Item{
 
   void getIndexInList(int index){
     indexInList  = index;
+  }
+  
+  Map<String,dynamic> toMap(){
+    return {
+    'type':type, // 0:weapon, 1:armors, 2: accessories, 3:body, 4:items
+    'coin':coin,
+    'addSTR':addSTR,
+    'addINT':addINT,
+    'addVIT':addVIT,
+    'addExp':addExp,
+    'addMp':addMp,
+    'description':getDescription(),
+    'status':status, // 0:in shop, 1:in bag, 2:on body
+    'whatItem':whatItem, //BackHair,BackItem,Clothes,Ears,EyeDecoration,Eyes,ForeHair,Head_Body,HeavyWeapon,LightWeapon,Mouth,Pants,Shoes
+    'itemIndex':itemIndex,
+    'indexInList':indexInList,
+    };
+  }
+
+  void fetch(Map<String,dynamic> data){
+    type = data['type'];
+    coin = data['coin'];
+    addSTR = data['addSTR'];
+    addINT = data['addINT'];
+    addVIT = data['addVIT'];
+    addExp = data['addExp'];
+    addMp = data['addMp'];
+    description = data['description'];
+    status = data['status'];
+    whatItem = data['whatItem'];
+    itemIndex = data['itemIndex'];
+    indexInList = data['indexInList'];
   }
 }
 
@@ -196,6 +282,40 @@ class Player{
   int deadLoseExp(){
     return exp;
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'bodyIndex': bodyIndex,
+      'earsTypeIndex': earsTypeIndex,
+      'earsColorIndex': earsColorIndex,
+      'clothesIndex': clothesIndex,
+      'pantsIndex': pantsIndex,
+      'shoesIndex': shoesIndex,
+      'eyesTypeIndex': eyesTypeIndex,
+      'eyesColorIndex': eyesColorIndex,
+      'mouthIndex': mouthIndex,
+      'backHairTypeIndex': backHairTypeIndex,
+      'backHairColorIndex': backHairColorIndex,
+      'foreHairTypeIndex': foreHairTypeIndex,
+      'foreHairColorIndex': foreHairColorIndex,
+      'backItemIndex': backItemIndex,
+      'eyeDecorationIndex': eyeDecorationIndex,
+      'heavyWeaponIndex': heavyWeaponIndex,
+      'lightWeaponIndex': lightWeaponIndex,
+      'name': name,
+      'level': level,
+      'ogSTR': ogSTR,
+      'ogINT': ogINT,
+      'ogVIT': ogVIT,
+      'hp': hp,
+      'mp': mp,
+      'exp': exp,
+      'maxMp': maxMp,
+      'maxExp': maxExp,
+      'coin': coin,
+      'sp': sp,
+    };
+  }
 }
 
 class Monster{
@@ -227,6 +347,38 @@ class Monster{
     getCoin = monsterLevel*10;
     hasBeAttacked = false;
     lastBeAttackedTime = DateTime.now();
+  }
+
+  void fetch(Map<String,dynamic> data){
+    monsterName = data['monsterName'];
+    monsterHp = data['monsterHp'];
+    monsterMaxHp = data['monsterMaxHp'];
+    monsterLevel = data['monsterLevel'];
+    getSTR = data['getSTR'];
+    getINT = data['getINT'];
+    getVIT = data['getVIT'];
+    getEXP = data['getEXP'];
+    getCoin = data['getCoin'];
+    type = data['type']; //0:STR | 1:INT | 2:VIT
+    hasBeAttacked = data['hasBeAttacked'];
+    lastBeAttackedTime = data['lastBeAttackedTime'];
+  }
+  
+  Map<String,dynamic> toMap(){
+    return {
+    'monsterName' :'',
+    'monsterHp' :0,
+    'monsterMaxHp' :0,
+    'monsterLevel' :0,
+    'getSTR' :0,
+    'getINT' :0,
+    'getVIT' :0,
+    'getEXP' :0,
+    'getCoin' :0,
+    'type' :0, //0:STR | 1:INT | 2:VIT
+    'hasBeAttacked':hasBeAttacked,
+    'lastBeAttackedTime':lastBeAttackedTime,
+    };
   }
 }
 
@@ -264,6 +416,44 @@ class Log{
     required this. deadLoseEXP,
     required this.date,
   });
+  
+  Map<String,dynamic> toMap(){
+    return {
+    'logType' : logType, //0:attack 1:interest 2:dead 3:date
+    'playerName':playerName,
+    'monsterName':monsterName,
+    'attackPoint':attackPoint,
+    'trainName' : trainName,
+    'trainLevel' : trainLevel,
+    'trainAddSTR' : trainAddSTR,
+    'trainAddINT' : trainAddINT,
+    'trainAddVIT' : trainAddVIT,
+    'trainAddEXP' : trainAddEXP,
+    'deadLoseSTR' : deadLoseSTR,
+    'deadLoseINT' : deadLoseINT,
+    'deadLoseVIT' : deadLoseVIT,
+    'deadLoseEXP' : deadLoseEXP,
+    'date' : date,
+    };
+  }
+
+  void fetch(Map<String,dynamic> data){
+    logType = data['logType'];
+    playerName = data['playerName'];
+    monsterName = data['monsterName'];
+    attackPoint = data['attackPoint'];
+    trainName = data['trainName'];
+    trainLevel = data['trainLevel'];
+    trainAddSTR = data['trainAddSTR'];
+    trainAddINT = data['trainAddINT'];
+    trainAddVIT = data['trainAddVIT'];
+    trainAddEXP = data['trainAddEXP'];
+    deadLoseSTR = data['deadLoseSTR'];
+    deadLoseINT = data['deadLoseINT'];
+    deadLoseVIT = data['deadLoseVIT'];
+    deadLoseEXP = data['deadLoseEXP'];
+    date = data['date'];
+  }
 }
 
 Widget character(double screenWidth, double screenHeight,Player player){

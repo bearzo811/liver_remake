@@ -1,10 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:liver_remake/PlayerData/playerData.dart';
 import 'package:liver_remake/pages/index_page.dart';
 import 'package:liver_remake/pages/main_page.dart';
 import 'package:liver_remake/Model/Models.dart';
 import 'package:provider/provider.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:liver_remake/firebase/firebase_controller.dart';
 
 class CreateCharacterPage extends StatefulWidget{
   final Key? keyCreateCharacterPage;
@@ -744,16 +745,7 @@ class CreateCharacterPageState extends State<CreateCharacterPage>{
 
   @override
   Widget build(BuildContext context){
-    GoogleSignIn _googleSignIn = GoogleSignIn();
-    Future<void> signOutGoogleAccount() async {
-      try {
-        await _googleSignIn.signOut();
-        // 成功登出 Google 帐户
-      } catch (e) {
-        // 处理错误
-        print("无法登出 Google 帐户: $e");
-      }
-    }
+
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     final playerData = Provider.of<PlayerData>(context);
@@ -774,7 +766,7 @@ class CreateCharacterPageState extends State<CreateCharacterPage>{
                 child: Center(
                   child: Column(
                     children: [
-                      Container(
+                      SizedBox(
                         height: 0.25*screenHeight,
                         width: 0.5*screenWidth,
                         child: Stack(
@@ -839,7 +831,7 @@ class CreateCharacterPageState extends State<CreateCharacterPage>{
                           Padding(
                             padding: EdgeInsets.only(left:0.3*screenWidth,right: 0.13*screenWidth),
                             child: GestureDetector(
-                                onTap: (){
+                                onTap: () async{
                                   _name = nameController.text;
                                   player.name = _name;
                                   playerData.updatePlayer(player);
@@ -847,6 +839,8 @@ class CreateCharacterPageState extends State<CreateCharacterPage>{
                                   playerData.setINT(player.ogINT);
                                   playerData.setVIT(player.ogVIT);
                                   playerData.initShopItemList();
+                                  User? user = await loginGoogleAccount();
+                                  await addUser(user!.uid,playerData.player,playerData);
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -863,7 +857,7 @@ class CreateCharacterPageState extends State<CreateCharacterPage>{
                           ),
                           GestureDetector(
                             onTap: ()async{
-                              signOutGoogleAccount();
+                              logOutGoogleAccount();
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
