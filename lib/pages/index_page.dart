@@ -1,9 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:liver_remake/pages/create_character_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class IndexPage extends StatelessWidget{
   final Key? keyIndexPage;
-  const IndexPage({this.keyIndexPage}):super(key:keyIndexPage);
+  IndexPage({this.keyIndexPage}):super(key:keyIndexPage);
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+
+  Future<User?> _handleSignIn() async {
+    try {
+      final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+      final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount!.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+      final UserCredential authResult = await _auth.signInWithCredential(credential);
+      final User? user = authResult.user;
+
+      return user;
+    } catch (error) {
+      print(error);
+      return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context){
     final screenWidth = MediaQuery.of(context).size.width;
@@ -25,12 +49,19 @@ class IndexPage extends StatelessWidget{
                 Image.asset('assets/Logo.png'),
                 SizedBox(height: screenHeight * 0.2),
                 GestureDetector(
-                    onTap: (){
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const CreateCharacterPage(),
-                        )
-                      );
+                    onTap: () async{
+                      User? user = await _handleSignIn();
+                      if(user!=null){
+                        print('登錄成功:${user.uid}');
+                        Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const CreateCharacterPage(),
+                            )
+                        );
+                      }
+                      else{
+                        print('登錄失敗');
+                      }
                     },
                     child: SizedBox(
                       width: 0.4*screenWidth,

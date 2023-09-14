@@ -36,21 +36,6 @@ class PlayerData extends ChangeNotifier{
       sp: 0
   );
 
-  void setSTR(int STR){
-    player.STR = STR;
-    notifyListeners();
-  }
-
-  void setINT(int INT){
-    player.INT = INT;
-    notifyListeners();
-  }
-
-  void setVIT(int VIT){
-    player.VIT = VIT;
-    notifyListeners();
-  }
-
   int strMonsterLevel = 1;
   int intMonsterLevel = 1;
   int vitMonsterLevel = 1;
@@ -65,26 +50,11 @@ class PlayerData extends ChangeNotifier{
     Achievement(type: 0, description: '啟程', date: '2023 / 09 /11')
   ];
 
-  void addAchievementList(Achievement achievement){
-    allAchievementList.add(achievement);
-    notifyListeners();
-  }
-
   List<Log> allLogList = [
     Log(logType: 3, playerName: '', monsterName: '', attackPoint: 0, trainName: '', trainLevel: 0, trainAddSTR: 0, trainAddINT: 0, trainAddVIT: 0, trainAddEXP: 0, deadLoseSTR: 0, deadLoseINT: 0, deadLoseVIT: 0, deadLoseEXP: 0, date: '2023 / 09 /11'),
   ];
 
-  void addLogList(Log log){
-    allLogList.add(log);
-    notifyListeners();
-  }
-
   List<TrainItem> trainItemList = [];
-
-  void addTrainList(TrainItem trainItem){
-    trainItemList.add(trainItem);
-    notifyListeners();
-  }
 
   List<List<SkillModel>> skillModelList = [
     [
@@ -103,6 +73,193 @@ class PlayerData extends ChangeNotifier{
       SkillModel(1,false, false, false,true,200,10),
     ]
   ];
+
+  List<Item> shopItemsList= [
+    //Item(type,coin,addSTR,addINT,addVIT,status,whatItem,itemIndex,description,addExp,addMp)
+    // status 0:in shop, 1:in bag, 2:on body
+    //0: weapon
+    Item(0, 50, 10, 0, 0, 0, 'HeavyWeapon', '0','',0,0,),
+    Item(0, 60, 15, 0, 0, 0, 'HeavyWeapon', '1','',0,0,),
+    Item(0, 20, 5, 0, 0, 0, 'LightWeapon', '0','',0,0,),
+    Item(0, 20, 0, 5, 0, 0, 'LightWeapon', '1','',0,0,),
+    Item(0, 20, 0, 0, 5, 0, 'LightWeapon', '2','',0,0,),
+    Item(0, 25, 8, 0, 0, 0, 'LightWeapon', '3','',0,0,),
+    Item(0, 20, 13, 0, 0, 0, 'LightWeapon', '4','',0,0,),
+    //1:armors
+    Item(1, 100, 0, 0, 0, 0, 'Clothes', '0','',0,0,),
+    Item(1, 100, 0, 0, 0, 0, 'Clothes', '1','',0,0,),
+    Item(1, 100, 0, 0, 0, 0, 'Clothes', '2','',0,0,),
+    Item(1, 100, 0, 0, 0, 0, 'Clothes', '3','',0,0,),
+    Item(1, 100, 0, 0, 0, 0, 'Clothes', '4','',0,0,),
+    Item(1, 100, 0, 0, 0, 0, 'Clothes', '5','',0,0,),
+    Item(1, 100, 0, 0, 0, 0, 'Clothes', '6','',0,0,),
+    Item(1, 100, 0, 0, 0, 0, 'Clothes', '7','',0,0,),
+    Item(1, 90, 0, 0, 0, 0, 'Pants', '0','',0,0,),
+    Item(1, 90, 0, 0, 0, 0, 'Pants', '1','',0,0,),
+    Item(1, 90, 0, 0, 0, 0, 'Pants', '2','',0,0,),
+    Item(1, 90, 0, 0, 0, 0, 'Pants', '3','',0,0,),
+    Item(1, 90, 0, 0, 0, 0, 'Pants', '4','',0,0,),
+    Item(1, 90, 0, 0, 0, 0, 'Pants', '5','',0,0,),
+    Item(1, 90, 0, 0, 0, 0, 'Pants', '6','',0,0,),
+    Item(1, 90, 0, 0, 0, 0, 'Pants', '7','',0,0,),
+    Item(1, 90, 0, 0, 0, 0, 'Pants', '8','',0,0,),
+    Item(1, 90, 0, 0, 0, 0, 'Pants', '9','',0,0,),
+    Item(1, 90, 0, 0, 0, 0, 'Pants', '10','',0,0,),
+    Item(1, 90, 0, 0, 0, 0, 'Pants', '11','',0,0,),
+    Item(1, 80, 0, 0, 0, 0, 'Shoes', '0','',0,0,),
+    Item(1, 80, 0, 0, 0, 0, 'Shoes', '1','',0,0,),
+    Item(1, 80, 0, 0, 0, 0, 'Shoes', '2','',0,0,),
+    Item(1, 80, 0, 0, 0, 0, 'Shoes', '3','',0,0,),
+    Item(1, 80, 0, 0, 0, 0, 'Shoes', '4','',0,0,),
+    Item(1, 80, 0, 0, 0, 0, 'Shoes', '5','',0,0,),
+    //2:accessories
+    Item(2, 200, 0, 50, 0, 0, 'BackItem', '0','',0,0,),
+    Item(2, 200, 0, 0, 10, 0, 'EyeDecoration', '0','',0,0,),
+    Item(2, 200, 0, 0, 20, 0, 'EyeDecoration', '1','',0,0,),
+    //3:body
+    Item(3, 80, 0, 0, 0, 0, 'Head_Body', '0','',0,0,),
+    Item(3, 80, 0, 0, 0, 0, 'Head_Body', '1','',0,0,),
+    Item(3, 80, 0, 0, 0, 0, 'Head_Body', '2','',0,0,),
+    Item(3, 80, 0, 0, 0, 0, 'Head_Body', '3','',0,0,),
+    Item(3, 80, 0, 0, 0, 0, 'Head_Body', '4','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-0','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-1','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-2','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-3','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-4','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-5','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-6','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-7','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-8','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-0','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-1','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-2','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-3','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-4','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-5','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-6','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-7','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-8','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'BackHair', '2','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '0','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-0','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-1','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-2','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-3','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-4','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-5','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-6','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-7','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-8','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-0','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-1','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-2','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-3','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-4','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-5','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-6','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-7','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-8','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-0','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-1','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-2','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-3','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-4','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-5','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-6','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-7','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-8','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Ears', '0-0','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Ears', '0-1','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Ears', '0-2','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Ears', '0-3','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Ears', '0-4','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Ears', '1-0','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Ears', '1-1','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Ears', '1-2','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Ears', '1-3','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Ears', '1-4','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-0','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-1','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-2','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-3','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-4','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-5','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-6','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-7','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-8','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-9','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-0','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-1','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-2','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-3','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-4','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-5','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-6','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-7','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-8','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-9','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-0','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-1','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-2','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-3','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-4','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-5','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-6','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-7','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-8','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-9','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-0','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-1','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-2','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-3','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-4','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-5','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-6','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-7','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-8','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-9','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Mouth', '0','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Mouth', '1','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Mouth', '2','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Mouth', '3','',0,0,),
+    Item(3, 20, 0, 0, 0, 0, 'Mouth', '4','',0,0,),
+    //4:items
+    Item(4, 10, 0, 0, 0, 0, 'Potions', '0','EXP + 5',5,0,),
+    Item(4, 10, 0, 0, 0, 0, 'Potions', '1','MP + 5',0,5,),
+  ];
+
+  List<Item> bagItemsList= [];
+
+  void setSTR(int STR){
+    player.STR = STR;
+    notifyListeners();
+  }
+
+  void setINT(int INT){
+    player.INT = INT;
+    notifyListeners();
+  }
+
+  void setVIT(int VIT){
+    player.VIT = VIT;
+    notifyListeners();
+  }
+
+  void addAchievementList(Achievement achievement){
+    allAchievementList.add(achievement);
+    notifyListeners();
+  }
+
+  void addLogList(Log log){
+    allLogList.add(log);
+    notifyListeners();
+  }
+
+  void addTrainList(TrainItem trainItem){
+    trainItemList.add(trainItem);
+    notifyListeners();
+  }
 
   void levelUpSkill(int skillType,int skillIndex){
     if(skillModelList[skillType][skillIndex].skillLV<99){
@@ -343,164 +500,6 @@ class PlayerData extends ChangeNotifier{
     player.mp-=consumeMp;
     notifyListeners();
   }
-
-  List<Item> shopItemsList= [
-    //Item(type,coin,addSTR,addINT,addVIT,status,whatItem,itemIndex,description,addExp,addMp)
-    // status 0:in shop, 1:in bag, 2:on body
-    //0: weapon
-    Item(0, 50, 10, 0, 0, 0, 'HeavyWeapon', '0','',0,0,),
-    Item(0, 60, 15, 0, 0, 0, 'HeavyWeapon', '1','',0,0,),
-    Item(0, 20, 5, 0, 0, 0, 'LightWeapon', '0','',0,0,),
-    Item(0, 20, 0, 5, 0, 0, 'LightWeapon', '1','',0,0,),
-    Item(0, 20, 0, 0, 5, 0, 'LightWeapon', '2','',0,0,),
-    Item(0, 25, 8, 0, 0, 0, 'LightWeapon', '3','',0,0,),
-    Item(0, 20, 13, 0, 0, 0, 'LightWeapon', '4','',0,0,),
-    //1:armors
-    Item(1, 100, 0, 0, 0, 0, 'Clothes', '0','',0,0,),
-    Item(1, 100, 0, 0, 0, 0, 'Clothes', '1','',0,0,),
-    Item(1, 100, 0, 0, 0, 0, 'Clothes', '2','',0,0,),
-    Item(1, 100, 0, 0, 0, 0, 'Clothes', '3','',0,0,),
-    Item(1, 100, 0, 0, 0, 0, 'Clothes', '4','',0,0,),
-    Item(1, 100, 0, 0, 0, 0, 'Clothes', '5','',0,0,),
-    Item(1, 100, 0, 0, 0, 0, 'Clothes', '6','',0,0,),
-    Item(1, 100, 0, 0, 0, 0, 'Clothes', '7','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '0','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '1','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '2','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '3','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '4','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '5','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '6','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '7','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '8','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '9','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '10','',0,0,),
-    Item(1, 90, 0, 0, 0, 0, 'Pants', '11','',0,0,),
-    Item(1, 80, 0, 0, 0, 0, 'Shoes', '0','',0,0,),
-    Item(1, 80, 0, 0, 0, 0, 'Shoes', '1','',0,0,),
-    Item(1, 80, 0, 0, 0, 0, 'Shoes', '2','',0,0,),
-    Item(1, 80, 0, 0, 0, 0, 'Shoes', '3','',0,0,),
-    Item(1, 80, 0, 0, 0, 0, 'Shoes', '4','',0,0,),
-    Item(1, 80, 0, 0, 0, 0, 'Shoes', '5','',0,0,),
-    //2:accessories
-    Item(2, 200, 0, 50, 0, 0, 'BackItem', '0','',0,0,),
-    Item(2, 200, 0, 0, 10, 0, 'EyeDecoration', '0','',0,0,),
-    Item(2, 200, 0, 0, 20, 0, 'EyeDecoration', '1','',0,0,),
-    //3:body
-    Item(3, 80, 0, 0, 0, 0, 'Head_Body', '0','',0,0,),
-    Item(3, 80, 0, 0, 0, 0, 'Head_Body', '1','',0,0,),
-    Item(3, 80, 0, 0, 0, 0, 'Head_Body', '2','',0,0,),
-    Item(3, 80, 0, 0, 0, 0, 'Head_Body', '3','',0,0,),
-    Item(3, 80, 0, 0, 0, 0, 'Head_Body', '4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '0-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '1-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'BackHair', '2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '1-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '2-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'ForeHair', '3-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '0-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '0-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '0-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '0-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '0-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '1-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '1-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '1-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '1-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Ears', '1-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '0-9','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '1-9','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '2-9','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-4','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-5','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-6','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-7','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-8','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Eyes', '3-9','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Mouth', '0','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Mouth', '1','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Mouth', '2','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Mouth', '3','',0,0,),
-    Item(3, 20, 0, 0, 0, 0, 'Mouth', '4','',0,0,),
-    //4:items
-    Item(4, 10, 0, 0, 0, 0, 'Potions', '0','EXP + 5',5,0,),
-    Item(4, 10, 0, 0, 0, 0, 'Potions', '1','MP + 5',0,5,),
-  ];
-
-  List<Item> bagItemsList= [
-  ];
 
   List<Item> getBagListByType(int type){
     List<Item> result = [];

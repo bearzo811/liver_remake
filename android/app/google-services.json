@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "749055156087",
+    "project_id": "liver-remake-e5c0e",
+    "storage_bucket": "liver-remake-e5c0e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:749055156087:android:2bd633ba14d1ac3feccb72",
+        "android_client_info": {
+          "package_name": "com.example.liver_remake"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "749055156087-t6l19jq0st94v233bm30ch8efqvp0tpo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.liver_remake",
+            "certificate_hash": "b9866abf222ced7ce4c615dd1faa27d21e795b79"
+          }
+        },
+        {
+          "client_id": "749055156087-b6ptka9j4p8m7ff68p7r98m5sjakohf1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0d_BrCu6shd9Zf1V3fO6H0COm83afZfo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "749055156087-b6ptka9j4p8m7ff68p7r98m5sjakohf1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

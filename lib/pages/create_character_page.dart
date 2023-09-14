@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:liver_remake/PlayerData/playerData.dart';
+import 'package:liver_remake/pages/index_page.dart';
 import 'package:liver_remake/pages/main_page.dart';
 import 'package:liver_remake/Model/Models.dart';
 import 'package:provider/provider.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class CreateCharacterPage extends StatefulWidget{
   final Key? keyCreateCharacterPage;
@@ -742,6 +744,16 @@ class CreateCharacterPageState extends State<CreateCharacterPage>{
 
   @override
   Widget build(BuildContext context){
+    GoogleSignIn _googleSignIn = GoogleSignIn();
+    Future<void> signOutGoogleAccount() async {
+      try {
+        await _googleSignIn.signOut();
+        // 成功登出 Google 帐户
+      } catch (e) {
+        // 处理错误
+        print("无法登出 Google 帐户: $e");
+      }
+    }
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     final playerData = Provider.of<PlayerData>(context);
@@ -850,7 +862,15 @@ class CreateCharacterPageState extends State<CreateCharacterPage>{
                             ),
                           ),
                           GestureDetector(
-                            onTap: (){},
+                            onTap: ()async{
+                              signOutGoogleAccount();
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context)=>IndexPage()
+                                  )
+                              );
+                            },
                             child: SizedBox(
                               width: 0.125*screenWidth,
                               height: 0.05*screenHeight,
