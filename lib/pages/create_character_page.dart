@@ -42,12 +42,12 @@ class CreateCharacterPageState extends State<CreateCharacterPage>{
       ogINT: 10,
       ogVIT: 10,
       hp: 1,
-      mp: 100,
-      exp: 100,
-      maxMp: 100,
-      maxExp: 100,
-      coin: 999,
-      sp:99
+      mp: 10,
+      exp: 10,
+      maxMp: 10,
+      maxExp: 10,
+      coin: 100,
+      sp:5
   );
   TextEditingController nameController = TextEditingController();
   String _name = '';
