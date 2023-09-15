@@ -5,6 +5,8 @@ import 'package:liver_remake/pages/main_page.dart';
 import 'package:liver_remake/pages/skill_page.dart';
 import 'package:liver_remake/pages/train_page.dart';
 import 'package:liver_remake/Model/Models.dart';
+import '../firebase/firebase_controller.dart';
+import 'index_page.dart';
 import 'log_page.dart';
 import 'package:provider/provider.dart';
 
@@ -146,6 +148,14 @@ class ShopPageState extends State<ShopPage>{
           ),
           GestureDetector(
             onTap: (){
+              logOutGoogleAccount();
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context)=>IndexPage()
+                ),
+                    (route) => false,
+              );
             },
             child: SizedBox(
               width: 0.6*screenWidth,
@@ -248,6 +258,7 @@ class ShopPageState extends State<ShopPage>{
             });
           }
         }
+        updateAllData(playerData);
       },
       child: Container(
         width: 0.3*screenWidth,

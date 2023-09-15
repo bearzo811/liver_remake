@@ -5,6 +5,12 @@ import 'dart:math';
 
 class PlayerData extends ChangeNotifier{
 
+  String uid = '';
+  void setUid(String uuid){
+    uid = uuid;
+    notifyListeners();
+  }
+
   Player player = Player(
       bodyIndex: 2,
       earsTypeIndex: 1,
@@ -59,19 +65,19 @@ class PlayerData extends ChangeNotifier{
 
   List<List<SkillModel>> skillModelList = [
     [
-      SkillModel(1,true, false, true,true,5,1),
-      SkillModel(1,false, false, true,true,10,3),
-      SkillModel(1,false, false, false,true,200,10),
+      SkillModel(1,true, false, false,false,5,1),
+      SkillModel(1,false, false, false,false,10,3),
+      SkillModel(1,false, false, false,false,200,10),
     ],
     [
-      SkillModel(1,true, false, true,true,5,1),
-      SkillModel(1,false, false, true,true,10,3),
-      SkillModel(1,false, false, false,true,200,10),
+      SkillModel(1,true, false, false,false,5,1),
+      SkillModel(1,false, false, false,false,10,3),
+      SkillModel(1,false, false, false,false,200,10),
     ],
     [
-      SkillModel(1,true, false, true,true,5,1),
-      SkillModel(1,false, false, true,true,10,3),
-      SkillModel(1,false, false, false,true,200,10),
+      SkillModel(1,true, false, false,false,5,1),
+      SkillModel(1,false, false, false,false,10,3),
+      SkillModel(1,false, false, false,false,200,10),
     ]
   ];
 
@@ -232,14 +238,49 @@ class PlayerData extends ChangeNotifier{
 
   List<Item> bagItemsList= [];
 
+  void initPlayerData(){
+    strMonsterLevel = 1;
+    intMonsterLevel = 1;
+    vitMonsterLevel = 1;
+    allMonsterList = [
+      Monster(monsterName: '每日晨跑', type: 0,monsterLevel:1),
+      Monster(monsterName: '每日讀書', type: 1,monsterLevel:1),
+      Monster(monsterName: '每日下廚', type: 2,monsterLevel:1)
+    ];
+    allAchievementList = [
+      Achievement(type: 0, description: '啟程', date: '2023 / 09 /11')
+    ];
+    allLogList = [
+      Log(logType: 3, playerName: '', monsterName: '', attackPoint: 0, trainName: '', trainLevel: 0, trainAddSTR: 0, trainAddINT: 0, trainAddVIT: 0, trainAddEXP: 0, deadLoseSTR: 0, deadLoseINT: 0, deadLoseVIT: 0, deadLoseEXP: 0, date: '2023 / 09 /11'),
+    ];
+    trainItemList = [];
+    skillModelList = [
+      [
+        SkillModel(1,true, false, false,false,5,1),
+        SkillModel(1,false, false, false,false,10,3),
+        SkillModel(1,false, false, false,false,200,10),
+      ],
+      [
+        SkillModel(1,true, false, false,false,5,1),
+        SkillModel(1,false, false, false,false,10,3),
+        SkillModel(1,false, false, false,false,200,10),
+      ],
+      [
+        SkillModel(1,true, false, false,false,5,1),
+        SkillModel(1,false, false, false,false,10,3),
+        SkillModel(1,false, false, false,false,200,10),
+      ]
+    ];
+    notifyListeners();
+  }
+
   List<Map<String,dynamic>> monsterListMapList(){
     print('*****************');
-    List<Map<String,dynamic>> result = [
-      allMonsterList[0].toMap(),
-      allMonsterList[1].toMap(),
-      allMonsterList[2].toMap(),
-    ];
-    print(result[0]);
+    List<Map<String,dynamic>> result = [];
+    result.clear();
+    result.add(allMonsterList[0].toMap());
+    result.add(allMonsterList[1].toMap());
+    result.add(allMonsterList[2].toMap());
     return result;
   }
 
@@ -324,7 +365,8 @@ class PlayerData extends ChangeNotifier{
   }
 
   void getDataFromFirebase(Map<String,dynamic> data){
-    print(data);
+    print('----${DateTime.now()}----');
+    print('${data['logListMapList'].runtimeType}');
     player.bodyIndex= data['bodyIndex'];
     player.earsTypeIndex= data['earsTypeIndex'];
     player.earsColorIndex= data['earsColorIndex'];
@@ -360,19 +402,19 @@ class PlayerData extends ChangeNotifier{
     allMonsterList[0].fetch(data['monsterList'][0]);
     allMonsterList[1].fetch(data['monsterList'][1]);
     allMonsterList[2].fetch(data['monsterList'][2]);
-    for(int i=0;i<data['achievementList'].lenth;i++){
+    for(int i=0;i<data['achievementList'].length;i++){
       allAchievementList.clear();
       Achievement achievement = Achievement(type: 0, description: 'description', date: '');
       achievement.fetch(data['achievementList'][i]);
       allAchievementList.add(achievement);
     }
-    for(int i=0;i<data['logListMapList'].lenth;i++){
+    for(int i=0;i<data['logListMapList'].length;i++){
       allLogList.clear();
       Log log = Log(logType: 0, playerName: 'playerName', monsterName: 'monsterName', attackPoint: 0, trainName: 'trainName', trainLevel: 0, trainAddSTR: 0, trainAddINT: 0, trainAddVIT: 0, trainAddEXP: 0, deadLoseSTR: 0, deadLoseINT: 0, deadLoseVIT: 0, deadLoseEXP: 0, date: 'date');
       log.fetch(data['logListMapList'][i]);
       allLogList.add(log);
     }
-    for(int i=0;i<data['trainItemListMapList'].lenth;i++){
+    for(int i=0;i<data['trainItemListMapList'].length;i++){
       allLogList.clear();
       TrainItem trainItem = TrainItem('trainName', 0, 0);
       trainItem.fetch(data['trainItemListMapList'][i]);
@@ -391,17 +433,17 @@ class PlayerData extends ChangeNotifier{
         }
       }
     }
-    for(int i=0;i<data['shopItemListMapList'].lenth;i++){
-      shopItemsList.clear();
+    shopItemsList.clear();
+    for(int i=0;i<data['shopItemListMapList'].length;i++){
+      print('-----++++${data['shopItemListMapList'].length}');
       Item shopItem = Item(0, 0, 0, 0, 0, 0, 'whatItem', 'itemIndex', 'description', 0, 0);
       shopItem.fetch(data['shopItemListMapList'][i]);
       shopItemsList.add(shopItem);
     }
-    for(int i=0;i<data['bagItemListMapList'].lenth;i++){
-      bagItemsList.clear();
+    bagItemsList.clear();
+    for(int i=0;i<data['bagItemListMapList'].length;i++){
       Item bagItem = Item(0, 0, 0, 0, 0, 0, 'whatItem', 'itemIndex', 'description', 0, 0);
       bagItem.fetch(data['bagItemListMapList'][i]);
-      print('bag: ${bagItem.whatItem} / ${bagItem.itemIndex}');
       bagItemsList.add(bagItem);
     }
     notifyListeners();
@@ -521,14 +563,14 @@ class PlayerData extends ChangeNotifier{
     for(int i=0;i<3;i++){
       if(allMonsterList[i].monsterHp>0){
         difference = now.difference(allMonsterList[i].lastBeAttackedTime);
-        if(difference>=const Duration(seconds: 30) && difference<const Duration(seconds: 60)){
+        if(difference>=const Duration(hours: 24) && difference<const Duration(hours: 48)){
           for(int i=0;i<3;i++){
             if(allMonsterList[i].monsterHp>0 && allMonsterList[i].hasBeAttacked){
               allMonsterList[i].hasBeAttacked=false;
             }
           }
         }
-        if(difference>=const Duration(seconds: 60)){
+        if(difference>=const Duration(hours: 48)){
           allMonsterList[i].lastBeAttackedTime = DateTime.now();
           if(skillModelList[0][2].hasUsed){
             addLogList(Log(logType: 4, playerName: player.name, monsterName: allMonsterList[i].monsterName, attackPoint: 99999, trainName: '', trainLevel: 0, trainAddSTR: 0, trainAddINT: 0, trainAddVIT: 0, trainAddEXP: 0, deadLoseSTR: player.deadLoseSTR(), deadLoseINT: 0, deadLoseVIT: 0, deadLoseEXP: 0, date: '${DateTime.now().year} / ${DateTime.now().month} / ${DateTime.now().day}'));
@@ -716,9 +758,11 @@ class PlayerData extends ChangeNotifier{
   }
 
   void initShopItemList(){
+    print('item:${shopItemsList.length}');
     for(int i=0;i<shopItemsList.length;i++){
       shopItemsList[i].getIndexInList(i);
     }
+    bagItemsList.clear();
     for(int i=0;i<shopItemsList.length;i++){
       if(shopItemsList[i].whatItem=='Head_Body' && shopItemsList[i].itemIndex==player.bodyIndex.toString()){
         shopItemsList[i].status=2;
@@ -756,8 +800,8 @@ class PlayerData extends ChangeNotifier{
         shopItemsList[i].status=2;
         bagItemsList.add(shopItemsList[i]);
       }
-      notifyListeners();
     }
+    notifyListeners();
   }
 
   List<Item> getListByTypeAndStatus(int type,int status){

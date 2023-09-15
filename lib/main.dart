@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:liver_remake/PlayerData/playerData.dart';
+import 'firebase/firebase_controller.dart';
 import 'pages/index_page.dart';
 import 'package:firebase_core/firebase_core.dart';
+
 
 
 void main()  async{

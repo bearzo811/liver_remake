@@ -301,6 +301,7 @@ class MainPageState extends State<MainPage>{
                   onTap: ()  {
                     playerData.createMonster(_battleSceneIndex, monsterNameTextFieldController.text);
                     monsterNameTextFieldController.clear();
+                    updateAllData(playerData);
                     Navigator.of(context).pop();
                   },
                   child: SizedBox(
@@ -534,10 +535,11 @@ class MainPageState extends State<MainPage>{
             children: [
               SizedBox(height: 0.088*screenHeight,),
               GestureDetector(
-                  onTap: (){
+                  onTap: ()async {
                     if(!monster.hasBeAttacked && monster.monsterHp>0){
                       playerData.attackMonster(_battleSceneIndex);
                     }
+                    updateAllData(playerData);
                   },
                   child: SizedBox(
                     width: 0.18*screenWidth,
@@ -583,8 +585,10 @@ class MainPageState extends State<MainPage>{
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     final player = Provider.of<PlayerData>(context).player;
+    final playerData = Provider.of<PlayerData>(context);
     final monsterList = Provider.of<PlayerData>(context).allMonsterList;
     Provider.of<PlayerData>(context).checkMonsterAttacked();
+    updateAllData(playerData);
     return Scaffold(
         body: SingleChildScrollView(
           physics: const NeverScrollableScrollPhysics(),
@@ -609,8 +613,3 @@ class MainPageState extends State<MainPage>{
     );
   }
 }
-
-
-/*
-
- */

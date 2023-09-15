@@ -38,15 +38,15 @@ class CreateCharacterPageState extends State<CreateCharacterPage>{
       lightWeaponIndex: -1,
       name: '測試玩家',
       level: 1,
-      ogSTR: 1,
-      ogINT: 1,
-      ogVIT: 1,
+      ogSTR: 10,
+      ogINT: 10,
+      ogVIT: 10,
       hp: 1,
-      mp: 10,
-      exp: 5,
-      maxMp: 10,
-      maxExp: 10,
-      coin: 10000,
+      mp: 100,
+      exp: 100,
+      maxMp: 100,
+      maxExp: 100,
+      coin: 999,
       sp:99
   );
   TextEditingController nameController = TextEditingController();
@@ -832,15 +832,17 @@ class CreateCharacterPageState extends State<CreateCharacterPage>{
                             padding: EdgeInsets.only(left:0.3*screenWidth,right: 0.13*screenWidth),
                             child: GestureDetector(
                                 onTap: () async{
+                                  playerData.initPlayerData();
+                                  User? user = await loginGoogleAccount();
                                   _name = nameController.text;
                                   player.name = _name;
                                   playerData.updatePlayer(player);
                                   playerData.setSTR(player.ogSTR);
                                   playerData.setINT(player.ogINT);
                                   playerData.setVIT(player.ogVIT);
+                                  playerData.setUid(user!.uid);
                                   playerData.initShopItemList();
-                                  User? user = await loginGoogleAccount();
-                                  await addUser(user!.uid,playerData.player,playerData);
+                                  addUser(user!.uid,playerData.player,playerData);
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(

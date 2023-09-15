@@ -5,6 +5,8 @@ import 'package:liver_remake/pages/info_page.dart';
 import 'package:liver_remake/Model/Models.dart';
 import 'package:provider/provider.dart';
 
+import '../firebase/firebase_controller.dart';
+
 class BagPage extends StatefulWidget{
   final Key? keyBagPage;
   const BagPage({this.keyBagPage}):super(key:keyBagPage);
@@ -161,6 +163,7 @@ class BagPageState extends State<BagPage>{
             playerData.reFreshItemOnBodyWithStatus2();
           });
         }
+        updateAllData(playerData);
       },
       child: Container(
         width: 0.3*screenWidth,
@@ -190,6 +193,7 @@ class BagPageState extends State<BagPage>{
           playerData.bagItemsList[item.indexInList].status=0;
           _nowItemIndex=0;
         });
+        updateAllData(playerData);
       },
       child: Container(
         width: 0.3*screenWidth,

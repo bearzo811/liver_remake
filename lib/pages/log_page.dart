@@ -9,6 +9,9 @@ import 'package:liver_remake/pages/train_page.dart';
 import 'package:liver_remake/Model/Models.dart';
 import 'package:provider/provider.dart';
 
+import '../firebase/firebase_controller.dart';
+import 'index_page.dart';
+
 
 
 class LogPage extends StatefulWidget{
@@ -412,6 +415,14 @@ class LogPageState extends State<LogPage>{
           ),
           GestureDetector(
             onTap: (){
+              logOutGoogleAccount();
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context)=>IndexPage()
+                ),
+                    (route) => false,
+              );
             },
             child: SizedBox(
               width: 0.6*screenWidth,

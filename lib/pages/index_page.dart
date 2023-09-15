@@ -36,15 +36,14 @@ class IndexPage extends StatelessWidget{
                 GestureDetector(
                     onTap: () async{
                       User? user = await loginGoogleAccount();
+                      playerData.initPlayerData();
+                      playerData.setUid(user!.uid);
                       final inUserDataOrNot = await checkUidInUserDataOrNot(user!.uid);
                       if(user!=null){
                         if(inUserDataOrNot!=null){
                           if(inUserDataOrNot){
-                            await getUserData(user!.uid,playerData);
-                            Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => const MainPage(),
-                                )
+                            getUserData(user!.uid,playerData).then(
+                                    (_) => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const MainPage()))
                             );
                           }
                           else{

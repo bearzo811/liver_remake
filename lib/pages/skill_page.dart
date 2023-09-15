@@ -5,6 +5,8 @@ import 'package:liver_remake/pages/main_page.dart';
 import 'package:liver_remake/pages/shop_page.dart';
 import 'package:liver_remake/pages/train_page.dart';
 import 'package:liver_remake/Model/Models.dart';
+import '../firebase/firebase_controller.dart';
+import 'index_page.dart';
 import 'log_page.dart';
 import 'package:provider/provider.dart';
 
@@ -105,6 +107,14 @@ class SkillPageState extends State<SkillPage>{
           ),
           GestureDetector(
             onTap: (){
+              logOutGoogleAccount();
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context)=>IndexPage()
+                ),
+                    (route) => false,
+              );
             },
             child: SizedBox(
               width: 0.6*screenWidth,
@@ -261,6 +271,7 @@ class SkillPageState extends State<SkillPage>{
               skillModelList[skillType][skillIndex].hasUsed = true;
             });
           }
+          updateAllData(playerData);
         },
         child: Container(
           height: 0.035*screenHeight,
@@ -281,6 +292,7 @@ class SkillPageState extends State<SkillPage>{
             setState(() {
               skillModelList[skillType][skillIndex].hasLearned=true;
             });
+            updateAllData(playerData);
           },
           child: Container(
             height: 0.035*screenHeight,
@@ -302,6 +314,7 @@ class SkillPageState extends State<SkillPage>{
                 skillModelList[skillType][skillIndex].canUse = false;
               });
             }
+            updateAllData(playerData);
           },
           child: Container(
             height: 0.035*screenHeight,
@@ -442,6 +455,7 @@ class SkillPageState extends State<SkillPage>{
                             //skillModelList[skillType][skillIndex].skillLV++;
                           });
                         }
+                        updateAllData(playerData);
                       },
                       child: Container(
                         height: 0.035*screenHeight,

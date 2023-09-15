@@ -5,6 +5,8 @@ import 'package:liver_remake/pages/main_page.dart';
 import 'package:liver_remake/pages/shop_page.dart';
 import 'package:liver_remake/pages/skill_page.dart';
 import 'package:liver_remake/Model/Models.dart';
+import '../firebase/firebase_controller.dart';
+import 'index_page.dart';
 import 'log_page.dart';
 import 'package:provider/provider.dart';
 
@@ -105,7 +107,14 @@ class TrainPageState extends State<TrainPage>{
           ),
           GestureDetector(
             onTap: (){
-              
+              logOutGoogleAccount();
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context)=>IndexPage()
+                ),
+                    (route) => false,
+              );
             },
             child: SizedBox(
               width: 0.6*screenWidth,
@@ -140,6 +149,7 @@ class TrainPageState extends State<TrainPage>{
                     }
                 );
                 playerData.addTrainList(_trainItem);
+                updateAllData(playerData);
               },
               child: SizedBox(
                 width: 0.18*screenWidth,
@@ -181,13 +191,14 @@ class TrainPageState extends State<TrainPage>{
     ];
     
     return GestureDetector(
-      onTap: (){
+      onTap: ()async {
         if(trainItemList[index].trainLevel<99){
           setState(() {
             playerData.completeTrain(trainItemList[index]);
             trainItemList[index].trainLevel++;
           });
         }
+        updateAllData(playerData);
       },
       child: Container(
         height: 0.1*screenHeight,
@@ -239,6 +250,7 @@ class TrainPageState extends State<TrainPage>{
                   setState(() {
                     //trainItemList.removeAt(index);
                     playerData.removeTrain(trainItemList[index]);
+                    updateAllData(playerData);
                   });
                 },
                 child: SizedBox(

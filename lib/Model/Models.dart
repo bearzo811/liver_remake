@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:liver_remake/pages/info_page.dart';
@@ -106,10 +107,10 @@ class TrainItem{
       'trainTypeIndex':trainTypeIndex,
       'trainLevel':trainLevel,
       'trainName':trainName,
-      'getAddSTR':getAddSTR,
-      'getAddINT':getAddINT,
-      'getAddVIT':getAddVIT,
-      'getAddEXP':getAddEXP,
+      'getAddSTR':getAddSTR(),
+      'getAddINT':getAddINT(),
+      'getAddVIT':getAddVIT(),
+      'getAddEXP':getAddEXP(),
     };
   }
 
@@ -361,23 +362,23 @@ class Monster{
     getCoin = data['getCoin'];
     type = data['type']; //0:STR | 1:INT | 2:VIT
     hasBeAttacked = data['hasBeAttacked'];
-    lastBeAttackedTime = data['lastBeAttackedTime'];
+    lastBeAttackedTime = data['lastBeAttackedTime'].toDate();
   }
   
   Map<String,dynamic> toMap(){
     return {
-    'monsterName' :'',
-    'monsterHp' :0,
-    'monsterMaxHp' :0,
-    'monsterLevel' :0,
-    'getSTR' :0,
-    'getINT' :0,
-    'getVIT' :0,
-    'getEXP' :0,
-    'getCoin' :0,
-    'type' :0, //0:STR | 1:INT | 2:VIT
+    'monsterName' :monsterName,
+    'monsterHp' :monsterHp,
+    'monsterMaxHp' :monsterMaxHp,
+    'monsterLevel' :monsterLevel,
+    'getSTR' :getSTR,
+    'getINT' :getINT,
+    'getVIT' :getVIT,
+    'getEXP' :getEXP,
+    'getCoin' :getEXP,
+    'type' :type, //0:STR | 1:INT | 2:VIT
     'hasBeAttacked':hasBeAttacked,
-    'lastBeAttackedTime':lastBeAttackedTime,
+    'lastBeAttackedTime': Timestamp.fromDate(lastBeAttackedTime),
     };
   }
 }

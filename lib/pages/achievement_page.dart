@@ -9,6 +9,9 @@ import 'package:liver_remake/pages/train_page.dart';
 import 'package:liver_remake/Model/Models.dart';
 import 'package:provider/provider.dart';
 
+import '../firebase/firebase_controller.dart';
+import 'index_page.dart';
+
 class AchievementPage extends StatefulWidget{
   final Key? keyAchievementPage;
   const AchievementPage({this.keyAchievementPage}):super(key:keyAchievementPage);
@@ -108,6 +111,14 @@ class AchievementPageState extends State<AchievementPage>{
           ),
           GestureDetector(
             onTap: (){
+              logOutGoogleAccount();
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context)=>IndexPage()
+                ),
+                    (route) => false,
+              );
             },
             child: SizedBox(
               width: 0.6*screenWidth,

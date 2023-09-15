@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -8,6 +7,7 @@ import 'package:liver_remake/PlayerData/playerData.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn();
+final FirebaseFirestore fireStore = FirebaseFirestore.instance;
 
 Future<User?> loginGoogleAccount() async {
   try {
@@ -36,8 +36,6 @@ Future<void> logOutGoogleAccount() async {
     print("无法登出 Google 帐户: $e");
   }
 }
-
-final FirebaseFirestore fireStore = FirebaseFirestore.instance;
 
 Future<void> addUser(String uid,Player player,PlayerData playerData) async {
   final playerDataList = {
@@ -85,12 +83,11 @@ FutureOr<bool?> checkUidInUserDataOrNot(String uid) async {
 
 Future<void> getUserData(String uid,PlayerData playerData) async {
   try {
-    final DocumentSnapshot documentSnapshot =
-    await fireStore.collection('userData').doc(uid).get();
+    final DocumentSnapshot documentSnapshot = await fireStore.collection('userData').doc(uid).get();
     if (documentSnapshot.exists) {
       final Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
+      print('${data['shopItemListMapList']}');
       playerData.getDataFromFirebase(data);
-
     } else {
       print('Document does not exist.');
     }
@@ -109,16 +106,39 @@ Future<void> updatePlayer(String uid,PlayerData playerData) async {
   }
 }
 
-Future<void> updateMonster(String uid,PlayerData playerData) async {
+Future<void> updateMonster(PlayerData playerData) async {
   try {
-    DocumentReference userDocRef = FirebaseFirestore.instance.collection('userData').doc(uid);
-
+    DocumentReference userDocRef = FirebaseFirestore.instance.collection('userData').doc(playerData.uid);
+    DocumentSnapshot userSnapshot = await userDocRef.get();
     Map<String, dynamic> updatedData = {
       'monsterList': playerData.monsterListMapList(),
     };
 
     await userDocRef.update(updatedData);
 
+  } catch (e) {
+    print('Error adding data: $e');
+  }
+}
+
+Future<void> updateAllData(PlayerData playerData) async{
+  final playerDataList = {
+    ...playerData.player.toMap(),
+    ...playerData.monsterLevelToMap(),
+    'monsterList' : playerData.monsterListMapList(),
+    'achievementList' : playerData.achievementListMapList(),
+    'logListMapList':playerData.logListMapList(),
+    'trainItemListMapList':playerData.trainItemListMapList(),
+    'strSkillMapList':playerData.strSkillMapList(),
+    'intSkillMapList':playerData.intSkillMapList(),
+    'vitSkillMapList':playerData.vitSkillMapList(),
+    'shopItemListMapList':playerData.shopItemListMapList(),
+    'bagItemListMapList':playerData.bagItemListMapList(),
+  };
+  try {
+    await fireStore.collection('userData').doc(playerData.uid).update(
+        playerDataList
+    ).then((_) => print('all update done'));
   } catch (e) {
     print('Error adding data: $e');
   }
